@@ -13,7 +13,6 @@ class Horse:
         self.hot_perf = random.randint(1, int(self.speed / 3)) # Heat can have a moderate impact on the horses/track
         self.percip_perf = random.randint(1, int(self.speed / 2)) # Percipitation can have a big impact on the horses/track
 
-
 class Race:
 
     prob_entropy = 0
@@ -26,8 +25,9 @@ class Race:
     def change_entropy(cls, ent):
         cls.prob_entropy = ent
     
-    def __init__(self, horses, temp_low = None, temp_high = None, percip_chance = None):
+    def __init__(self, horses, temp_low = None, temp_high = None, percip_chance = None, entropy = None):
 
+        entropy = entropy or 0
         temp_low = temp_low or 0
         temp_high = temp_high or 120
         percip_chance = percip_chance or 50
