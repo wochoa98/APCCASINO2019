@@ -17,7 +17,7 @@ class Race:
 
     prob_entropy = 0
 
-    casino_take = 10
+    casino_take = .10
 
     bets = {}
 
@@ -62,7 +62,7 @@ class Race:
         for uid in self.perf_dict:
             self.pre_prob_dict[uid] = round(100 * self.perf_dict[uid] / total_sum)
             print("{}: {}%".format(uid, self.pre_prob_dict[uid]))
-
+    
     def get_winner(self):
         horses = []
         probs = []
@@ -79,18 +79,19 @@ class Race:
         bets[horse] = bets[horse] or { }
         bets[horse][player] = ammount
 
-        # subtract bet from player's bankroll
+        player.subMoney(ammount)
 
     def payout(self):
         pool = 0
-
-        pool -= pool*self.casion_take
+        
+        casino_money = pool*self.casino_take
+        
+        pool -= pool*casino_money
 
         for horse, player_bet in bets.items():
             for player, bet in player_bet.items():
                 pool += bet
 
-        # Subtract casino's take
 
         winners_pool = 0
         for player, bet in bets[self.winner]:
@@ -101,4 +102,4 @@ class Race:
 
             player_payout = pool * percent
 
-            # Add player_payout to player's bankroll
+            player.addMoney(player_payout)
