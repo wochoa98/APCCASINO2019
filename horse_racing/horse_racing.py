@@ -62,6 +62,8 @@ class Race:
         for uid in self.perf_dict:
             self.pre_prob_dict[uid] = round(100 * self.perf_dict[uid] / total_sum)
             print("{}: {}%".format(uid, self.pre_prob_dict[uid]))
+
+        return self.pre_prob_dict
     
     def get_winner(self):
         horses = []
@@ -103,3 +105,13 @@ class Race:
             player_payout = pool * percent
 
             player.addMoney(player_payout)
+
+    def play(self, players = [0,1]):
+        
+        for player in players:
+            pre_odds = self.calc_pre_odds()
+            for k,v in pre_odds.items():
+                print(k)
+                print(v)
+
+
