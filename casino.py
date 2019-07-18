@@ -23,6 +23,8 @@ class casino:
                         self.blackjackGame = blackjack()
                         stand = input("What is the dealer's hard stand value (Recommended 17): ")
                         # set stand to 17 in blackjack
+			max = input("What would you like the blackjack value to be (Recommended/Usually 21)?")
+			# set blackjack value
                 self.fish = input("Do you want to run Go Fish? Yes[1]/No[0]: ")
                 if self.fish == 1:
 			self.fishGame = goFish()
@@ -37,9 +39,8 @@ class casino:
                         #set variable in game
                 self.horses = input("Do you want to run horse betting? Yes[1]/No[0]: ")
                 if self.horses == 1:
-			self.horseBetting = horses()
                         accuracy = input("Do you want the horse odd predictions to be very accurate [1], somewhat accurate [2], or innaccurate [3]: ")
-                        #set variable in game
+                        self.horseBetting = Race(accuracy)
                 self.rounds = input("How many rounds would you like to run through?: ")
 
 
@@ -49,26 +50,42 @@ class casino:
 		self.custCount = len(self.customers)
 		#set up games
 		self.simMenu()
-		#for initial start, 30 people enter
-		for i in range(30):
-			newPlayer = player(self.custCount) #custCount is length of the list, so the current number before the add is the desired index
-			if self.custCount < 6: #first 6 players go to poker
+		#for initial start there are 6 per active game
+		if self.poker == 1: #first 6 players go to poker
+			for i in range(6):
+				newPlayer = player(self.custCount)
 				newPlayer.status = "Poker"
 				self.pokerGame.playerList.append(newPlayer)
-			elif self.custCount >= 6 and self.custCount < 12: #second group of 6 play blackjack
+                                self.customers.append(newPlayer) #added as active player
+                                self.leaderboard.append(newPlayer) #added to records
+		if self.blackjack == 1: #second group of 6 play blackjack
+			for i in range(6):
+				newPlayer = player(self.custCount)
 				newPlayer.status = "Blackjack"
 				self.blackjackGame.playerList.append(newPlayer)
-			elif self.custCount >=12 and self.custCount < 18: #third group of 6 plays Go Fish
+                                self.customers.append(newPlayer) #added as active player
+                                self.leaderboard.append(newPlayer) #added to records
+		if self.fish == 1: #third group of 6 plays Go Fish
+			for i in range(6):
+				newPlayer = player(self.custCount)
 				newPlayer.status = "Go Fish"
 				self.fishGame.playerList.append(newPlayer)
-			elif self.cutCount >=18 and self.custCount < 24: #fourth group of 6 plays Roulette
+                                self.customers.append(newPlayer) #added as active player
+                                self.leaderboard.append(newPlayer) #added to records
+		if self.roulette == 1: #fourth group of 6 plays Roulette
+			for i in range(6):
+				newPlayer = player(self.custCount)
 				newPlayer.status = "Roulette"
 				self.rouletteGame.playerList.append(newPlayer)
-			else: #fifth group of 6 to horse betting
+                                self.customers.append(newPlayer) #added as active player
+                                self.leaderboard.append(newPlayer) #added to records
+		if self.horses == 1:
+			for i in range(6):
+				newPlayer = player(self.custCount)
 				newPlayer.status = "Horse Betting"
 				self.borseBetting.playerList.append(newPlayer)
-                        self.customers.append(newPlayer) #added as active player
-                        self.leaderboard.append(newPlayer) #added to records		
+                       		self.customers.append(newPlayer) #added as active player
+                        	self.leaderboard.append(newPlayer) #added to records		
 
 	def playerControl(self):
 		# run a check first for players that will not make minimums, check poker for struggling people who are being outbet, readd new players to fill void
@@ -146,7 +163,7 @@ class casino:
 				player2add.status = "Blackjack"
 				#self.blackjackGame.playerList.append(player2add) #added to blackjack player list
 			elif gameAdded == 3: # 3 will be go fish
-				player2Add.status = "Go Fish"
+				player2add.status = "Go Fish"
 				#self.goFishGame.playerList.append(player2add) #added to go fish player list
 			elif gameAdded == 4: # 4 will be roulette
 				player2add.status = "Roulete"
@@ -190,6 +207,7 @@ class casino:
 
 		elif playerAction == 3:
 			playerMoving = player(1000)
+			moved = 0
 			player2move = random.randint(0,custCount-1)
 			gameTo = random.randint(1,4) #player will have 4 possible games to join from the one they are leaving
 			for people in self.customers:
@@ -200,86 +218,171 @@ class casino:
 							if players.playerNumber == player2move:
 								playerMoving = players
 								self.pokerGame.playerList.remove(players)
-								if gameTo == 1: #poker to blackjack
-									playerMoving.status = "Blackjack" #will this change the values in customer/leaderboard
-									self.blackjackGame.playerList.append(playerMoving)
-								elif gameTo == 2: #poker to Go fish
-									playerMoving.status = "Go Fish" 
-									self.fishGame.playerList.append(playerMoving)
-								elif gameTo == 3: #poker to roulette
-									playerMoving.status = "Roulette"
-									self.rouletteGame.playerList.append(playerMoving)
-								else: #poker to horse betting
-									playerMoving.status = "Horse Betting"
-									self.horseBetting.playerList.append(playerMoving)
+								while moved == 0:
+									if gameTo == 1: #poker to blackjack
+										if self.blackjack == 1:
+											playerMoving.status = "Blackjack" #will this change the values in customer/leaderboard
+											self.blackjackGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+									elif gameTo == 2: #poker to Go fish
+										if self.fish == 1:
+											playerMoving.status = "Go Fish" 
+											self.fishGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+									elif gameTo == 3: #poker to roulette
+										if self.roulette == 1:
+											playerMoving.status = "Roulette"
+											self.rouletteGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+									else: #poker to horse betting
+										if self.horses == 1:
+											playerMoving.status = "Horse Betting"
+											self.horseBetting.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
 					elif gameAt == "Blackjack":
 						for players in self.blackjackGame.playerList:
 							if players.playerNumber == player2move:
 								playerMoving = players
 								self.blackjackGame.playerList.remove(players)
-								if gameTo == 1: #blackjack to poker
-									playerMoving.status = "Poker"
-									self.pokerGame.playerList.append(playerMoving)
-								elif gameTo == 2: #blackjack to Go Fish
-									playerMoving.status = "Go Fish"
-									self.fishGame.playerList.append(playerMoving)
-								elif gameTo == 3: #blackjack to roulette
-									playerMoving.status = "Roulette"
-									self.rouletteGame.playerList.append(playerMoving)
-								else: #blackjack to horse betting
-									playerMoving.status = "Horse Betting"
-									self.horseBetting.playerList.append(playerMoving)
+								while moved == 0:
+									if gameTo == 1: #blackjack to poker
+										if self.poker == 1:
+											playerMoving.status = "Poker"
+											self.pokerGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+									elif gameTo == 2: #blackjack to Go Fish
+										if self.fish == 1:
+											playerMoving.status = "Go Fish"
+											self.fishGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+									elif gameTo == 3: #blackjack to roulette
+										if self.roulette == 1:
+											playerMoving.status = "Roulette"
+											self.rouletteGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+									else: #blackjack to horse betting
+										if self.horses == 1:
+											playerMoving.status = "Horse Betting"
+											self.horseBetting.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
 					elif gameAt == "Go Fish":
 						for players in self.fishGame.playerList:
 							if players.playerNumber == player2move:
 								playerMoving = players
 								self.fishGame.playerList.remove(players)
-								if gameTo == 1: #go fish to poker
-									playerMoving.status == "Poker"
-									self.pokerGame.playerList.append(playerMoving)
-								elif gameTo == 2: #go fish to blackjack
-									playerMoving.status = "Blackjack"
-									self.blackjackGame.playerList.append(playerMoving)
-								elif gameTo == 3: #go fish to Roulette
-									playerMoving.status = "Roulette"
-									self.rouletteGame.playerList.append(playerMoving)
-								else: #go fish to Horse Betting
-									playerMoving.status = "Horse Betting"
-									self.horseBetting.playerList.append(playerMoving)
+								while moved == 0:
+									if gameTo == 1: #go fish to poker
+										if self.poker == 1:
+											playerMoving.status == "Poker"
+											self.pokerGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+									elif gameTo == 2: #go fish to blackjack
+										if self.blackjack == 1:
+											playerMoving.status = "Blackjack"
+											self.blackjackGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+									elif gameTo == 3: #go fish to Roulette
+										if self.roulette == 1:
+											playerMoving.status = "Roulette"
+											self.rouletteGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+									else: #go fish to Horse Betting
+										if self.horses == 1:
+											playerMoving.status = "Horse Betting"
+											self.horseBetting.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
                                         elif gameAt == "Roulette":
                                                 for players in self.rouletteGame.playerList:
                                                         if players.playerNumber == player2move:
                                                                 playerMoving = players
                                                                 self.rouletteGame.playerList.remove(players)
-                                                                if gameTo == 1: #roulette to poker
-                                                                        playerMoving.status == "Poker"
-                                                                        self.pokerGame.playerList.append(playerMoving)
-                                                                elif gameTo == 2: #roulette to blackjack
-                                                                        playerMoving.status = "Blackjack"
-                                                                        self.blackjackGame.playerList.append(playerMoving)
-                                                                elif gameTo == 3: #roulette to go fish
-                                                                        playerMoving.status = "Go Fish"
-                                                                        self.fishGame.playerList.append(playerMoving)
-                                                                else: #go fish to Horse Betting
-                                                                        playerMoving.status = "Horse Betting"
-                                                                        self.horseBetting.playerList.append(playerMoving)
+								while moved == 0:
+                                                                	if gameTo == 1: #roulette to poker
+                                                                        	if self.poker == 1:
+											playerMoving.status == "Poker"
+                                                                        		self.pokerGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+                                                                	elif gameTo == 2: #roulette to blackjack
+                                                                        	if self.blackjack == 1:
+											playerMoving.status = "Blackjack"
+                                                                        		self.blackjackGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+                                                                	elif gameTo == 3: #roulette to go fish
+                                                                        	if self.fish == 1:
+											playerMoving.status = "Go Fish"
+                                                                        		self.fishGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+                                                                	else: #go fish to Horse Betting
+                                                                        	if self.horses == 1:
+											playerMoving.status = "Horse Betting"
+                                                                        		self.horseBetting.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
                                         elif gameAt == "Horse Betting":
                                                 for players in self.horseBetting.playerList:
                                                         if players.playerNumber == player2move:
                                                                 playerMoving = players
                                                                 self.horseBetting.playerList.remove(players)
-                                                                if gameTo == 1: #horse betting to poker
-                                                                        playerMoving.status == "Poker"
-                                                                        self.pokerGame.playerList.append(playerMoving)
-                                                                elif gameTo == 2: #horse betting to blackjack
-                                                                        playerMoving.status = "Blackjack"
-                                                                        self.blackjackGame.playerList.append(playerMoving)
-                                                                elif gameTo == 3: #horse betting to Roulette
-                                                                        playerMoving.status = "Roulette"
-                                                                        self.rouletteGame.playerList.append(playerMoving)
-                                                                else: #horse betting to go fish
-                                                                        playerMoving.status = "Go Fish"
-                                                                        self.fishGame.playerList.append(playerMoving)
+								while moved == 0:
+                                                                	if gameTo == 1: #horse betting to poker
+                                                                        	if self.poker == 1:
+											playerMoving.status == "Poker"
+                                                                        		self.pokerGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+                                                                	elif gameTo == 2: #horse betting to blackjack
+                                                                        	if self.blackjack == 1:
+											playerMoving.status = "Blackjack"
+                                                                        		self.blackjackGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+                                                                	elif gameTo == 3: #horse betting to Roulette
+                                                                        	if self.roulette == 1:
+											playerMoving.status = "Roulette"
+                                                                        		self.rouletteGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+                                                                	else: #horse betting to go fish
+                                                                        	if self.fish == 1:
+											playerMoving.status = "Go Fish"
+                                                                        		self.fishGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
 					for people in customers:
 						if people.playerNumber == player2move:
 							people.status == playerMoving.status
@@ -435,9 +538,7 @@ class casino:
 			
 	def play(self):
 		print "Welcome to the Casino Simulator"
-		while quit != 0:
-			self.playerInstantiation()
-			self.simMenu()
+		while quit != 1:
 			self.runCasino()
 			self.printStats()
 			self.printLeaderboard()
@@ -446,7 +547,7 @@ class casino:
 				quit = 1
 				print "Thank you for playing."			
 
-class player():
+class player:
 	startingBalance = 0
 	balance = 0 #current balance
 	plusMinus = 0 
@@ -460,6 +561,7 @@ class player():
     	allIn = 0
     	fold = 0
     	playerNumber = 0
+
     	def __init__(self, num):
 		self.playerNumber = num
         	self.balance = random.randint(40000, 55000)
