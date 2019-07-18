@@ -25,9 +25,23 @@ class Race:
     def change_entropy(cls, ent):
         cls.prob_entropy = ent
     
-    def __init__(self, horses, temp_low = None, temp_high = None, percip_chance = None, entropy = None):
+    def __init__(self, entropy = None, horses = None, temp_low = None, temp_high = None, percip_chance = None):
 
-        entropy = entropy or 0
+        self.playerList = []
+
+        if entropy == 1:
+            entropy = 50
+        elif entropy == 2:
+            entropy = 300
+        elif entropy == 3:
+            entropy = 750
+
+        if not horses:
+            self.horses = []
+            for _ in range(8):
+                self.horses.append(Horse())
+
+        entropy = entropy or 1
         temp_low = temp_low or 0
         temp_high = temp_high or 120
         percip_chance = percip_chance or 50
@@ -36,14 +50,13 @@ class Race:
 
         self.temp = random.randint(0, 120)
         self.percip = random.choices([0, 1], [no_percip_chance, percip_chance])
-        self.horses = horses
         
         self.perf_dict = {}
         self.pre_prob_dict = {}
     
     def calc_pre_odds(self):
         total_sum = 0
-
+        
         for horse in self.horses:
             perf = horse.speed
 
@@ -87,13 +100,14 @@ class Race:
         pool = 0
         
         casino_money = pool*self.casino_take
-        
+
+        self.casinoWinnings += casino_money
+
         pool -= pool*casino_money
 
         for horse, player_bet in bets.items():
             for player, bet in player_bet.items():
                 pool += bet
-
 
         winners_pool = 0
         for player, bet in bets[self.winner]:
@@ -106,12 +120,21 @@ class Race:
 
             player.addMoney(player_payout)
 
-    def play(self, players = [0,1]):
-        
-        for player in players:
-            pre_odds = self.calc_pre_odds()
-            for k,v in pre_odds.items():
-                print(k)
-                print(v)
+    def play(self):
+        x = self.calc_pre_odds()
+        sorted_odds = sorted_x = sorted(x.items(), key=lambda kv: kv[1])
+        print(sorted_odds)
 
+        for player in self.playerList:
+            if player.playType == 1:
+                chosen_horse = sorted_odds[-1][1]
+            elif player.playType == 2:
+                bet_choice = -1*random.randint(0,2)
+                chosen_horse = sorted_odds[bet_choice][1]
+            elif player.playType == 3:
+                bet_choice = random.randint(0, len(horses))
+                chosen_horse = sorted_odds[bet_choice][1]
 
+            # Decide bet ammounts
+            bet_ammount = 100
+            self.place_bet(player, chosen_horse, bet_ammount)
