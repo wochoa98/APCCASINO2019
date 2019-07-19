@@ -568,7 +568,7 @@ class player:
                 self.balance = random.randint(40000, 55000)
                 self.startingBalance = self.balance
                 self.playType = random.randint(1,3)
-                self.localHand = hand(num)
+                #self.localHand = hand(num)
                 #print "Player", self.playerNumber
                 #print self.balance
                 #print self.playType
