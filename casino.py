@@ -560,147 +560,146 @@ class casino:
 				print "Thank you for playing."
 
 class hand:
-    playerNum = 0
-    handValue = 0
-    highCard = 0
-    highCard2 = 0
-    royal = [10,11,12,13,14]
+	playerNum = 0
+    	handValue = 0
+    	highCard = 0
+    	highCard2 = 0
+    	royal = [10,11,12,13,14]
 
-    def __init__(self, num):
-	self.playerNum = num
-	self.cValues = []
-	for z in range(5):
-	    self.cValues.append(z)
-	self.sValues = []
-	for x in range(5):
-	    self.sValues.append(x)
+    	def __init__(self, num):
+		self.playerNum = num
+		self.cValues = []
+		for z in range(5):
+	    		self.cValues.append(z)
+		self.sValues = []
+		for x in range(5):
+	    		self.sValues.append(x)
 
-    def dealCards(self):
-        for a in range(5):
-            card = random.randint(2, 14)
-            self.cValues[a] = card
-            suit = random.randint(1, 4)
-            self.sValues[a] = suit
-            print "Card:", self.cValues[a], "Suit:", self.sValues[a]
+    	def dealCards(self):
+        	for a in range(5):
+            		card = random.randint(2, 14)
+            		self.cValues[a] = card
+            		suit = random.randint(1, 4)
+            		self.sValues[a] = suit
+            		#print "Card:", self.cValues[a], "Suit:", self.sValues[a]
 
-    def dealCard(self):
-         cValue = random.randint(2,14)
-         return cValue
+    	def dealCard(self):
+        	cValue = random.randint(2,14)
+        	return cValue
 
-    def dealCardSuit(self):
-        sValue = random.randint(1,4)
-        return sValue
+    	def dealCardSuit(self):
+        	sValue = random.randint(1,4)
+        	return sValue
 
 #following functions adapted from http://pythonfiddle.com/poker-game/
 
-    def hasFlush(self):
-        suit = self.sValues[0]
-	count = 0
-        for i in range(5):
-            if suit == self.sValues[i]:# if not a flush
-     	        count += 1
-	if count == 5:
-            self.cValues.sort()
-            for z in range(5):
-                if self.cValues[z] == self.royal[z]: # if royal flush
-		    self.handValue = 10
-		else: #else, its a flush but not royal
-                    low = min(self.cValues)   #check for other flushes
-                    if (low + 1 in self.cValues) and (low + 2 in self.cValues) and (low + 3 in self.cValues) and (low + 4 in self.cValues): # if straight flush
-                        self.handValue = 9
-                        self.highCard = (low + 4)
-                    else: # regular flush
-                        if self.handValue > 6:
-                            self.handValue = self.handValue
-                        else:
-                            self.handValue = 6
-#       print "Player has hand value", self.handValue, "after checking for flushes"
+    	def hasFlush(self):
+        	suit = self.sValues[0]
+		count = 0
+        	for i in range(5):
+            		if suit == self.sValues[i]:# if not a flush
+     	        		count += 1
+			if count == 5:
+            			self.cValues.sort()
+            		for z in range(5):
+                		if self.cValues[z] == self.royal[z]: # if royal flush
+		    			self.handValue = 10
+				else: #else, its a flush but not royal
+                    			low = min(self.cValues)   #check for other flushes
+                    			if (low + 1 in self.cValues) and (low + 2 in self.cValues) and (low + 3 in self.cValues) and (low + 4 in self.cValues): # if straight flush
+                        			self.handValue = 9
+                        			self.highCard = (low + 4)
+                    			else: # regular flush
+                        			if self.handValue > 6:
+                            				self.handValue = self.handValue
+                        			else:
+                            				self.handValue = 6
+		#print "Player has hand value", self.handValue, "after checking for flushes"
 
-    def hasStraight(self):
-            self.cValues.sort()
-            low = min(self.cValues)
-            if (low + 1 in self.cValues) and (low + 2 in self.cValues) and (low + 3 in self.cValues) and (low + 4 in self.cValues): # if straight
-                    self.handValue = 5
-                    self.highCard = (low + 4)
-#           print "Player has hand value", self.handValue, "after checking straight"
+    	def hasStraight(self):
+            	self.cValues.sort()
+            	low = min(self.cValues)
+            	if (low + 1 in self.cValues) and (low + 2 in self.cValues) and (low + 3 in self.cValues) and (low + 4 in self.cValues): # if straight
+                    	self.handValue = 5
+                    	self.highCard = (low + 4)
+          	#print "Player has hand value", self.handValue, "after checking straight"
 
-    def hasFullHouse(self):
-            self.cValues.sort()
-            cardA = self.cValues.count(self.cValues[0])
-            cardB = self.cValues.count(self.cValues[4])
-            if (cardA == 2 and cardB == 3):
-                self.handValue = 7
-                self.highCard = self.cValues[4]
-                self.highCard2 = self.cValues[0]
-            elif (cardA == 3 and cardB == 2):
-                self.handValue = 7
-                self.highCard = self.cValues[0]
-                self.highCard2 = self.cValues[4]
+    	def hasFullHouse(self):
+            	self.cValues.sort()
+            	cardA = self.cValues.count(self.cValues[0])
+            	cardB = self.cValues.count(self.cValues[4])
+            	if (cardA == 2 and cardB == 3):
+                	self.handValue = 7
+                	self.highCard = self.cValues[4]
+                	self.highCard2 = self.cValues[0]
+            	elif (cardA == 3 and cardB == 2):
+                	self.handValue = 7
+                	self.highCard = self.cValues[0]
+                	self.highCard2 = self.cValues[4]
 
-    def hasFour(self):
-            self.cValues.sort()
-            cardA = self.cValues.count(self.cValues[0])
-            cardB = self.cValues.count(self.cValues[4])
-            if cardA == 4: # player has 4 of a kind
-                self.handValue = 8
-                self.highCard = self.cValues[0]
-            elif cardB == 4: # player again has 4 of a kind
-                self.handValue = 8
-                self.highCard = self.cValues[4]
+    	def hasFour(self):
+           	self.cValues.sort()
+            	cardA = self.cValues.count(self.cValues[0])
+            	cardB = self.cValues.count(self.cValues[4])
+            	if cardA == 4: # player has 4 of a kind
+                	self.handValue = 8
+                	self.highCard = self.cValues[0]
+            	elif cardB == 4: # player again has 4 of a kind
+                	self.handValue = 8
+                	self.highCard = self.cValues[4]
 
-    def hasThree(self):
-            self.cValues.sort()
-            cardA = self.cValues.count(self.cValues[0])
-            cardB = self.cValues.count(self.cValues[4])
-            if cardA == 3: # player has 3 of a kind
-                self.handValue = 4
-                self.highCard = self.cValues[0]
-            elif cardB == 3:
-                self.handValue = 4
-                self.highCard = self.cValues[4]
+    	def hasThree(self):
+            	self.cValues.sort()
+            	cardA = self.cValues.count(self.cValues[0])
+            	cardB = self.cValues.count(self.cValues[4])
+            	if cardA == 3: # player has 3 of a kind
+                	self.handValue = 4
+                	self.highCard = self.cValues[0]
+            	elif cardB == 3:
+                	self.handValue = 4
+                	self.highCard = self.cValues[4]
 
-    def hasTwoPair(self):
-            self.cValues.sort()
-            cardA = self.cValues.count(self.cValues[0])
-            cardB = self.cValues.count(self.cValues[2])
-            cardC = self.cValues.count(self.cValues[4])
-            if (cardA == 2 and cardB == 2):
-                self.handValue = 3
-                self.highCard = self.cValues[2]
-                self.highCard2 = self.cValues[0]
-            elif (cardA == 2 and cardC == 2):
-                self.handValue = 3
-                self.highCard = self.cValues[4]
-                self.highCard2 = self.cValues[0]
-            elif (cardB == 2 and cardC == 2):
-                self.handValue = 3
-                self.highCard = self.cValues[4]
-                self.highCard2 = self.cValues[2]
+    	def hasTwoPair(self):
+            	self.cValues.sort()
+            	cardA = self.cValues.count(self.cValues[0])
+            	cardB = self.cValues.count(self.cValues[2])
+            	cardC = self.cValues.count(self.cValues[4])
+            	if (cardA == 2 and cardB == 2):
+                	self.handValue = 3
+                	self.highCard = self.cValues[2]
+                	self.highCard2 = self.cValues[0]
+            	elif (cardA == 2 and cardC == 2):
+                	self.handValue = 3
+                	self.highCard = self.cValues[4]
+                	self.highCard2 = self.cValues[0]
+            	elif (cardB == 2 and cardC == 2):
+                	self.handValue = 3
+                	self.highCard = self.cValues[4]
+                	self.highCard2 = self.cValues[2]
 
-    def hasPair(self):
-        self.cValues.sort()
+    	def hasPair(self):
+        	self.cValues.sort()
+        	cardA = self.cValues.count(self.cValues[0])
+        	cardB = self.cValues.count(self.cValues[2])
+        	cardC = self.cValues.count(self.cValues[4])
+        	if cardA == 2:
+                	self.handValue = 2
+                	self.highCard = self.cValues[0]
+        	elif cardB == 2:
+                	self.handValue = 2
+                	self.highCard = self.cValues[2]
+        	elif cardC == 2:
+                	self.handValue = 2
+                	self.highCard = self.cValues[4]
 
-        cardA = self.cValues.count(self.cValues[0])
-        cardB = self.cValues.count(self.cValues[2])
-        cardC = self.cValues.count(self.cValues[4])
-        if cardA == 2:
-                self.handValue = 2
-                self.highCard = self.cValues[0]
-        elif cardB == 2:
-                self.handValue = 2
-                self.highCard = self.cValues[2]
-        elif cardC == 2:
-                self.handValue = 2
-                self.highCard = self.cValues[4]
 
-
-    def setHighCard(self):
-        if self.cValues[0] == 1:
-            self.highCard = 1
-            self.handValue = 1
-        else:
-            self.highCard = self.cValues[4]
-            self.handValue = 1
+    	def setHighCard(self):
+        	if self.cValues[0] == 1:
+            		self.highCard = 1
+            		self.handValue = 1
+        	else:
+            		self.highCard = self.cValues[4]
+            		self.handValue = 1
 
 
 class player:
