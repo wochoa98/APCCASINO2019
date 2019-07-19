@@ -13,89 +13,87 @@ class goFish:
 		self.winnings = 0
 		
 	def playGame(self,g):
-		for i in range(g):
-			self.buyIn()
-			self.inGameDeck.dealHands(self.playerList)
-			for p in self.playerList:
-				print(p.playerHand)
-			pn = 1
-			round = 1
-			
-			self.inGameDeck.sortCards(self.playerList)
-			while self.inGameDeck.gameEnd  < len(self.playerList):
-				print("")
-				print("Round : ", round)
-				for p in self.playerList:
-					
-					
-					
-					#Player Turn
-
-					self.inGameDeck.sortCards(self.playerList)
-					
-					print("")
-					print("P", pn, "'s Hand :", p.playerHand)
-					
-					if(len(p.playerHand) != 0):
-						randPlayer = random.randint(1, len(self.playerList))
-						
-						while((self.playerList[randPlayer-1].playerNum == p.playerNum)&(len(self.playerList[randPlayer-1].playerHand) > 0)):
-							randPlayer = random.randint(1, len(self.playerList))
-
-						askedCard = p.askRand()
-						print("Asked - Player ", randPlayer)
-						self.playerList[randPlayer-1].askedPlayer(p, askedCard, self.inGameDeck)
-						
-						
-						self.inGameDeck.sortCards(self.playerList)
-						p.checkMatch()
-						self.inGameDeck.checkGameEnd(self.playerList)
-						
-						
-					self.inGameDeck.refill(self.playerList)
-					
-					
-					print("Player ", pn, "'s Matches : ", p.matches)
-				
-					
-					
-					if(p.playerNum == self.playerList[len(self.playerList)-1].playerNum):
-						pn = 1
-						
-					else:
-						pn = pn + 1
-						
-				round = round + 1
-				
-				print("")
-				print("Deck : ", self.inGameDeck.deck)
-				print("")
-			
-			pn = 1
-			for p in self.playerList:
-				print("Player ID", p.playerNum, "matches: ", p.matches)
-				pn = pn+1
-			
-			self.whoWon()
-			self.resetGame()
-			print("")
-			print("House Winnings: ", self.winnings)
-			
-			for p in self.playerList:
-				print("PID", p.playerNum, "Balance:", p.balance)
-			
-			i = i+1
+	
+		self.buyIn()
+		self.inGameDeck.dealHands(self.playerList)
+		for p in self.playerList:
+			print(p.playerHand)
+		pn = 1
+		round = 1
 		
+		self.inGameDeck.sortCards(self.playerList)
+		while self.inGameDeck.gameEnd  < len(self.playerList):
+			print("")
+			print("Round : ", round)
+			for p in self.playerList:
+				
+				
+				#Player Turn
 
+				self.inGameDeck.sortCards(self.playerList)
+				
+				print("")
+				print("P", pn, "'s Hand :", p.playerHand)
+				
+				if(len(p.playerHand) != 0):
+					randPlayer = random.randint(1, len(self.playerList))
+					
+					while((self.playerList[randPlayer-1].playerNumber == p.playerNumber)&(len(self.playerList[randPlayer-1].playerHand) > 0)):
+						randPlayer = random.randint(1, len(self.playerList))
+
+					askedCard = p.askRand()
+					print("Asked - Player ", randPlayer)
+					self.playerList[randPlayer-1].askedPlayer(p, askedCard, self.inGameDeck)
+					
+					
+					self.inGameDeck.sortCards(self.playerList)
+					p.checkMatch()
+					self.inGameDeck.checkGameEnd(self.playerList)
+					
+					
+				self.inGameDeck.refill(self.playerList)
+				
+				
+				print("Player ", pn, "'s Matches : ", p.matches)
+			
+				
+				
+				if(p.playerNumber == self.playerList[len(self.playerList)-1].playerNumber):
+					pn = 1
+					
+				else:
+					pn = pn + 1
+					
+			round = round + 1
+			
+			print("")
+			print("Deck : ", self.inGameDeck.deck)
+			print("")
+		
+		pn = 1
+		for p in self.playerList:
+			print("Player ID", p.playerNumber, "matches: ", p.matches)
+			pn = pn+1
+		
+		self.whoWon()
+		self.resetGame()
+		print("")
+		print("House Winnings: ", self.winnings)
+		
+		for p in self.playerList:
+			print("PID", p.playerNumber, "Balance:", p.balance)
+		
 	
-	
+
+
+
 	
 	def buyIn(self):
 		temp = self.playerList
 		for check in self.playerList:
 			if(check.balance < 1000):
-				print("PID :", check.playerNum, " ejected due to insufficient funds.")
-				self.playerList = [elem for elem in self.playerList if elem.playerNum != check.playerNum]
+				print("PID :", check.playerNumber, " ejected due to insufficient funds.")
+				self.playerList = [elem for elem in self.playerList if elem.playerNumber != check.playerNumber]
 			
 			else:
 				self.pot = self.pot + 1000
@@ -120,7 +118,7 @@ class goFish:
 			print("")
 			print("Winner(s) : ")
 			for paidPlayers in temp:
-				print("Player ID: ", paidPlayers.playerNum)
+				print("Player ID: ", paidPlayers.playerNumber)
 				paidPlayers.payDay(payout)
 			
 			print("")
@@ -204,13 +202,10 @@ class goFishPlayer:
 	
 	def __init__(self, pn):
 		self.playerHand = []
-		self.handSize = len(self.playerHand)
 		self.matches = 0
-		self.playerPresent = 0
-		self.wins = 0
 		self.balance = 0
 		self.playType = 0 
-		self.playerNum = pn
+		self.playerNumber = pn
 		self.balance = 5000
 	
 	
@@ -343,4 +338,4 @@ player5 = goFishPlayer(5)
 
 goFishGame = goFish()
 goFishGame.playerList = [player1, player2, player3, player4, player5]
-goFishGame.playGame(8)
+goFishGame.playGame()
