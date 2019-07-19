@@ -84,7 +84,7 @@ class casino:
                         for i in range(6):
                                 newPlayer = player(self.custCount)
                                 newPlayer.status = "Horse Betting"
-                                self.borseBetting.playerList.append(newPlayer)
+                                self.horseBetting.playerList.append(newPlayer)
                                 self.customers.append(newPlayer) #added as active player
                                 self.leaderboard.append(newPlayer) #added to records            
 
@@ -539,13 +539,13 @@ class casino:
                         
         def play(self):
                 print("Welcome to the Casino Simulator")
-                while quit != 1:
+                while self.quit != 1:
                         self.runCasino()
                         self.printStats()
                         self.printLeaderboard()
                         choice = eval(input("Would you like to run another simulation? Yes[1]/No[0]: "))
                         if choice != 1:
-                                quit = 1
+                                self.quit = 1
                                 print("Thank you for playing.")                  
 
 class player:
