@@ -22,7 +22,7 @@ class casino:
                 if self.blackjack == 1:
                         self.blackjackGame = blackjack()
                         stand = input("What is the dealer's hard stand value (Recommended 17): ")
-                        # set stand to 17 in blackjack
+                        self.blackjackGame.dealerStand = stand
 			max = input("What would you like the blackjack value to be (Recommended/Usually 21)?")
 			# set blackjack value
                 self.fish = input("Do you want to run Go Fish? Yes[1]/No[0]: ")
@@ -85,14 +85,26 @@ class casino:
 				newPlayer.status = "Horse Betting"
 				self.borseBetting.playerList.append(newPlayer)
                        		self.customers.append(newPlayer) #added as active player
-                        	self.leaderboard.append(newPlayer) #added to records		
+                for players in self.fishGame.playerList:
+                        if players.balance < 1000:
+                                self.fishGame.playerList.remove(players)
+                                self.customers.remove(players)
+                                for people in self.leaderboard:
+                                        if people == players:
+                                                people.status = "OOH"
+                                newPlayer = player(custCount)
+                                newPlayer.status = "Go Fish"
+                                self.customers.append(newPlayer)
+                                self.leaderboard.append(newPlayer)
+                                self.fishGame.payerList.append(newPlayer)
+                        	self.leaderboard.append(newPlayer) #added to records
 
 	def playerControl(self):
 		# run a check first for players that will not make minimums, check poker for struggling people who are being outbet, readd new players to fill void
 		#make minimum money at a poker table 5k, every other game minimum is 1k, players leave their games if they have less than 1k at start of round
 		#check poker first for 5k
 		for players in self.pokerGame.playerList:
-			if players.balance < 5000: 
+			if players.balance < 5000:
 				self.pokerGame.playerList.remove(players) #removes from players and active customers, keeps record
 				self.customers.remove(players)
 				for people in self.leaderboard:
@@ -174,7 +186,7 @@ class casino:
 
                         self.customers.append(player2add) #adds as active player to casino
                         self.leaderboard.append(player2add) #adds player record to casino
-		
+
 		elif playerAction == 2:
 			player2delete = random.randint(0,custCount-1) #list will already be filled, int will be 0 to the last customer
 			for people in customers:
@@ -228,7 +240,7 @@ class casino:
 											gameTo = random.randint(1,4)
 									elif gameTo == 2: #poker to Go fish
 										if self.fish == 1:
-											playerMoving.status = "Go Fish" 
+											playerMoving.status = "Go Fish"
 											self.fishGame.playerList.append(playerMoving)
 											moved = 1
 										else:
@@ -388,8 +400,8 @@ class casino:
 							people.status == playerMoving.status
 					for people in leaderboard:
 						if people.playerNumber == player2moce:
-							people.status == playerMoving.status	
-		
+							people.status == playerMoving.status
+
 
 	def updateBoards(self):
 		for people in self.pokerGame.playerList:
@@ -449,7 +461,7 @@ class casino:
 			if self.poker == 1:
 				self.pokerGame.playRound()
 			if self.blackjack == 1:
-				self.blackjackGame.playRound()
+				self.blackjackGame.blackjackgame()
 			if self.fish == 1:
 				self.goFishGame.playRound()
 			if self.roulette == 1:
@@ -460,14 +472,14 @@ class casino:
 			self.playerControl()
 
 	def printStats(self):
-		self.profit = self.pokerGame.casinoWinnings + self.blackjackGame.casinoWinnings + self.fishGame.casinoWinnings + self.rouletteGame.casinoWinnings + self.horseBetting.casinoWinnings
+		self.profit = self.pokerGame.casinoWinnings + self.blackjackGame.blackjackWinnings + self.fishGame.casinoWinnings + self.rouletteGame.casinoWinnings + self.horseBetting.casinoWinnings
 		#poker
 		print "Poker Stats:"
 		print "     Casino Winnings from Poker: $", self.pokerGame.casinoWinnings
 		pokerPercent = (self.pokerGame.casinoWinnings/self.profit) * 100 #percent profit from poker
 		print "       Percent:", pokerPercent, "%"
 		averageAnte = (self.pokerGame.casinoWinnings /self.pokerGame.rake) / self.rounds #casino winnings = ante * rake => ante = casino winnings/rake, divide by rounds to find average
-		print "     Average Ante: $", averageAnte, 
+		print "     Average Ante: $", averageAnte,
 		print "     Rake Percent:", (self.pokerGame.rake * 100),"%"
 		#blackjack
 		print "Blackjack Stats:"
@@ -475,7 +487,7 @@ class casino:
 		bjPercent = (self.blackjackGame.casinoWinnings/self.profit) * 100 #percent profit from blackjack
 		print "       Percent:", bjPercent, "%"
 		#calculate average bet?
-		print "     Dealer Hard Stand:", self.blackjackGame.dealerStand 
+		print "     Dealer Hard Stand:", self.blackjackGame.dealerStand
 		#calculate times dealer busts based on hard stand value?
 		#Go Fish
 		print "Go Fish Stats:"
@@ -535,7 +547,7 @@ class casino:
 				print "========================="
 			else: #any player in the middle
 				printPlayer(i)
-			
+
 	def play(self):
 		print "Welcome to the Casino Simulator"
 		while quit != 1:
@@ -545,12 +557,156 @@ class casino:
 			choice = input("Would you like to run another simulation? Yes[1]/No[0]: ")
 			if choice != 1:
 				quit = 1
-				print "Thank you for playing."			
+				print "Thank you for playing."
+
+class hand:
+    playerNum = 0
+    handValue = 0
+    highCard = 0
+    highCard2 = 0
+    royal = [10,11,12,13,14]
+
+    def __init__(self, num):
+	self.playerNum = num
+	self.cValues = []
+	for z in range(5):
+	    self.cValues.append(z)
+	self.sValues = []
+	for x in range(5):
+	    self.sValues.append(x)
+
+    def dealCards(self):
+        for a in range(5):
+            card = random.randint(2, 14)
+            self.cValues[a] = card
+            suit = random.randint(1, 4)
+            self.sValues[a] = suit
+            print "Card:", self.cValues[a], "Suit:", self.sValues[a]
+
+    def dealCard(self):
+         cValue = random.randint(2,14)
+         return cValue
+
+    def dealCardSuit(self):
+        sValue = random.randint(1,4)
+        return sValue
+
+#following functions adapted from http://pythonfiddle.com/poker-game/
+
+    def hasFlush(self):
+        suit = self.sValues[0]
+	count = 0
+        for i in range(5):
+            if suit == self.sValues[i]:# if not a flush
+     	        count += 1
+	if count == 5:
+            self.cValues.sort()
+            for z in range(5):
+                if self.cValues[z] == self.royal[z]: # if royal flush
+		    self.handValue = 10
+		else: #else, its a flush but not royal
+                    low = min(self.cValues)   #check for other flushes
+                    if (low + 1 in self.cValues) and (low + 2 in self.cValues) and (low + 3 in self.cValues) and (low + 4 in self.cValues): # if straight flush
+                        self.handValue = 9
+                        self.highCard = (low + 4)
+                    else: # regular flush
+                        if self.handValue > 6:
+                            self.handValue = self.handValue
+                        else:
+                            self.handValue = 6
+#       print "Player has hand value", self.handValue, "after checking for flushes"
+
+    def hasStraight(self):
+            self.cValues.sort()
+            low = min(self.cValues)
+            if (low + 1 in self.cValues) and (low + 2 in self.cValues) and (low + 3 in self.cValues) and (low + 4 in self.cValues): # if straight
+                    self.handValue = 5
+                    self.highCard = (low + 4)
+#           print "Player has hand value", self.handValue, "after checking straight"
+
+    def hasFullHouse(self):
+            self.cValues.sort()
+            cardA = self.cValues.count(self.cValues[0])
+            cardB = self.cValues.count(self.cValues[4])
+            if (cardA == 2 and cardB == 3):
+                self.handValue = 7
+                self.highCard = self.cValues[4]
+                self.highCard2 = self.cValues[0]
+            elif (cardA == 3 and cardB == 2):
+                self.handValue = 7
+                self.highCard = self.cValues[0]
+                self.highCard2 = self.cValues[4]
+
+    def hasFour(self):
+            self.cValues.sort()
+            cardA = self.cValues.count(self.cValues[0])
+            cardB = self.cValues.count(self.cValues[4])
+            if cardA == 4: # player has 4 of a kind
+                self.handValue = 8
+                self.highCard = self.cValues[0]
+            elif cardB == 4: # player again has 4 of a kind
+                self.handValue = 8
+                self.highCard = self.cValues[4]
+
+    def hasThree(self):
+            self.cValues.sort()
+            cardA = self.cValues.count(self.cValues[0])
+            cardB = self.cValues.count(self.cValues[4])
+            if cardA == 3: # player has 3 of a kind
+                self.handValue = 4
+                self.highCard = self.cValues[0]
+            elif cardB == 3:
+                self.handValue = 4
+                self.highCard = self.cValues[4]
+
+    def hasTwoPair(self):
+            self.cValues.sort()
+            cardA = self.cValues.count(self.cValues[0])
+            cardB = self.cValues.count(self.cValues[2])
+            cardC = self.cValues.count(self.cValues[4])
+            if (cardA == 2 and cardB == 2):
+                self.handValue = 3
+                self.highCard = self.cValues[2]
+                self.highCard2 = self.cValues[0]
+            elif (cardA == 2 and cardC == 2):
+                self.handValue = 3
+                self.highCard = self.cValues[4]
+                self.highCard2 = self.cValues[0]
+            elif (cardB == 2 and cardC == 2):
+                self.handValue = 3
+                self.highCard = self.cValues[4]
+                self.highCard2 = self.cValues[2]
+
+    def hasPair(self):
+        self.cValues.sort()
+
+        cardA = self.cValues.count(self.cValues[0])
+        cardB = self.cValues.count(self.cValues[2])
+        cardC = self.cValues.count(self.cValues[4])
+        if cardA == 2:
+                self.handValue = 2
+                self.highCard = self.cValues[0]
+        elif cardB == 2:
+                self.handValue = 2
+                self.highCard = self.cValues[2]
+        elif cardC == 2:
+                self.handValue = 2
+                self.highCard = self.cValues[4]
+
+
+    def setHighCard(self):
+        if self.cValues[0] == 1:
+            self.highCard = 1
+            self.handValue = 1
+        else:
+            self.highCard = self.cValues[4]
+            self.handValue = 1
+
 
 class player:
 	startingBalance = 0
 	balance = 0 #current balance
-	plusMinus = 0 
+	plusMinus = 0
 	playType = 0
 	status = " "
 	bluff = 0
@@ -561,6 +717,20 @@ class player:
     	allIn = 0
     	fold = 0
     	playerNumber = 0
+	toat = 0 #blackjack
+	hand = []
+	final = 0
+	win = 0
+	a = 0
+	b = 0
+	c = 0
+	d = 0
+	e = 0
+	f = 0
+	g = 0
+	h = 0
+	i = 0
+	j = 0
 
     	def __init__(self, num):
 		self.playerNumber = num
