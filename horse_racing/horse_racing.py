@@ -91,8 +91,10 @@ class Race:
         return self.winner
 
     def place_bet(self, player, horse, ammount):
-        bets[horse] = bets[horse] or { }
-        bets[horse][player] = ammount
+        if not (horse in self.bets): 
+            self.bets[horse] = { }
+
+        self.bets[horse][player] = ammount
 
         player.subMoney(ammount)
 
@@ -105,7 +107,7 @@ class Race:
 
         pool -= pool*casino_money
 
-        for horse, player_bet in bets.items():
+        for horse, player_bet in self.bets.items():
             for player, bet in player_bet.items():
                 pool += bet
 
@@ -120,7 +122,7 @@ class Race:
 
             player.addMoney(player_payout)
 
-    def play(self):
+    def playRound(self):
         x = self.calc_pre_odds()
         sorted_odds = sorted_x = sorted(x.items(), key=lambda kv: kv[1])
         print(sorted_odds)
@@ -129,10 +131,10 @@ class Race:
             if player.playType == 1:
                 chosen_horse = sorted_odds[-1][1]
             elif player.playType == 2:
-                bet_choice = -1*random.randint(0,len(horses)/3) # Bet on top 1/3rd
+                bet_choice = -1*random.randint(0,int(len(self.horses)/3)) # Bet on top 1/3rd
                 chosen_horse = sorted_odds[bet_choice][1]
             elif player.playType == 3:
-                bet_choice = random.randint(0, len(horses))
+                bet_choice = random.randint(0, len(self.horses))
                 chosen_horse = sorted_odds[bet_choice][1]
 
             # Decide bet ammounts
