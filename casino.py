@@ -11,64 +11,105 @@ class casino:
 	rounds = 0
 	quit = 0
 
+
+        def simMenu(self):
+                self.poker = input("Do you want to run Poker? Yes[1]/No[0]: ")
+                if self.poker == 1:
+                        self.pokerGame = poker()
+                        pokerVig = input("What would you like the rake percent to be (write as decimal): ")
+                        pokerGame.rake = pokerVig
+                self.blackjack = input("Do you want to run Blackjack? Yes[1]/No[0]: ")
+                if self.blackjack == 1:
+                        self.blackjackGame = blackjack()
+                        stand = input("What is the dealer's hard stand value (Recommended 17): ")
+                        self.blackjackGame.dealerStand = stand
+			max = input("What would you like the blackjack value to be (Recommended/Usually 21)?")
+			# set blackjack value
+                self.fish = input("Do you want to run Go Fish? Yes[1]/No[0]: ")
+                if self.fish == 1:
+			self.fishGame = goFish()
+                        fishVig = input("What would you like the rake percent to be (write as decimal): ")
+                        self.fishGame.vig = fishVig
+                        buyIn = input("Do you want a high table minimum [1], an average table minimum [2], or a low table minimum [3]?: ")
+                        #set fishGame.tableMin = buyIn
+                self.roulette = input("Do you want to run roulette? Yes[1]/No[0]: ")
+                if self.roulette == 1:
+			self.rouletteGame = roulette()
+                        tableMin = input("Do you want a high table minimum [1], an average table minimum [2], or a low table minimum [3]?: ")
+                        #set variable in game
+                self.horses = input("Do you want to run horse betting? Yes[1]/No[0]: ")
+                if self.horses == 1:
+                        accuracy = input("Do you want the horse odd predictions to be very accurate [1], somewhat accurate [2], or innaccurate [3]: ")
+                        self.horseBetting = Race(accuracy)
+                self.rounds = input("How many rounds would you like to run through?: ")
+
+
 	def __init__(self):
 		self.customers = [] #will be list of all active customers
 		self.leaderboard = [] #will be static, holds player records whether active in casino or not
 		self.custCount = len(self.customers)
-		#for initial start, 30 people enter
-		for i in range(30):
-			newPlayer = player(self.custCount) #custCount is length of the list, so the current number before the add is the desired index
-			if self.custCount < 6: #first 6 players go to poker
+		#set up games
+		self.simMenu()
+		#for initial start there are 6 per active game
+		if self.poker == 1: #first 6 players go to poker
+			for i in range(6):
+				newPlayer = player(self.custCount)
 				newPlayer.status = "Poker"
 				self.pokerGame.playerList.append(newPlayer)
-			elif self.custCount >= 6 and self.custCount < 12: #second group of 6 play blackjack
+                                self.customers.append(newPlayer) #added as active player
+                                self.leaderboard.append(newPlayer) #added to records
+		if self.blackjack == 1: #second group of 6 play blackjack
+			for i in range(6):
+				newPlayer = player(self.custCount)
 				newPlayer.status = "Blackjack"
 				self.blackjackGame.playerList.append(newPlayer)
-			elif self.custCount >=12 and self.custCount < 18: #third group of 6 plays Go Fish
+                                self.customers.append(newPlayer) #added as active player
+                                self.leaderboard.append(newPlayer) #added to records
+		if self.fish == 1: #third group of 6 plays Go Fish
+			for i in range(6):
+				newPlayer = player(self.custCount)
 				newPlayer.status = "Go Fish"
 				self.fishGame.playerList.append(newPlayer)
-			elif self.cutCount >=18 and self.custCount < 24: #fourth group of 6 plays Roulette
+                                self.customers.append(newPlayer) #added as active player
+                                self.leaderboard.append(newPlayer) #added to records
+		if self.roulette == 1: #fourth group of 6 plays Roulette
+			for i in range(6):
+				newPlayer = player(self.custCount)
 				newPlayer.status = "Roulette"
-				self.fishGame.playerList.append(newPlayer)
-                        self.customers.append(newPlayer) #added as active player
-                        self.leaderboard.append(newPlayer) #added to records
-
-
-	def simMenu(self):
-		self.poker = input("Do you want to run Poker? Yes[1]/No[0]: ")
-		if self.poker == 1:
-			pokerVig = input("What would you like the rake percent to be (write as decimal): ")
-			# set pokerGame.rake = vig
-		self.blackjack = input("Do you want to run Blackjack? Yes[1]/No[0]: ")
-		if self.blackjack == 1:
-			stand = input("What is the dealer's hard stand value (Recommended 17): ")
-			# set stand to 17 in blackjack
-		self.fish = input("Do you want to run Go Fish? Yes[1]/No[0]: ")
-		if self.fish == 1:
-			fishVig = input("What would you like the rake percent to be (write as decimal): ")
-			#set fishGame.vig = fishVig
-			buyIn = input("Do you want a high table minimum [1], an average table minimum [2], or a low table minimum [3]?: ")
-			#set fishGame.tableMin = buyIn 
-		self.roulette = input("Do you want to run roulette? Yes[1]/No[0]: ")
-		if self.roulette == 1:
-			tableMin = input("Do you want a high table minimum [1], an average table minimum [2], or a low table minimum [3]?: ")
-			#set variable in game
-		self.horses = input("Do you want to run horse betting? Yes[1]/No[0]: ")
+				self.rouletteGame.playerList.append(newPlayer)
+                                self.customers.append(newPlayer) #added as active player
+                                self.leaderboard.append(newPlayer) #added to records
 		if self.horses == 1:
-			accuracy = input("Do you want the horse odd predictions to be very accurate [1], somewhat accurate [2], or innaccurate [3]: ")
-			#set variable in game			
-		self.rounds = input("How many rounds would you like to run through?: ")
-		
+			for i in range(6):
+				newPlayer = player(self.custCount)
+				newPlayer.status = "Horse Betting"
+				self.borseBetting.playerList.append(newPlayer)
+                       		self.customers.append(newPlayer) #added as active player
+                for players in self.fishGame.playerList:
+                        if players.balance < 1000:
+                                self.fishGame.playerList.remove(players)
+                                self.customers.remove(players)
+                                for people in self.leaderboard:
+                                        if people == players:
+                                                people.status = "OOH"
+                                newPlayer = player(custCount)
+                                newPlayer.status = "Go Fish"
+                                self.customers.append(newPlayer)
+                                self.leaderboard.append(newPlayer)
+                                self.fishGame.payerList.append(newPlayer)
+                        	self.leaderboard.append(newPlayer) #added to records
 
 	def playerControl(self):
 		# run a check first for players that will not make minimums, check poker for struggling people who are being outbet, readd new players to fill void
 		#make minimum money at a poker table 5k, every other game minimum is 1k, players leave their games if they have less than 1k at start of round
-		#check poker first
-		for players in self.pokerGame.playerList
+		#check poker first for 5k
+		for players in self.pokerGame.playerList:
 			if players.balance < 5000:
-				players.status = "OOH" 
-				self.pokerGame.playerList.remove(players)
+				self.pokerGame.playerList.remove(players) #removes from players and active customers, keeps record
 				self.customers.remove(players)
+				for people in self.leaderboard:
+					if people == players:
+						people.status == "OOH"
 				newPlayer = player(self.custCount)
 				newPlayer.status = "Poker"
 				self.customers.append(newPlayer)
@@ -77,9 +118,11 @@ class casino:
 		#check each game for less than 1000 now
 		for players in self.blackjackGame.playerList:
 			if players.balance < 1000:
-				players.status = "OOH"
 				self.blackjackGame.playerList.remove(players)
 				self.customers.remove(players)
+				for people in self.leaderboard:
+					if people == players:
+						people.status = "OOH"
 				newPlayer = player(self.custCount)
 				newPlayer.status = "Blackjack"
 				self.customers.append(newPlayer)
@@ -87,9 +130,11 @@ class casino:
 				self.blackjackGame.playerList.append(newPlayer)
 		for players in self.fishGame.playerList:
 			if players.balance < 1000:
-				players.status = "OOH"
 				self.fishGame.playerList.remove(players)
 				self.customers.remove(players)
+				for people in self.leaderboard:
+					if people == players:
+						people.status = "OOH"
 				newPlayer = player(custCount)
 				newPlayer.status = "Go Fish"
 				self.customers.append(newPlayer)
@@ -97,9 +142,11 @@ class casino:
 				self.fishGame.payerList.append(newPlayer)
 		for players in self.rouletteGame.playerList:
 			if players.balance < 1000:
-				players.status = "OOH"
 				self.rouletteGame.playerList.remove(players)
 				self.customers.remove(players)
+				for people in self.leaderboard:
+					if people == players:
+						people.status == "OOH"
 				newPlayer = player(custCount)
 				newPlayer.status = "Roulette"
 				self.customers.append(newPlayer)
@@ -107,9 +154,11 @@ class casino:
 				self.rouletteGame.playerList.append(newPlayer)
 		for players in self.horseBetting.playerList:
 			if players.balance < 1000:
-				players.status = "OOH"
 				self.horseBetting.playerList.remove(players)
 				self.customers.remove(players)
+				for people in self.leaderboard:
+					if people == players:
+						people.status == "OOH"
 				newPlayer = player(custCount)
 				newPlayer.status = "Horse Betting"
 				self.customers.append(newPlayer)
@@ -126,7 +175,7 @@ class casino:
 				player2add.status = "Blackjack"
 				#self.blackjackGame.playerList.append(player2add) #added to blackjack player list
 			elif gameAdded == 3: # 3 will be go fish
-				player2Add.status = "Go Fish"
+				player2add.status = "Go Fish"
 				#self.goFishGame.playerList.append(player2add) #added to go fish player list
 			elif gameAdded == 4: # 4 will be roulette
 				player2add.status = "Roulete"
@@ -137,7 +186,7 @@ class casino:
 
                         self.customers.append(player2add) #adds as active player to casino
                         self.leaderboard.append(player2add) #adds player record to casino
-		
+
 		elif playerAction == 2:
 			player2delete = random.randint(0,custCount-1) #list will already be filled, int will be 0 to the last customer
 			for people in customers:
@@ -145,7 +194,7 @@ class casino:
 					gameAt = people.status #will need to remove player from their game as well
 					self.customers.remove(people) #remove player from active list, does not delete record
 					for everyone in self.leaderboard:
-						if everyone.playerNumber = player2delete:
+						if everyone.playerNumber == player2delete:
 							everyone.status = "OOH" #out of house
 			if gameAt == "Poker":
 				for players in self.pokerGame.playerList:
@@ -169,6 +218,8 @@ class casino:
 						self.horseBetting.playerList.remove(players)
 
 		elif playerAction == 3:
+			playerMoving = player(1000)
+			moved = 0
 			player2move = random.randint(0,custCount-1)
 			gameTo = random.randint(1,4) #player will have 4 possible games to join from the one they are leaving
 			for people in self.customers:
@@ -179,111 +230,256 @@ class casino:
 							if players.playerNumber == player2move:
 								playerMoving = players
 								self.pokerGame.playerList.remove(players)
-								if gameTo == 1: #poker to blackjack
-									playerMoving.status = "Blackjack" #will this change the values in customer/leaderboard
-									self.blackjackGame.playerList.append(playerMoving)
-								elif gameTo == 2: #poker to Go fish
-									playerMoving.status = "Go Fish" 
-									self.fishGame.playerList.append(playerMoving)
-								elif gameTo == 3: #poker to roulette
-									playerMoving.status = "Roulette"
-									self.rouletteGame.playerList.append(playerMoving)
-								else: #poker to horse betting
-									playerMoving.status = "Horse Betting"
-									self.rouletteGame.playerList.append(playerMoving)
+								while moved == 0:
+									if gameTo == 1: #poker to blackjack
+										if self.blackjack == 1:
+											playerMoving.status = "Blackjack" #will this change the values in customer/leaderboard
+											self.blackjackGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+									elif gameTo == 2: #poker to Go fish
+										if self.fish == 1:
+											playerMoving.status = "Go Fish"
+											self.fishGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+									elif gameTo == 3: #poker to roulette
+										if self.roulette == 1:
+											playerMoving.status = "Roulette"
+											self.rouletteGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+									else: #poker to horse betting
+										if self.horses == 1:
+											playerMoving.status = "Horse Betting"
+											self.horseBetting.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
 					elif gameAt == "Blackjack":
 						for players in self.blackjackGame.playerList:
 							if players.playerNumber == player2move:
 								playerMoving = players
 								self.blackjackGame.playerList.remove(players)
-								if gameTo == 1: #blackjack to poker
-									playerMoving.status = "Poker"
-									self.pokerGame.playerList.append(playerMoving)
-								elif gameTo == 2: #blackjack to Go Fish
-									playerMoving.status = "Go Fish"
-									self.fishGame.playerList.append(playerMoving)
-								elif gameTo == 3: #blackjack to roulette
-									playerMoving.status = "Roulette"
-									self.rouletteGame.playerList.append(playerMoving)
-								else: #blackjack to horse betting
-									playerMoving.status = "Horse Betting"
-									self.horseBetting.playerList.append(playerMoving)
+								while moved == 0:
+									if gameTo == 1: #blackjack to poker
+										if self.poker == 1:
+											playerMoving.status = "Poker"
+											self.pokerGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+									elif gameTo == 2: #blackjack to Go Fish
+										if self.fish == 1:
+											playerMoving.status = "Go Fish"
+											self.fishGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+									elif gameTo == 3: #blackjack to roulette
+										if self.roulette == 1:
+											playerMoving.status = "Roulette"
+											self.rouletteGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+									else: #blackjack to horse betting
+										if self.horses == 1:
+											playerMoving.status = "Horse Betting"
+											self.horseBetting.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
 					elif gameAt == "Go Fish":
 						for players in self.fishGame.playerList:
 							if players.playerNumber == player2move:
 								playerMoving = players
 								self.fishGame.playerList.remove(players)
-								if gameTo == 1: #go fish to poker
-									playerMoving.status == "Poker"
-									self.pokerGame.playerList.append(playerMoving)
-								elif gameTo == 2: #go fish to blackjack
-									playerMoving.status = "Blackjack"
-									self.blackjackGame.playerList.append(playerMoving)
-								elif gameTo == 3: #go fish to Roulette
-									playerMoving.status = "Roulette"
-									self.rouletteGame.playerList.append(playerMoving)
-								else: #go fish to Horse Betting
-									playerMoving.status = "Horse Betting"
-									self.horseBetting.playerList.append(playerMoving)
+								while moved == 0:
+									if gameTo == 1: #go fish to poker
+										if self.poker == 1:
+											playerMoving.status == "Poker"
+											self.pokerGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+									elif gameTo == 2: #go fish to blackjack
+										if self.blackjack == 1:
+											playerMoving.status = "Blackjack"
+											self.blackjackGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+									elif gameTo == 3: #go fish to Roulette
+										if self.roulette == 1:
+											playerMoving.status = "Roulette"
+											self.rouletteGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+									else: #go fish to Horse Betting
+										if self.horses == 1:
+											playerMoving.status = "Horse Betting"
+											self.horseBetting.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
                                         elif gameAt == "Roulette":
                                                 for players in self.rouletteGame.playerList:
                                                         if players.playerNumber == player2move:
                                                                 playerMoving = players
                                                                 self.rouletteGame.playerList.remove(players)
-                                                                if gameTo == 1: #roulette to poker
-                                                                        playerMoving.status == "Poker"
-                                                                        self.pokerGame.playerList.append(playerMoving)
-                                                                elif gameTo == 2: #roulette to blackjack
-                                                                        playerMoving.status = "Blackjack"
-                                                                        self.blackjackGame.playerList.append(playerMoving)
-                                                                elif gameTo == 3: #roulette to go fish
-                                                                        playerMoving.status = "Go Fish"
-                                                                        self.fishGame.playerList.append(playerMoving)
-                                                                else: #go fish to Horse Betting
-                                                                        playerMoving.status = "Horse Betting"
-                                                                        self.horseBetting.playerList.append(playerMoving)
+								while moved == 0:
+                                                                	if gameTo == 1: #roulette to poker
+                                                                        	if self.poker == 1:
+											playerMoving.status == "Poker"
+                                                                        		self.pokerGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+                                                                	elif gameTo == 2: #roulette to blackjack
+                                                                        	if self.blackjack == 1:
+											playerMoving.status = "Blackjack"
+                                                                        		self.blackjackGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+                                                                	elif gameTo == 3: #roulette to go fish
+                                                                        	if self.fish == 1:
+											playerMoving.status = "Go Fish"
+                                                                        		self.fishGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+                                                                	else: #go fish to Horse Betting
+                                                                        	if self.horses == 1:
+											playerMoving.status = "Horse Betting"
+                                                                        		self.horseBetting.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
                                         elif gameAt == "Horse Betting":
                                                 for players in self.horseBetting.playerList:
                                                         if players.playerNumber == player2move:
                                                                 playerMoving = players
                                                                 self.horseBetting.playerList.remove(players)
-                                                                if gameTo == 1: #horse betting to poker
-                                                                        playerMoving.status == "Poker"
-                                                                        self.pokerGame.playerList.append(playerMoving)
-                                                                elif gameTo == 2: #horse betting to blackjack
-                                                                        playerMoving.status = "Blackjack"
-                                                                        self.blackjackGame.playerList.append(playerMoving)
-                                                                elif gameTo == 3: #horse betting to Roulette
-                                                                        playerMoving.status = "Roulette"
-                                                                        self.rouletteGame.playerList.append(playerMoving)
-                                                                else: #horse betting to go fish
-                                                                        playerMoving.status = "Go Fish"
-                                                                        self.fishGame.playerList.append(playerMoving)
+								while moved == 0:
+                                                                	if gameTo == 1: #horse betting to poker
+                                                                        	if self.poker == 1:
+											playerMoving.status == "Poker"
+                                                                        		self.pokerGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+                                                                	elif gameTo == 2: #horse betting to blackjack
+                                                                        	if self.blackjack == 1:
+											playerMoving.status = "Blackjack"
+                                                                        		self.blackjackGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+                                                                	elif gameTo == 3: #horse betting to Roulette
+                                                                        	if self.roulette == 1:
+											playerMoving.status = "Roulette"
+                                                                        		self.rouletteGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+                                                                	else: #horse betting to go fish
+                                                                        	if self.fish == 1:
+											playerMoving.status = "Go Fish"
+                                                                        		self.fishGame.playerList.append(playerMoving)
+											moved = 1
+										else:
+											gameTo = random.randint(1,4)
+					for people in customers:
+						if people.playerNumber == player2move:
+							people.status == playerMoving.status
+					for people in leaderboard:
+						if people.playerNumber == player2moce:
+							people.status == playerMoving.status
 
-									
-		
+
+	def updateBoards(self):
+		for people in self.pokerGame.playerList:
+			people.plusMinus = people.balance - people.startingBalance
+			for custs in self.customers:
+				if people.playerNumber == custs.playerNumber:
+					custs.balance = people.balance
+					custs.plusMinus = people.plusMinus
+			for leaders in self.leaderboard:
+				if people.playerNumber == leaders.playerNumber:
+					leaders.balance = people.balance
+					leaders.plusMinus = people.plusMinus
+		for people in self.blackjackGame.playerList:
+			people.plusMinus = people.balance - people.statingBalance
+			for custs in self.customers:
+                                if people.playerNumber == custs.playerNumber:
+                                        custs.balance = people.balance
+                                        custs.plusMinus = people.plusMinus
+                        for leaders in self.leaderboard:
+                                if people.playerNumber == leaders.playerNumber:
+                                        leaders.balance = people.balance
+                                        leaders.plusMinus = people.plusMinus
+                for people in self.fishGame.playerList:
+                        people.plusMinus = people.balance - people.statingBalance
+                        for custs in self.customers:
+                                if people.playerNumber == custs.playerNumber:
+                                        custs.balance = people.balance
+                                        custs.plusMinus = people.plusMinus
+                        for leaders in self.leaderboard:
+                                if people.playerNumber == leaders.playerNumber:
+                                        leaders.balance = people.balance
+                                        leaders.plusMinus = people.plusMinus
+                for people in self.rouletteGame.playerList:
+                        people.plusMinus = people.balance - people.statingBalance
+                        for custs in self.customers:
+                                if people.playerNumber == custs.playerNumber:
+                                        custs.balance = people.balance
+                                        custs.plusMinus = people.plusMinus
+                        for leaders in self.leaderboard:
+                                if people.playerNumber == leaders.playerNumber:
+                                        leaders.balance = people.balance
+                                        leaders.plusMinus = people.plusMinus
+                for people in self.horseBetting.playerList:
+                        people.plusMinus = people.balance - people.statingBalance
+                        for custs in self.customers:
+                                if people.playerNumber == custs.playerNumber:
+                                        custs.balance = people.balance
+                                        custs.plusMinus = people.plusMinus
+                        for leaders in self.leaderboard:
+                                if people.playerNumber == leaders.playerNumber:
+                                        leaders.balance = people.balance
+                                        leaders.plusMinus = people.plusMinus
+
+
 	def runCasino(self):
 		for i in range(self.rounds):
 			if self.poker == 1:
 				self.pokerGame.playRound()
 			if self.blackjack == 1:
-				self.blackjackGame.playRound()
+				self.blackjackGame.blackjackgame()
 			if self.fish == 1:
 				self.goFishGame.playRound()
 			if self.roulette == 1:
 				self.rouletteGame.playRound()
 			if self.horses == 1:
 				self.horseBetting.playRound()
+			self.updateBoards()
 			self.playerControl()
 
 	def printStats(self):
+		self.profit = self.pokerGame.casinoWinnings + self.blackjackGame.blackjackWinnings + self.fishGame.casinoWinnings + self.rouletteGame.casinoWinnings + self.horseBetting.casinoWinnings
 		#poker
 		print "Poker Stats:"
 		print "     Casino Winnings from Poker: $", self.pokerGame.casinoWinnings
 		pokerPercent = (self.pokerGame.casinoWinnings/self.profit) * 100 #percent profit from poker
 		print "       Percent:", pokerPercent, "%"
 		averageAnte = (self.pokerGame.casinoWinnings /self.pokerGame.rake) / self.rounds #casino winnings = ante * rake => ante = casino winnings/rake, divide by rounds to find average
-		print "     Average Ante: $", averageAnte, 
+		print "     Average Ante: $", averageAnte,
 		print "     Rake Percent:", (self.pokerGame.rake * 100),"%"
 		#blackjack
 		print "Blackjack Stats:"
@@ -291,7 +487,7 @@ class casino:
 		bjPercent = (self.blackjackGame.casinoWinnings/self.profit) * 100 #percent profit from blackjack
 		print "       Percent:", bjPercent, "%"
 		#calculate average bet?
-		print "     Dealer Hard Stand:", self.blackjackGame.dealerStand 
+		print "     Dealer Hard Stand:", self.blackjackGame.dealerStand
 		#calculate times dealer busts based on hard stand value?
 		#Go Fish
 		print "Go Fish Stats:"
@@ -323,9 +519,9 @@ class casino:
 		print "Player Status:", self.leaderboard[index].status
 
 	def printLeaderboard(self):
-		for people in self.leaderboard
+		for people in self.leaderboard:
 			people.plusMinus = people.balance - people.startingBalance #sets all players final over/under of starting balance
-		self.leaderboard.sort(key = lambda, x: x.plusMinus) #will sort leaderboard based on the final over/under of starting balance
+		self.leaderboard.sort(key = lambda x: x.plusMinus) #will sort leaderboard based on the final over/under of starting balance
 		for i in range(len(self.leaderboard)):
 			if i == 0: #top player of the "night" (1 full simulation)
 				print "======= Top Whales ======="
@@ -351,24 +547,165 @@ class casino:
 				print "========================="
 			else: #any player in the middle
 				printPlayer(i)
-			
+
 	def play(self):
 		print "Welcome to the Casino Simulator"
-		while quit != 0:
-			self.playerInstantiation()
-			self.simMenu()
+		while quit != 1:
 			self.runCasino()
 			self.printStats()
 			self.printLeaderboard()
 			choice = input("Would you like to run another simulation? Yes[1]/No[0]: ")
 			if choice != 1:
 				quit = 1
-				print "Thank you for playing."			
+				print "Thank you for playing."
 
-class player():
+class hand:
+	playerNum = 0
+    	handValue = 0
+    	highCard = 0
+    	highCard2 = 0
+    	royal = [10,11,12,13,14]
+
+    	def __init__(self, num):
+		self.playerNum = num
+		self.cValues = []
+		for z in range(5):
+	    		self.cValues.append(z)
+		self.sValues = []
+		for x in range(5):
+	    		self.sValues.append(x)
+
+    	def dealCards(self):
+        	for a in range(5):
+            		card = random.randint(2, 14)
+            		self.cValues[a] = card
+            		suit = random.randint(1, 4)
+            		self.sValues[a] = suit
+            		#print "Card:", self.cValues[a], "Suit:", self.sValues[a]
+
+    	def dealCard(self):
+        	cValue = random.randint(2,14)
+        	return cValue
+
+    	def dealCardSuit(self):
+        	sValue = random.randint(1,4)
+        	return sValue
+
+#following functions adapted from http://pythonfiddle.com/poker-game/
+
+    	def hasFlush(self):
+        	suit = self.sValues[0]
+		count = 0
+        	for i in range(5):
+            		if suit == self.sValues[i]:# if not a flush
+     	        		count += 1
+			if count == 5:
+            			self.cValues.sort()
+            		for z in range(5):
+                		if self.cValues[z] == self.royal[z]: # if royal flush
+		    			self.handValue = 10
+				else: #else, its a flush but not royal
+                    			low = min(self.cValues)   #check for other flushes
+                    			if (low + 1 in self.cValues) and (low + 2 in self.cValues) and (low + 3 in self.cValues) and (low + 4 in self.cValues): # if straight flush
+                        			self.handValue = 9
+                        			self.highCard = (low + 4)
+                    			else: # regular flush
+                        			if self.handValue > 6:
+                            				self.handValue = self.handValue
+                        			else:
+                            				self.handValue = 6
+		#print "Player has hand value", self.handValue, "after checking for flushes"
+
+    	def hasStraight(self):
+            	self.cValues.sort()
+            	low = min(self.cValues)
+            	if (low + 1 in self.cValues) and (low + 2 in self.cValues) and (low + 3 in self.cValues) and (low + 4 in self.cValues): # if straight
+                    	self.handValue = 5
+                    	self.highCard = (low + 4)
+          	#print "Player has hand value", self.handValue, "after checking straight"
+
+    	def hasFullHouse(self):
+            	self.cValues.sort()
+            	cardA = self.cValues.count(self.cValues[0])
+            	cardB = self.cValues.count(self.cValues[4])
+            	if (cardA == 2 and cardB == 3):
+                	self.handValue = 7
+                	self.highCard = self.cValues[4]
+                	self.highCard2 = self.cValues[0]
+            	elif (cardA == 3 and cardB == 2):
+                	self.handValue = 7
+                	self.highCard = self.cValues[0]
+                	self.highCard2 = self.cValues[4]
+
+    	def hasFour(self):
+           	self.cValues.sort()
+            	cardA = self.cValues.count(self.cValues[0])
+            	cardB = self.cValues.count(self.cValues[4])
+            	if cardA == 4: # player has 4 of a kind
+                	self.handValue = 8
+                	self.highCard = self.cValues[0]
+            	elif cardB == 4: # player again has 4 of a kind
+                	self.handValue = 8
+                	self.highCard = self.cValues[4]
+
+    	def hasThree(self):
+            	self.cValues.sort()
+            	cardA = self.cValues.count(self.cValues[0])
+            	cardB = self.cValues.count(self.cValues[4])
+            	if cardA == 3: # player has 3 of a kind
+                	self.handValue = 4
+                	self.highCard = self.cValues[0]
+            	elif cardB == 3:
+                	self.handValue = 4
+                	self.highCard = self.cValues[4]
+
+    	def hasTwoPair(self):
+            	self.cValues.sort()
+            	cardA = self.cValues.count(self.cValues[0])
+            	cardB = self.cValues.count(self.cValues[2])
+            	cardC = self.cValues.count(self.cValues[4])
+            	if (cardA == 2 and cardB == 2):
+                	self.handValue = 3
+                	self.highCard = self.cValues[2]
+                	self.highCard2 = self.cValues[0]
+            	elif (cardA == 2 and cardC == 2):
+                	self.handValue = 3
+                	self.highCard = self.cValues[4]
+                	self.highCard2 = self.cValues[0]
+            	elif (cardB == 2 and cardC == 2):
+                	self.handValue = 3
+                	self.highCard = self.cValues[4]
+                	self.highCard2 = self.cValues[2]
+
+    	def hasPair(self):
+        	self.cValues.sort()
+        	cardA = self.cValues.count(self.cValues[0])
+        	cardB = self.cValues.count(self.cValues[2])
+        	cardC = self.cValues.count(self.cValues[4])
+        	if cardA == 2:
+                	self.handValue = 2
+                	self.highCard = self.cValues[0]
+        	elif cardB == 2:
+                	self.handValue = 2
+                	self.highCard = self.cValues[2]
+        	elif cardC == 2:
+                	self.handValue = 2
+                	self.highCard = self.cValues[4]
+
+
+    	def setHighCard(self):
+        	if self.cValues[0] == 1:
+            		self.highCard = 1
+            		self.handValue = 1
+        	else:
+            		self.highCard = self.cValues[4]
+            		self.handValue = 1
+
+
+class player:
 	startingBalance = 0
 	balance = 0 #current balance
-	plusMinus = 0 
+	plusMinus = 0
 	playType = 0
 	status = " "
 	bluff = 0
@@ -379,6 +716,21 @@ class player():
     	allIn = 0
     	fold = 0
     	playerNumber = 0
+	toat = 0 #blackjack
+	hand = []
+	final = 0
+	win = 0
+	a = 0
+	b = 0
+	c = 0
+	d = 0
+	e = 0
+	f = 0
+	g = 0
+	h = 0
+	i = 0
+	j = 0
+
     	def __init__(self, num):
 		self.playerNumber = num
         	self.balance = random.randint(40000, 55000)
