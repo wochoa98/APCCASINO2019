@@ -1,6 +1,7 @@
 import random
 import time
 from array import *
+from horse_racing.horse_racing import *
 
 class casino:
     profit = 0
@@ -84,21 +85,21 @@ class casino:
                     for i in range(6):
                             newPlayer = player(self.custCount)
                             newPlayer.status = "Horse Betting"
-                            self.borseBetting.playerList.append(newPlayer)
+                            self.horseBetting.playerList.append(newPlayer)
                             self.customers.append(newPlayer) #added as active player
-            for players in self.fishGame.playerList:
-                    if players.balance < 1000:
-                            self.fishGame.playerList.remove(players)
-                            self.customers.remove(players)
-                            for people in self.leaderboard:
-                                    if people == players:
-                                            people.status = "OOH"
-                            newPlayer = player(custCount)
-                            newPlayer.status = "Go Fish"
-                            self.customers.append(newPlayer)
-                            self.leaderboard.append(newPlayer)
-                            self.fishGame.payerList.append(newPlayer)
-                            self.leaderboard.append(newPlayer) #added to records
+            #for players in self.fishGame.playerList:
+            #        if players.balance < 1000:
+            #                self.fishGame.playerList.remove(players)
+            #                self.customers.remove(players)
+            #                for people in self.leaderboard:
+            #                        if people == players:
+            #                                people.status = "OOH"
+            #                newPlayer = player(custCount)
+            #                newPlayer.status = "Go Fish"
+            #                self.customers.append(newPlayer)
+            #                self.leaderboard.append(newPlayer)
+            #                self.fishGame.payerList.append(newPlayer)
+            #                self.leaderboard.append(newPlayer) #added to records
 
     def playerControl(self):
             # run a check first for players that will not make minimums, check poker for struggling people who are being outbet, readd new players to fill void
@@ -404,161 +405,161 @@ class casino:
                                                 people.status == playerMoving.status
 
 
-        def updateBoards(self):
-            for people in self.pokerGame.playerList:
-                people.plusMinus = people.balance - people.startingBalance
-                for custs in self.customers:
-                    if people.playerNumber == custs.playerNumber:
-                            custs.balance = people.balance
-                            custs.plusMinus = people.plusMinus
-                for leaders in self.leaderboard:
-                        if people.playerNumber == leaders.playerNumber:
-                                leaders.balance = people.balance
-                                leaders.plusMinus = people.plusMinus
-                for people in self.blackjackGame.playerList:
-                        people.plusMinus = people.balance - people.statingBalance
-                        for custs in self.customers:
-                                if people.playerNumber == custs.playerNumber:
-                                        custs.balance = people.balance
-                                        custs.plusMinus = people.plusMinus
-                        for leaders in self.leaderboard:
-                                if people.playerNumber == leaders.playerNumber:
-                                        leaders.balance = people.balance
-                                        leaders.plusMinus = people.plusMinus
-                for people in self.fishGame.playerList:
-                        people.plusMinus = people.balance - people.statingBalance
-                        for custs in self.customers:
-                                if people.playerNumber == custs.playerNumber:
-                                        custs.balance = people.balance
-                                        custs.plusMinus = people.plusMinus
-                        for leaders in self.leaderboard:
-                                if people.playerNumber == leaders.playerNumber:
-                                        leaders.balance = people.balance
-                                        leaders.plusMinus = people.plusMinus
-                for people in self.rouletteGame.playerList:
-                        people.plusMinus = people.balance - people.statingBalance
-                        for custs in self.customers:
-                                if people.playerNumber == custs.playerNumber:
-                                        custs.balance = people.balance
-                                        custs.plusMinus = people.plusMinus
-                        for leaders in self.leaderboard:
-                                if people.playerNumber == leaders.playerNumber:
-                                        leaders.balance = people.balance
-                                        leaders.plusMinus = people.plusMinus
-                for people in self.horseBetting.playerList:
-                        people.plusMinus = people.balance - people.statingBalance
-                        for custs in self.customers:
-                                if people.playerNumber == custs.playerNumber:
-                                        custs.balance = people.balance
-                                        custs.plusMinus = people.plusMinus
-                        for leaders in self.leaderboard:
-                                if people.playerNumber == leaders.playerNumber:
-                                        leaders.balance = people.balance
-                                        leaders.plusMinus = people.plusMinus
+    def updateBoards(self):
+        for people in self.pokerGame.playerList:
+            people.plusMinus = people.balance - people.startingBalance
+            for custs in self.customers:
+                if people.playerNumber == custs.playerNumber:
+                        custs.balance = people.balance
+                        custs.plusMinus = people.plusMinus
+            for leaders in self.leaderboard:
+                    if people.playerNumber == leaders.playerNumber:
+                            leaders.balance = people.balance
+                            leaders.plusMinus = people.plusMinus
+            for people in self.blackjackGame.playerList:
+                    people.plusMinus = people.balance - people.statingBalance
+                    for custs in self.customers:
+                            if people.playerNumber == custs.playerNumber:
+                                    custs.balance = people.balance
+                                    custs.plusMinus = people.plusMinus
+                    for leaders in self.leaderboard:
+                            if people.playerNumber == leaders.playerNumber:
+                                    leaders.balance = people.balance
+                                    leaders.plusMinus = people.plusMinus
+            for people in self.fishGame.playerList:
+                    people.plusMinus = people.balance - people.statingBalance
+                    for custs in self.customers:
+                            if people.playerNumber == custs.playerNumber:
+                                    custs.balance = people.balance
+                                    custs.plusMinus = people.plusMinus
+                    for leaders in self.leaderboard:
+                            if people.playerNumber == leaders.playerNumber:
+                                    leaders.balance = people.balance
+                                    leaders.plusMinus = people.plusMinus
+            for people in self.rouletteGame.playerList:
+                    people.plusMinus = people.balance - people.statingBalance
+                    for custs in self.customers:
+                            if people.playerNumber == custs.playerNumber:
+                                    custs.balance = people.balance
+                                    custs.plusMinus = people.plusMinus
+                    for leaders in self.leaderboard:
+                            if people.playerNumber == leaders.playerNumber:
+                                    leaders.balance = people.balance
+                                    leaders.plusMinus = people.plusMinus
+            for people in self.horseBetting.playerList:
+                    people.plusMinus = people.balance - people.statingBalance
+                    for custs in self.customers:
+                            if people.playerNumber == custs.playerNumber:
+                                    custs.balance = people.balance
+                                    custs.plusMinus = people.plusMinus
+                    for leaders in self.leaderboard:
+                            if people.playerNumber == leaders.playerNumber:
+                                    leaders.balance = people.balance
+                                    leaders.plusMinus = people.plusMinus
 
 
-        def runCasino(self):
-            for i in range(self.rounds):
-                if self.poker == 1:
-                    self.pokerGame.playRound()
-                if self.blackjack == 1:
-                    self.blackjackGame.blackjackgame()
-                if self.fish == 1:
-                    self.goFishGame.playRound()
-                if self.roulette == 1:
-                    self.rouletteGame.playRound()
-                if self.horses == 1:
-                    self.horseBetting.playRound()
-                    self.updateBoards()
-                self.playerControl()
+    def runCasino(self):
+        for i in range(self.rounds):
+            if self.poker == 1:
+                self.pokerGame.playRound()
+            if self.blackjack == 1:
+                self.blackjackGame.blackjackgame()
+            if self.fish == 1:
+                self.goFishGame.playRound()
+            if self.roulette == 1:
+                self.rouletteGame.playRound()
+            if self.horses == 1:
+                self.horseBetting.playRound()
+                self.updateBoards()
+            self.playerControl()
 
-        def printStats(self):
-            self.profit = self.pokerGame.casinoWinnings + self.blackjackGame.blackjackWinnings + self.fishGame.casinoWinnings + self.rouletteGame.casinoWinnings + self.horseBetting.casinoWinnings
-            #poker
-            print("Poker Stats:")
-            print("     Casino Winnings from Poker: $", self.pokerGame.casinoWinnings)
-            pokerPercent = (self.pokerGame.casinoWinnings/self.profit) * 100 #percent profit from poker
-            print("       Percent:", pokerPercent, "%")
-            averageAnte = (self.pokerGame.casinoWinnings /self.pokerGame.rake) / self.rounds #casino winnings = ante * rake => ante = casino winnings/rake, divide by rounds to find average
-            print("     Average Ante: $", averageAnte, end=' ')
-            print("     Rake Percent:", (self.pokerGame.rake * 100),"%")
-            #blackjack
-            print("Blackjack Stats:")
-            print("     Casino Winnings from Blackjack: $", self.blackjackGame.casinoWinnings)
-            bjPercent = (self.blackjackGame.casinoWinnings/self.profit) * 100 #percent profit from blackjack
-            print("       Percent:", bjPercent, "%")
-            #calculate average bet?
-            print("     Dealer Hard Stand:", self.blackjackGame.dealerStand)
-            #calculate times dealer busts based on hard stand value?
-            #Go Fish
-            print("Go Fish Stats:")
-            print("     Casino winnings from Go Fish: $", self.fishGame.casinoWinnings)
-            fishPercent = (self.fishGame.casinoWinnings/self.profit) * 100 #percent profit from Go Fish
-            print("       Percent:", fishPercent, "%")
-            print("     Table Minimum: $", self.fishGame.tableMin)
-            print("     Table Vig:", self.fishGame.vig, "%")
-                    ## Other Fish Stats?
-            #roulette
-            print("Roulette Stats:")
-            print("     Casino Winnings from Roulette: $", self.rouletteGame.casinoWinnings)
-            roulettePercent = (self.rouletteGame.casinoWinnings/self.profit) * 100 #percent profit from Roulette
-            print("       Percent:", roulettePercent, "%")
-            print("     Table Minimum: $", self.rouletteGame.tableMin)
-                    ## player win rate?
-            #horse betting
-            print("Horse Betting Stats:")
-            print("     Casino Winnings from Horse Betting: $", self.horseBetting.casinoWinnings)
-            horsePercent = (self.horseBetting.casinoWinnings/self.profit) * 100 #percent profit from horse betting
-            print("       Percent:", horsePercent, "%")
-            print("     Accuracy of Odds:", self.horseBetting.accuracyRate, "%")
-                    ## player win rate from odds
+    def printStats(self):
+        self.profit = self.pokerGame.casinoWinnings + self.blackjackGame.blackjackWinnings + self.fishGame.casinoWinnings + self.rouletteGame.casinoWinnings + self.horseBetting.casinoWinnings
+        #poker
+        print("Poker Stats:")
+        print("     Casino Winnings from Poker: $", self.pokerGame.casinoWinnings)
+        pokerPercent = (self.pokerGame.casinoWinnings/self.profit) * 100 #percent profit from poker
+        print("       Percent:", pokerPercent, "%")
+        averageAnte = (self.pokerGame.casinoWinnings /self.pokerGame.rake) / self.rounds #casino winnings = ante * rake => ante = casino winnings/rake, divide by rounds to find average
+        print("     Average Ante: $", averageAnte, end=' ')
+        print("     Rake Percent:", (self.pokerGame.rake * 100),"%")
+        #blackjack
+        print("Blackjack Stats:")
+        print("     Casino Winnings from Blackjack: $", self.blackjackGame.casinoWinnings)
+        bjPercent = (self.blackjackGame.casinoWinnings/self.profit) * 100 #percent profit from blackjack
+        print("       Percent:", bjPercent, "%")
+        #calculate average bet?
+        print("     Dealer Hard Stand:", self.blackjackGame.dealerStand)
+        #calculate times dealer busts based on hard stand value?
+        #Go Fish
+        print("Go Fish Stats:")
+        print("     Casino winnings from Go Fish: $", self.fishGame.casinoWinnings)
+        fishPercent = (self.fishGame.casinoWinnings/self.profit) * 100 #percent profit from Go Fish
+        print("       Percent:", fishPercent, "%")
+        print("     Table Minimum: $", self.fishGame.tableMin)
+        print("     Table Vig:", self.fishGame.vig, "%")
+                ## Other Fish Stats?
+        #roulette
+        print("Roulette Stats:")
+        print("     Casino Winnings from Roulette: $", self.rouletteGame.casinoWinnings)
+        roulettePercent = (self.rouletteGame.casinoWinnings/self.profit) * 100 #percent profit from Roulette
+        print("       Percent:", roulettePercent, "%")
+        print("     Table Minimum: $", self.rouletteGame.tableMin)
+                ## player win rate?
+        #horse betting
+        print("Horse Betting Stats:")
+        print("     Casino Winnings from Horse Betting: $", self.horseBetting.casinoWinnings)
+        horsePercent = (self.horseBetting.casinoWinnings/self.profit) * 100 #percent profit from horse betting
+        print("       Percent:", horsePercent, "%")
+        print("     Accuracy of Odds:", self.horseBetting.accuracyRate, "%")
+                ## player win rate from odds
 
-        def printPlayer(self, index):
-            print("Player Number:", self.leaderboard[index].playerNumber)
-            print("Overall Winnings:", self.leaderboard[index].plusMinus)
-            print("Player Type:", self.leaderboard[index].playType)
-            print("Player Status:", self.leaderboard[index].status)
+    def printPlayer(self, index):
+        print("Player Number:", self.leaderboard[index].playerNumber)
+        print("Overall Winnings:", self.leaderboard[index].plusMinus)
+        print("Player Type:", self.leaderboard[index].playType)
+        print("Player Status:", self.leaderboard[index].status)
 
-        def printLeaderboard(self):
-            for people in self.leaderboard:
-                people.plusMinus = people.balance - people.startingBalance #sets all players final over/under of starting balance
-                self.leaderboard.sort(key = lambda x: x.plusMinus) #will sort leaderboard based on the final over/under of starting balance
-                for i in range(len(self.leaderboard)):
-                    if i == 0: #top player of the "night" (1 full simulation)
-                        print("======= Top Whales =======")
-                        print("The top whale of the night was:")
+    def printLeaderboard(self):
+        for people in self.leaderboard:
+            people.plusMinus = people.balance - people.startingBalance #sets all players final over/under of starting balance
+            self.leaderboard.sort(key = lambda x: x.plusMinus) #will sort leaderboard based on the final over/under of starting balance
+            for i in range(len(self.leaderboard)):
+                if i == 0: #top player of the "night" (1 full simulation)
+                    print("======= Top Whales =======")
+                    print("The top whale of the night was:")
+                    printPlayer(i)
+                elif i == 1: #second player
+                        print("The second place player of the night was:")
                         printPlayer(i)
-                    elif i == 1: #second player
-                            print("The second place player of the night was:")
-                            printPlayer(i)
-                    elif i == 2: #third player
-                            print("The third place player of the night was:")
-                            printPlayer(i)
-                            print("==========================")
-                    elif i == len(self.leaderboard) - 3: #third worst player
-                            print("====== Bottom Fish ======")
-                            print("The third worst player of the night was:")
-                            printPlayer(i)
-                    elif i == len(self.leaderboard) - 2:
-                            print("The second worst player of the night was:")
-                            printPlayer(i)
-                    elif i == len(self.leaderboard) -1 : #worst player
-                            print("The fish of the night was:")
-                            printPlayer(i)
-                            print("=========================")
-                    else: #any player in the middle
-                            printPlayer(i)
+                elif i == 2: #third player
+                        print("The third place player of the night was:")
+                        printPlayer(i)
+                        print("==========================")
+                elif i == len(self.leaderboard) - 3: #third worst player
+                        print("====== Bottom Fish ======")
+                        print("The third worst player of the night was:")
+                        printPlayer(i)
+                elif i == len(self.leaderboard) - 2:
+                        print("The second worst player of the night was:")
+                        printPlayer(i)
+                elif i == len(self.leaderboard) -1 : #worst player
+                        print("The fish of the night was:")
+                        printPlayer(i)
+                        print("=========================")
+                else: #any player in the middle
+                        printPlayer(i)
 
-        def play(self):
-            print("Welcome to the Casino Simulator")
-            while quit != 1:
-                self.runCasino()
-                self.printStats()
-                self.printLeaderboard()
-                choice = eval(input("Would you like to run another simulation? Yes[1]/No[0]: "))
-                if choice != 1:
-                    quit = 1
-                    print("Thank you for playing.")
+    def play(self):
+        print("Welcome to the Casino Simulator")
+        while self.quit != 1:
+            self.runCasino()
+            self.printStats()
+            self.printLeaderboard()
+            choice = eval(input("Would you like to run another simulation? Yes[1]/No[0]: "))
+            if choice != 1:
+                self.quit = 1
+                print("Thank you for playing.")
 
 class hand:
     playerNum = 0
