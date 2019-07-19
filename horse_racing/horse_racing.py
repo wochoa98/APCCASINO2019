@@ -129,7 +129,7 @@ class Race:
             if player.playType == 1:
                 chosen_horse = sorted_odds[-1][1]
             elif player.playType == 2:
-                bet_choice = -1*random.randint(0,2)
+                bet_choice = -1*random.randint(0,len(horses)/3) # Bet on top 1/3rd
                 chosen_horse = sorted_odds[bet_choice][1]
             elif player.playType == 3:
                 bet_choice = random.randint(0, len(horses))
