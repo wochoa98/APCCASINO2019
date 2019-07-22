@@ -99,7 +99,7 @@ class roulette:
 		self.roll()
 		for p in self.playerList:
 			p.bet = random.randint(self.tableM, p.startingBalance)
-			p.balance = p.startingBalance - p.bet
+			p.balance -= p.bet
 			p.a = random.randint(1,12)
 			p.b = random.randint(1,12)
 			p.c = random.randint(1,12)
