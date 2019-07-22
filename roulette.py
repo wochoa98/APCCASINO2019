@@ -31,7 +31,7 @@ p6 = player(6, 3500)
 
 pL = [p1, p2, p3, p4, p5, p6]
 
-class rouletteGame:
+class roulette:
 	playerList = []
 	casinoWinnings = 0
 	result = 0
@@ -60,11 +60,11 @@ class rouletteGame:
 
 
 	def tableMin(self, tableMin):
-		if tableMin == 1:
+		if tableMin == 3:
 			self.tableM = 1000
 		elif tableMin == 2:
 			self.tableM = 2000
-		elif tableMin == 3:
+		elif tableMin == 1:
 			self.tableM= 3000
 
 	def __init__(self, pL):
@@ -94,7 +94,7 @@ class rouletteGame:
 	Play type 3 will bet on payouts such as 11:1, 17:1, 35:1
 	'''
 
-	def playGame(self):
+	def playRound(self):
 
 		self.roll()
 		for p in self.playerList:
@@ -447,8 +447,8 @@ class rouletteGame:
 			#player_bet_balance(p)
 			#bet_places(p)
 
-newGame = rouletteGame(pL)
-newGame.playGame()
+newGame = roulette(pL)
+newGame.playRound()
 
 '''
 player_bet_balance(p1)
