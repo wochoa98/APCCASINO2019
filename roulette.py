@@ -36,7 +36,13 @@ class roulette:
 	playerList = []
 	casinoWinnings = 0
 	result = 0
-	tableM = 3
+	tableM = 0
+	if self.tableM == 3:
+		self.tableM = 1000
+	elif self.tableM == 2:
+		self.tableM = 2000
+	elif self.tableM == 1:
+		self.tableM = 3000
 
 	straight_up = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36]
 	first_dozen = [1,2,3,4,5,6,7,8,9,10,11,12]
@@ -96,12 +102,7 @@ class roulette:
 	'''
 
 	def playRound(self):
-		if self.tableM == 3:
-			self.tableM = 1000
-		elif self.tableM == 2:
-			self.tableM = 2000
-		elif self.tableM == 1:
-			self.tableM = 3000
+
 		self.roll()
 		for p in self.playerList:
 			p.bet = random.randint(self.tableM, p.startingBalance)
@@ -449,14 +450,14 @@ class roulette:
 						p.balance = p.balance
 
 						#print("Oh no!", p.playerNumber,"", self.result, "did not land in", self.bet_placement3[1][1][p.j], "or", self.bet_placement3[3][1], "you now have", p.balance, "dollars")
-		print(self.casinoWinnings)
+		#print(self.casinoWinnings)
 			#player_bet_balance(p)
 			#bet_places(p)
-
+'''
 newGame = roulette(pL)
 newGame.playRound()
 
-'''
+
 player_bet_balance(p1)
 player_bet_balance(p2)
 player_bet_balance(p3)
