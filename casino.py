@@ -15,7 +15,7 @@ class casino:
 
 
     def simMenu(self):
-            print "Select what games you would like to run, minimum of 2 of the 5."
+            print ("Select what games you would like to run, minimum of 2 of the 5.")
             total = 0
             while total < 2:
                     self.poker = eval(input("Do you want to run Poker? Yes[1]/No[0]: "))
@@ -48,7 +48,7 @@ class casino:
                             self.horseBetting = Race(accuracy)
                     total = self.poker + self.blackjack + self.fish + self.roulette + self.horses
                     if total < 2:
-                            print "I'm sorry, you didn't select enough games to run. Please try again."
+                            print("I'm sorry, you didn't select enough games to run. Please try again.")
             self.rounds = eval(input("How many rounds would you like to run through?: "))
 
 
