@@ -11,8 +11,9 @@ class goFish:
 		self.inGameDeck = gameDeck()
 		self.pot = 0
 		self.winnings = 0
+		self.casinoP = 0.1
 		
-	def playGame(self,g):
+	def playGame(self):
 	
 		self.buyIn()
 		self.inGameDeck.dealHands(self.playerList)
@@ -91,7 +92,7 @@ class goFish:
 				
 				
 		if(self.pot > 0):			
-			casinoTake = self.pot*0.1
+			casinoTake = self.pot*self.casinoP
 			self.pot = self.pot - casinoTake
 			self.winnings = self.winnings + casinoTake
 		
