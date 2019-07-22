@@ -2,6 +2,7 @@ import random
 import time
 from array import *
 from horse_racing.horse_racing import *
+from roulette import *
 
 class casino:
     profit = 0
@@ -425,7 +426,7 @@ class casino:
                                             leaders.plusMinus = people.plusMinus
             if self.blackjack == 1:
                     for people in self.blackjackGame.playerList:
-                            people.plusMinus = people.balance - people.statingBalance
+                            people.plusMinus = people.balance - people.startingBalance
                             for custs in self.customers:
                                     if people.playerNumber == custs.playerNumber:
                                             custs.balance = people.balance
@@ -436,7 +437,7 @@ class casino:
                                             leaders.plusMinus = people.plusMinus
             if self.fish == 1:
                     for people in self.fishGame.playerList:
-                            people.plusMinus = people.balance - people.statingBalance
+                            people.plusMinus = people.balance - people.startingBalance
                             for custs in self.customers:
                                     if people.playerNumber == custs.playerNumber:
                                             custs.balance = people.balance
@@ -447,7 +448,7 @@ class casino:
                                             leaders.plusMinus = people.plusMinus
             if self.roulette == 1:
                     for people in self.rouletteGame.playerList:
-                            people.plusMinus = people.balance - people.statingBalance
+                            people.plusMinus = people.balance - people.startingBalance
                             for custs in self.customers:
                                     if people.playerNumber == custs.playerNumber:
                                             custs.balance = people.balance
@@ -458,7 +459,7 @@ class casino:
                                             leaders.plusMinus = people.plusMinus
             if self.horses == 1:
                     for people in self.horseBetting.playerList:
-                            people.plusMinus = people.balance - people.statingBalance
+                            people.plusMinus = people.balance - people.startingBalance
                             for custs in self.customers:
                                     if people.playerNumber == custs.playerNumber:
                                             custs.balance = people.balance
