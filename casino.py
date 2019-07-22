@@ -27,21 +27,21 @@ class casino:
                     if self.blackjack == 1:
                             self.blackjackGame = blackjack()
                             stand = eval(input("What is the dealer's hard stand value (Recommended 17): "))
-                            self.blackjackGame.dealerStand = stand
+                            self.blackjackGame.DH2 = stand
                             max = eval(input("What would you like the blackjack value to be (Recommended/Usually 21)?"))
-                            # set blackjack value
+                            self.blackjackGame.bjNum = max
                     self.fish = eval(input("Do you want to run Go Fish? Yes[1]/No[0]: "))
                     if self.fish == 1:
                             self.fishGame = goFish()
                             fishVig = eval(input("What would you like the rake percent to be (write as decimal): "))
-                            self.fishGame.vig = fishVig
-                            buyIn = eval(input("Do you want a high table minimum [1], an average table minimum [2], or a low table minimum [3]?: "))
+                            self.fishGame.casinoP = fishVig
+                            #buyIn = eval(input("Do you want a high table minimum [1], an average table minimum [2], or a low table minimum [3]?: "))
                             #set fishGame.tableMin = buyIn
                     self.roulette = eval(input("Do you want to run roulette? Yes[1]/No[0]: "))
                     if self.roulette == 1:
                             self.rouletteGame = roulette()
                             tableMin = eval(input("Do you want a high table minimum [1], an average table minimum [2], or a low table minimum [3]?: "))
-                            #set variable in game
+                            self.rouletteGame.tableM = tableMin
                     self.horses = eval(input("Do you want to run horse betting? Yes[1]/No[0]: "))
                     if self.horses == 1:
                             accuracy = eval(input("Do you want the horse odd predictions to be very accurate [1], somewhat accurate [2], or innaccurate [3]: "))
