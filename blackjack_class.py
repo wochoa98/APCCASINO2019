@@ -1,53 +1,19 @@
 class blackjackGame:
 
 
-	def __init__(self, bjNumIn, DH2In):
-		self.bjNumIn = bjNum
-		self.DH2In = DH2
+	def __init__(self):
+		self.bjNum = 21
+		self.DH2 = 16
 		self.playerList = playerList[]
-	
+		self.dealer0 = dealer()
 
 	import random
 	
 	deck = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
-	blackjackWinnings = 0
+	bjWinnings = bjTempPot - 50000
 	bjTempPot = 50000
 
-	class player:
-
-		startingBalance = 1000
-		balance = 1000
-		plusMinus = 0
-		playType = 0
-		toat = 0
-		final = 0
-		win = 0
-		#winCount=0
-		hand = []
-		#count = 0
-
-		def dealStart(self):
-			self.hand = []
-			for i in range(2):
-				card = random.choice(deck)
-				self.hand.append(card)
-			
-		def __init__(self, countIn):
-			self.count=countIn
-			self.playType=random.randint(1, 3)
-		
-		def total(self):
-			for i in self.hand:
-				if i == 'A' and self.toat<=10:
-					self.toat+=11
-				elif i == 'A' and self.toat>=11:
-					self.toat+=1
-				else:
-					self.toat+=i
-
-
-	dealer0 = dealer()
 
 	def takeBets():
 		for i in playerList:
@@ -174,19 +140,9 @@ class blackjackGame:
 					done = 0
 
 	def blackjackgame():
-		#playerNum = 0
-		#playerNum = input('How many players would you like to use?: ')
 		done = 1
-		#idk=2
-		#for i in range(playerNum):
-		#	newPlayer = player(idk)
-		#	playerList.append(newPlayer)
-		#	idk+=1
 		while(done):
 			choice = 1
-			#print('Press 1 to play a round of blackjack.')
-			#print('Press 2 to quit.')
-			#choice = input('Choice: ')
 			ntb = 0
 			if choice == 1:
 				takeBets()
@@ -214,13 +170,6 @@ class blackjackGame:
 				dealer0.win=0
 				dealer0.hand=[]
 				done = 0
-			#elif choice == 2:
-				#done = 0
-				#for i in playerList:
-				#	print("Player ", i.count, " won this many times: ", i.winCount)
-			#else:
-				#print('Invalid entry, please enter 1 or 2.')
-	blackjackgame()
 
 class dealer:
 
