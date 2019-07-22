@@ -1,3 +1,4 @@
+'''
 import random, time
 
 class player:
@@ -30,12 +31,19 @@ p5 = player(5, 3000)
 p6 = player(6, 3500)
 
 pL = [p1, p2, p3, p4, p5, p6]
-
+'''
 class roulette:
 	playerList = []
 	casinoWinnings = 0
 	result = 0
-	tableM = 1000
+	tableM = 0
+	if self.tableM == 3:
+		self.tableM = 1000
+	elif self.tableM == 2:
+		self.tableM = 2000
+	elif self.tableM == 1:
+		self.tableM = 3000
+
 	straight_up = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36]
 	first_dozen = [1,2,3,4,5,6,7,8,9,10,11,12]
 	second_dozen = [13,14,15,16,17,18,19,20,21,22,23,24]
@@ -57,7 +65,6 @@ class roulette:
 	bet_placement1 = {1 : ['1-18', lower_half], 2 : ['even', even], 3 :['red', red], 4 : ['black', black], 5 : ['odd', odd], 6 : ['19-36', upper_half], 7 : ['1st Dozen', first_dozen], 8 :['2nd Dozen', second_dozen], 9 : ['3rd Dozen', third_dozen], 10 : ['1st column', first_column], 11 : ['2nd column',second_column], 12 : ['3rd column', third_column] }
 	bet_placement2 = {1: ['line', line], 2 : ['corner', corner], 3 : ['street', street]}
 	bet_placement3 = {1 : ['straight up', straight_up], 2 : ["split", split], 3 : ['basket', basket]}
-
 
 	def tableMin(self, tableMin):
 		if tableMin == 3:
