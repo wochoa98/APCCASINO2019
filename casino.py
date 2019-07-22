@@ -3,6 +3,7 @@ import time
 from array import *
 from horse_racing.horse_racing import *
 from roulette import *
+from blackjack_class import *
 
 class casino:
     profit = 0
@@ -26,7 +27,7 @@ class casino:
                             pokerGame.rake = pokerVig
                     self.blackjack = eval(input("Do you want to run Blackjack? Yes[1]/No[0]: "))
                     if self.blackjack == 1:
-                            self.blackjackGame = blackjack()
+                            self.blackjackGame = blackjackGame()
                             stand = eval(input("What is the dealer's hard stand value (Recommended 17): "))
                             self.blackjackGame.DH2 = stand
                             max = eval(input("What would you like the blackjack value to be (Recommended/Usually 21)?"))
@@ -866,6 +867,22 @@ class player:
                             betPer = random.randint(15,25) #player type 2 and 3 bets 15 to 25 percent on royal flush
                             self.bet = betPer * self.balance / 100
                             return self.bet
+    def dealStart(self):
+        self.hand = []
+        for i in range(2):
+            deck = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+            card = random.choice(deck)
+            self.hand.append(card)
+            
+    def total(self):
+        for i in self.hand:
+            if i == 'A' and self.toat<=10:
+                self.toat+=11
+            elif i == 'A' and self.toat>=11:
+                self.toat+=1
+            else:
+                self.toat+=i
+
     def placeBet2(self):
             if self.bluff == 1:
                     betPer = random.randint(25,35) #bluff bets 25 to 35 percent on bet
