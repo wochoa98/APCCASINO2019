@@ -4,6 +4,7 @@ from array import *
 from horse_racing.horse_racing import *
 from roulette import *
 from blackjack_class import *
+from poker import *
 
 class casino:
     profit = 0
@@ -24,7 +25,7 @@ class casino:
                     if self.poker == 1:
                             self.pokerGame = poker()
                             pokerVig = eval(input("What would you like the rake percent to be (write as decimal): "))
-                            pokerGame.rake = pokerVig
+                            self.pokerGame.rake = pokerVig
                     self.blackjack = eval(input("Do you want to run Blackjack? Yes[1]/No[0]: "))
                     if self.blackjack == 1:
                             self.blackjackGame = blackjackGame()
@@ -772,7 +773,7 @@ class player:
             betPer = 0.0
             if self.playType == 3:
                     bluff = random.randint(1,20) #gives player type 3 a 5% chance of bluffing
-            if bluff == 20:
+            if self.bluff == 20:
                     self.bluff = 1
                     betPer = random.randint(15,25) #bluff bets 15 to 25 percent on first bet
                     self.bet = betPer * self.balance / 100
