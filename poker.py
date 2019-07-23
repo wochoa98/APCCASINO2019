@@ -196,8 +196,7 @@ class poker:
                         players.localHand.sValues[m] = players.localHand.dealCardSuit()
 
     def playRound(self):
-        self.setBlind()
-        self.introBets()
+        self.setBuyIn()
         self.dealRound()
         self.determineHand()
         self.playRound1()
