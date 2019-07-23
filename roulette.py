@@ -1,3 +1,5 @@
+import random
+
 class roulette:
 	playerList = []
 	casinoWinnings = 0
