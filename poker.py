@@ -28,7 +28,7 @@ class poker:
                         break
 
     def determineHand(self):
-        for i in range(3):
+        for i in range(len(self.playerList)):
             self.playerList[i].localHand.setHighCard()
             self.playerList[i].localHand.hasPair()
             self.playerList[i].localHand.hasTwoPair()
