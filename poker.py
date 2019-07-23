@@ -128,9 +128,9 @@ class poker:
             for players in contenders: #find player and add winnings
                 if players.localHand.handValue == highHand:
                     winnings = self.ante * (1 - self.rake)
-                    casinoWinnings = self.ante * self.rake
+                    casinoProfit = self.ante * self.rake
                     players.balance = players.balance + winnings
-                    self.casinoWinnings = self.casinoWinnings + casinoWinnings
+                    self.casinoWinnings = self.casinoWinnings + casinoProfit
         else: #there are competing winning hands
             highCardHolder = [] #holds high card
             lowCardHolder = [] #holds second high card to break high card tie
@@ -153,9 +153,9 @@ class poker:
                 for players in contenders:
                     if (players.localHand.handValue == highHand) and (players.localHand.highCard == winningCard):
                         winnings = self.ante * (1 - self.rake)
-                        casinoWinnings = self.ante * self.rake
+                        casinoProfit = self.ante * self.rake
                         players.balance = players.balance + winnings
-                        self.casinoWinnings = self.casinoWinnings + casinoWinnings
+                        self.casinoWinnings = self.casinoWinnings + casinoProfit
             else: #if counter > 1, therefore there are matching high cards
                 for k in lowCardHolder:
                     if k > winningCard2:
@@ -167,16 +167,16 @@ class poker:
                     for players in contenders:
                         if (players.localHand.handValue == highHand) and (players.localHand.highCard == winningCard) and (players.localHand.highCard2 == winningCard2):
                             winnings = self.ante * (1 - self.rake)
-                            casinoWinnings = self.ante * self.rake
+                            casinoProfit = self.ante * self.rake
                             players.balance = players.balance + winnings
-                            self.casinoWinnings = self.casinoWinnings + casinoWinnings
+                            self.casinoWinnings = self.casinoWinnings + casinoProfit
                         else: #if high and low cards compete, aka same exact hands
                             totalWinnings = self.ante * (1 - self.rake)
                             winnings = totalWinnings/counter
                             for players in contenders:
                                 if (players.localHand.handValue == highHand) and (players.localHand.highCard == winningCard) and (players.localHand.highCard2 == winningCard2):
-                                    casinoWinnings = self.ante * self.rake
-                                    self.casinoWinnings = self.casinoWinnings + casinoWinnings
+                                    casinoProfit = self.ante * self.rake
+                                    self.casinoWinnings = self.casinoWinnings + casinoProfit
                                     players.balance = players.balance + winnings
 
     def resetPlayers(self):
