@@ -789,7 +789,7 @@ class player:
         if self.bluff == 20:
             self.bluff = 1
             betPer = random.randint(15,25) #bluff bets 15 to 25 percent on first bet
-            self.bet = betPer * self.balance / 100
+            self.bet = betPer * self.startingBalance / 100
             return self.bet
         if self.localHand.handValue == 1: #player has high card
             if self.playType == 1:
@@ -798,79 +798,79 @@ class player:
                 return 0 #returning a 0 will be a fold, player type 1 folds on high card for safety
             else:
                 betPer = random.randint(4,6) #player type 2 and 3 bet 4 to 6 percent on hgih card hands
-                self.bet = betPer * self.balance / 100
+                self.bet = betPer * self.startingBalance / 100
                 return self.bet
         elif self.localHand.handValue == 2: #player has pair
             if self.playType == 1:
                 betPer = random.randint(4,6) #player type 1 will bet 4 to 6%
-                self.bet = betPer * self.balance / 100
+                self.bet = betPer * self.startingBalance / 100
                 return self.bet
             else:
                 betPer = random.randint(3,7) #player type 2 and 3 will bet 3 to 7 percent on a pair
-                self.bet = betPer * self.balance / 100
+                self.bet = betPer * self.startingBalance / 100
                 return self.bet
         elif self.localHand.handValue == 3: #player has 2 pair
             if self.playType == 1:
                 betPer = random.randint(4,6) #player type 1 betse 4 to 6 percent on 2 pair
-                self.bet = betPer * self.balance / 100
+                self.bet = betPer * self.startingBalance / 100
                 return self.bet
             else:
                 betPer = random.randint(6,10) #player type 2 and 3 bet 6 to 10 percent on 2 pair
-                self.bet = betPer * self.balance / 100
+                self.bet = betPer * self.startingBalance / 100
                 return self.bet
         elif self.localHand.handValue == 4: #player has 3 of a kind
             if self.playType == 1:
                 betPer = random.randint(7,9) #plaer type 1 only bets 7 to 9 percent on 3 of a kind
-                self.bet = betPer * self.balance / 100
+                self.bet = betPer * self.startingBalance / 100
                 return self.bet
             else:
                 betPer = random.randint(7, 13) #player type 2 and 3 will bet 7 to 13 percent on 3 of a kind
-                self.bet = betPer * self.balance / 100
+                self.bet = betPer * self.startingBalance / 100
                 return self.bet
         elif self.localHand.handValue == 5: #player has a Straight
             if self.playType == 1:
                 betPer = random.randint(7,9) #player type 1 will bet 7 to 9 percent on a straight
-                self.bet = betPer * self.balance / 100
+                self.bet = betPer * self.startingBalance / 100
                 return self.bet
             else:
                 betPer = random.randint(7,13) #player type 2 and 3 will bet 7 to 13 percent on a straight
-                self.bet = betPer * self.balance / 100
+                self.bet = betPer * self.startingBalance / 100
                 return self.bet
         elif self.localHand.handValue == 6: #player has flush
             if self.playType == 1:
                 betPer = random.randint(8,12) #player type 1 will bet 8 to 12 percent on a flush
-                self.bet = betPer * self.balance / 100
+                self.bet = betPer * self.startingBalance / 100
                 return self.bet
             else:
                 betPer = random.randint(10,20) #player type 2 and 3 will bet 10 to 20 percent on a flush
-                self.bet = betPer * self.balance / 100
+                self.bet = betPer * self.startingBalance / 100
                 return self.bet
         elif self.localHand.handValue == 7: #player has full house
             if self.playType == 1:
                 betPer = random.randint(13,17) #player type 1 will bet 13 to 17 % on a full house
-                self.bet = betPer * self.balance / 100
+                self.bet = betPer * self.startingBalance / 100
                 return self.bet
             else:
                 betPer = random.randint(10,20) #player type 2 nd 3 will bet 10 to 20 percent on a full house
-                self.bet = betPer * self.balance / 100
+                self.bet = betPer * self.startingBalance / 100
                 return self.bet
         elif self.localHand.handValue == 8: #player has 4 of a kind
             if self.playType == 1:
                 betPer = random.randint(18,22) #player type 1 bets 18 to 22 percent on 4 of a kind
-                self.bet = betPer * self.balance / 100
+                self.bet = betPer * self.startingBalance / 100
                 return self.bet
             else:
                 betPer = random.randint(10,20) #player 2 and 3 bet 10 to 20 percent on 4 of a kind
-                self.bet = betPer * self.balance / 100
+                self.bet = betPer * self.startingBalance / 100
                 return self.bet
         elif self.localHand.handValue == 9: #player has a straight flush
             if self.playType == 1:
                 betPer = random.randint(18,22) #player 1 bets 18 to 22 percent on a straight flush
-                self.bet = betPer * self.balance / 100
+                self.bet = betPer * self.startingBalance / 100
                 return self.bet
             else:
                 betPer = random.randint(15,25) #player type 2 and 3 bets 15 to 25 percent on straight flush
-                self.bet = betPer * self.balance / 100
+                self.bet = betPer * self.startingBalance / 100
                 return self.bet
         else: #player has royal flush
             if self.playType == 1:
@@ -879,8 +879,9 @@ class player:
                 return self.bet
             else:
                 betPer = random.randint(15,25) #player type 2 and 3 bets 15 to 25 percent on royal flush
-                self.bet = betPer * self.balance / 100
+                self.bet = betPer * self.startingBalance / 100
                 return self.bet
+            
     def dealStart(self):
         self.hand = []
         for i in range(2):
@@ -900,7 +901,7 @@ class player:
     def placeBet2(self):
         if self.bluff == 1:
             betPer = random.randint(25,35) #bluff bets 25 to 35 percent on bet
-            self.bet2 = betPer * self.balance / 100
+            self.bet2 = betPer * self.startingBalance / 100
             return self.bet2
         if self.allIn == 1:
             self.bet2 = 0
@@ -913,79 +914,79 @@ class player:
                 return 0 #returning a 0 will be a fold, player type 1 folds on high card for safety
             else:
                 betPer = random.randint(4,6) #player type 2 and 3 bet 4 to 6 percent on hgih card hands
-                self.bet2 = betPer * self.balance / 100
+                self.bet2 = betPer * self.startingBalance / 100
                 return self.bet2
         elif self.localHand.handValue == 2: #player has pair
             if self.playType == 1:
                 betPer = random.randint(4,6) #player type 1 will bet 4 to 6%
-                self.bet2 = betPer * self.balance / 100
+                self.bet2 = betPer * self.startingBalance / 100
                 return self.bet2
             else:
                 betPer = random.randint(3,7) #player type 2 and 3 will bet 3 to 7 percent on a pair
-                self.bet2 = betPer * self.balance / 100
+                self.bet2 = betPer * self.startingBalance / 100
                 return self.bet2
         elif self.localHand.handValue == 3: #player has 2 pair
             if self.playType == 1:
                 betPer = random.randint(4,6) #player type 1 betse 4 to 6 percent on 2 pair
-                self.bet2 = betPer * self.balance / 100
+                self.bet2 = betPer * self.startingBalance / 100
                 return self.bet2
             else:
                 betPer = random.randint(6,10) #player type 2 and 3 bet 6 to 10 percent on 2 pair
-                self.bet2 = betPer * self.balance / 100
+                self.bet2 = betPer * self.startingBalance / 100
                 return self.bet2
         elif self.localHand.handValue == 4: #player has 3 of a kind
             if self.playType == 1:
                 betPer = random.randint(7,9) #plaer type 1 only bets 7 to 9 percent on 3 of a kind
-                self.bet2 = betPer * self.balance / 100
+                self.bet2 = betPer * self.startingBalance / 100
                 return self.bet2
             else:
                 betPer = random.randint(7, 13) #player type 2 and 3 will bet 7 to 13 percent on 3 of a kind
-                self.bet2 = betPer * self.balance / 100
+                self.bet2 = betPer * self.startingBalance / 100
                 return self.bet2
         elif self.localHand.handValue == 5: #player has a Straight
             if self.playType == 1:
                 betPer = random.randint(7,9) #player type 1 will bet 7 to 9 percent on a straight
-                self.bet2 = betPer * self.balance / 100
+                self.bet2 = betPer * self.startingBalance / 100
                 return self.bet2
             else:
                 betPer = random.randint(12,18) #player type 2 and 3 will bet 12 to 19 percent on a straight
-                self.bet2 = betPer * self.balance / 100
+                self.bet2 = betPer * self.startingBalance / 100
                 return self.bet2
         elif self.localHand.handValue == 6: #player has flush
             if self.playType == 1:
                 betPer = random.randint(8,12) #player type 1 will bet 8 to 12 percent on a flush
-                self.bet2 = betPer * self.balance / 100
+                self.bet2 = betPer * self.startingBalance / 100
                 return self.bet2
             else:
                 betPer = random.randint(15,25) #player type 2 and 3 will bet 15 to 25 percent on a flush
-                self.bet2 = betPer * self.balance / 100
+                self.bet2 = betPer * self.startingBalance / 100
                 return self.bet2
         elif self.localHand.handValue == 7: #player has full house
             if self.playType == 1:
                 betPer = random.randint(13,17) #player type 1 will bet 13 to 17 % on a full house
-                self.bet2 = betPer * self.balance / 100
+                self.bet2 = betPer * self.startingBalance / 100
                 return self.bet2
             else:
                 betPer = random.randint(15,25) #player type 2 nd 3 will bet 15 to 25 percent on a full house
-                self.bet2 = betPer * self.balance / 100
+                self.bet2 = betPer * self.startingBalance / 100
                 return self.bet2
         elif self.localHand.handValue == 8: #player has 4 of a kind
             if self.playType == 1:
                 betPer = random.randint(18,22) #player type 1 bets 18 to 22 percent on 4 of a kind
-                self.bet2 = betPer * self.balance / 100
+                self.bet2 = betPer * self.startingBalance / 100
                 return self.bet2
             else:
                 betPer = random.randint(20,30) #player 2 and 3 bet 20 to 30 percent on 4 of a kind
-                self.bet2 = betPer * self.balance / 100
+                self.bet2 = betPer * self.startingBalance / 100
                 return self.bet2
         elif self.localHand.handValue == 9: #player has a straight flush
             if self.playerType == 1:
                 betPer = random.randint(18,22) #player 1 bets 18 to 22 percent on a straight flush
-                self.bet2 = betPer * self.balance / 100
+                self.bet2 = betPer * self.startingBalance / 100
                 return self.bet2
             else:
                 betPer = random.randint(20,30) #player type 2 and 3 bets 20 to 30 percent on straight flush
-                self.bet2 = betPer * self.balance / 100
+                self.bet2 = betPer * self.startingBalance / 100
                 return self.bet2
         else: #player has royal flush
             if self.playType == 1:
