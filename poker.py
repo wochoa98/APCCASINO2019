@@ -49,7 +49,7 @@ class poker:
                 self.ante = self.ante + 1000
 
     def dealRound(self):
-        for m in range(3):
+        for m in range(len(self.playerList)):
             for n in range(5):
                 if self.playerList[m].localHand.playerNum == self.playerList[m].playerNumber:
                     self.playerList[m].localHand.cValues[n] = self.playerList[m].localHand.dealCard()
