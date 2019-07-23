@@ -53,6 +53,11 @@ class casino:
             total = self.poker + self.blackjack + self.fish + self.roulette + self.horses
             if total < 2:
                 print("I'm sorry, you didn't select enough games to run. Please try again.")
+                self.poker = 0
+                self.blackjack = 0
+                self.fish = 0
+                self.roulette = 0
+                self.horses = 0
         self.rounds = eval(input("How many rounds would you like to run through?: "))
 
 
@@ -115,86 +120,91 @@ class casino:
         # run a check first for players that will not make minimums, check poker for struggling people who are being outbet, readd new players to fill void
         #make minimum money at a poker table 5k, every other game minimum is 1k, players leave their games if they have less than 1k at start of round
         #check poker first for 5k
-        for players in self.pokerGame.playerList:
-            if players.balance < 5000:
-                self.pokerGame.playerList.remove(players) #removes from players and active customers, keeps record
-                self.customers.remove(players)
-                for people in self.leaderboard:
-                    if people == players:
-                        people.status == "OOH"
-                newPlayer = player(self.custCount)
-                newPlayer.status = "Poker"
-                self.customers.append(newPlayer)
-                self.leaderboard.append(newPlayer)
-                self.pokerGame.playerList.append(newPlayer)
+        if self.poker == 1:
+            for players in self.pokerGame.playerList:
+                if players.balance < 5000:
+                    self.pokerGame.playerList.remove(players) #removes from players and active customers, keeps record
+                    self.customers.remove(players)
+                    for people in self.leaderboard:
+                        if people == players:
+                            people.status == "OOH"
+                    newPlayer = player(self.custCount)
+                    newPlayer.status = "Poker"
+                    self.customers.append(newPlayer)
+                    self.leaderboard.append(newPlayer)
+                    self.pokerGame.playerList.append(newPlayer)
         #check each game for less than 1000 now
-        for players in self.blackjackGame.playerList:
-            if players.balance < 1000:
-                self.blackjackGame.playerList.remove(players)
-                self.customers.remove(players)
-                for people in self.leaderboard:
-                    if people == players:
-                        people.status = "OOH"
-                newPlayer = player(self.custCount)
-                newPlayer.status = "Blackjack"
-                self.customers.append(newPlayer)
-                self.leaderboard.append(newPlayer)
-                self.blackjackGame.playerList.append(newPlayer)
-        for players in self.fishGame.playerList:
-            if players.balance < 1000:
-                self.fishGame.playerList.remove(players)
-                self.customers.remove(players)
-                for people in self.leaderboard:
-                    if people == players:
-                        people.status = "OOH"
-                newPlayer = player(custCount)
-                newPlayer.status = "Go Fish"
-                self.customers.append(newPlayer)
-                self.leaderboard.append(newPlayer)
-                self.fishGame.payerList.append(newPlayer)
-        for players in self.rouletteGame.playerList:
-            if players.balance < 1000:
-                self.rouletteGame.playerList.remove(players)
-                self.customers.remove(players)
-                for people in self.leaderboard:
-                    if people == players:
-                        people.status == "OOH"
-                newPlayer = player(custCount)
-                newPlayer.status = "Roulette"
-                self.customers.append(newPlayer)
-                self.leaderboard.append(newPlayer)
-                self.rouletteGame.playerList.append(newPlayer)
-        for players in self.horseBetting.playerList:
-            if players.balance < 1000:
-                self.horseBetting.playerList.remove(players)
-                self.customers.remove(players)
-                for people in self.leaderboard:
-                    if people == players:
-                        people.status == "OOH"
-                newPlayer = player(custCount)
-                newPlayer.status = "Horse Betting"
-                self.customers.append(newPlayer)
-                self.leaderboard.append(newPlayer)
-                self.horseBetting.playerList.append(newPlayer)
+        if self.blackjack == 1:
+            for players in self.blackjackGame.playerList:
+                if players.balance < 1000:
+                    self.blackjackGame.playerList.remove(players)
+                    self.customers.remove(players)
+                    for people in self.leaderboard:
+                        if people == players:
+                            people.status = "OOH"
+                    newPlayer = player(self.custCount)
+                    newPlayer.status = "Blackjack"
+                    self.customers.append(newPlayer)
+                    self.leaderboard.append(newPlayer)
+                    self.blackjackGame.playerList.append(newPlayer)
+        if self.fish == 1:
+            for players in self.fishGame.playerList:
+                if players.balance < 1000:
+                    self.fishGame.playerList.remove(players)
+                    self.customers.remove(players)
+                    for people in self.leaderboard:
+                        if people == players:
+                            people.status = "OOH"
+                    newPlayer = player(custCount)
+                    newPlayer.status = "Go Fish"
+                    self.customers.append(newPlayer)
+                    self.leaderboard.append(newPlayer)
+                    self.fishGame.payerList.append(newPlayer)
+        if self.roulette == 1:
+            for players in self.rouletteGame.playerList:
+                if players.balance < 1000:
+                    self.rouletteGame.playerList.remove(players)
+                    self.customers.remove(players)
+                    for people in self.leaderboard:
+                        if people == players:
+                            people.status == "OOH"
+                    newPlayer = player(custCount)
+                    newPlayer.status = "Roulette"
+                    self.customers.append(newPlayer)
+                    self.leaderboard.append(newPlayer)
+                    self.rouletteGame.playerList.append(newPlayer)
+        if self.horses == 1:
+            for players in self.horseBetting.playerList:
+                if players.balance < 1000:
+                    self.horseBetting.playerList.remove(players)
+                    self.customers.remove(players)
+                    for people in self.leaderboard:
+                        if people == players:
+                            people.status == "OOH"
+                    newPlayer = player(custCount)
+                    newPlayer.status = "Horse Betting"
+                    self.customers.append(newPlayer)
+                    self.leaderboard.append(newPlayer)
+                    self.horseBetting.playerList.append(newPlayer)
         playerAction = random.randint(1,4) # 1=addPlayer, 2=deletePlayer, 3=movePlayer, 4=noChange
         if playerAction == 1:
             player2add = player(custCount)
             gameAdded = random.randint(1,5) #selects game randomly that it will append to
             if gameAdded == 1: # 1 will be poker
                 player2add.status = "Poker"
-                #self.pokerGame.playerList.append(player2add) #added to poker player list
+                self.pokerGame.playerList.append(player2add) #added to poker player list
             elif gameAdded == 2: # 2 will be blackjack
                 player2add.status = "Blackjack"
-                #self.blackjackGame.playerList.append(player2add) #added to blackjack player list
+                self.blackjackGame.playerList.append(player2add) #added to blackjack player list
             elif gameAdded == 3: # 3 will be go fish
                 player2add.status = "Go Fish"
-                #self.goFishGame.playerList.append(player2add) #added to go fish player list
+                self.goFishGame.playerList.append(player2add) #added to go fish player list
             elif gameAdded == 4: # 4 will be roulette
                 player2add.status = "Roulete"
-                #self.rouletteGame.playerList.append(player2add) #added to the roulette player list
+                self.rouletteGame.playerList.append(player2add) #added to the roulette player list
             else: #5 was selected, 5 will be horse betting
                 player2add.status = "Horse Betting"
-                #self.horseBetting.playerList.append(player2add) #added to the horse betting player list
+                self.horseBetting.playerList.append(player2add) #added to the horse betting player list
 
             self.customers.append(player2add) #adds as active player to casino
             self.leaderboard.append(player2add) #adds player record to casino
