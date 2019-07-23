@@ -188,23 +188,35 @@ class casino:
         playerAction = random.randint(1,4) # 1=addPlayer, 2=deletePlayer, 3=movePlayer, 4=noChange
         if playerAction == 1:
             player2add = player(len(self.customers))
-            gameAdded = random.randint(1,5) #selects game randomly that it will append to
-            if gameAdded == 1: # 1 will be poker
-                player2add.status = "Poker"
-                self.pokerGame.playerList.append(player2add) #added to poker player list
-            elif gameAdded == 2: # 2 will be blackjack
-                player2add.status = "Blackjack"
-                self.blackjackGame.playerList.append(player2add) #added to blackjack player list
-            elif gameAdded == 3: # 3 will be go fish
-                player2add.status = "Go Fish"
-                self.fishGame.playerList.append(player2add) #added to go fish player list
-            elif gameAdded == 4: # 4 will be roulette
-                player2add.status = "Roulete"
-                self.rouletteGame.playerList.append(player2add) #added to the roulette player list
-            else: #5 was selected, 5 will be horse betting
-                player2add.status = "Horse Betting"
-                self.horseBetting.playerList.append(player2add) #added to the horse betting player list
-
+            chosen = 0
+            while chosen == 0:
+                gameAdded = random.randint(1,5) #selects game randomly that it will append to
+                if gameAdded == 1: # 1 will be poker
+                    if self.poker == 1:
+                        player2add.status = "Poker"
+                        self.pokerGame.playerList.append(player2add) #added to poker player list
+                        chosen = 1
+                elif gameAdded == 2: # 2 will be blackjack
+                    if self.blackjack == 1:
+                        player2add.status = "Blackjack"
+                        self.blackjackGame.playerList.append(player2add) #added to blackjack player list
+                        chosen = 1
+                elif gameAdded == 3: # 3 will be go fish
+                    if self.fish == 1:
+                        player2add.status = "Go Fish"
+                        self.fishGame.playerList.append(player2add) #added to go fish player list
+                        chosen = 1
+                elif gameAdded == 4: # 4 will be roulette
+                    if self.roulette = 1:
+                        player2add.status = "Roulete"
+                        self.rouletteGame.playerList.append(player2add) #added to the roulette player list
+                        chosen = 1
+                else: #5 was selected, 5 will be horse betting
+                    if self.horses = 1:
+                        player2add.status = "Horse Betting"
+                        self.horseBetting.playerList.append(player2add) #added to the horse betting player list
+                        chosen = 1
+                        
             self.customers.append(player2add) #adds as active player to casino
             self.leaderboard.append(player2add) #adds player record to casino
 
