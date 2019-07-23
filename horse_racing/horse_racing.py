@@ -101,28 +101,32 @@ class Race:
         player.subMoney(ammount)
 
     def payout(self):
-        pool = 0
         
-        casino_money = pool*self.casino_take
-
-        self.casinoWinnings += casino_money
-
-        pool -= pool*casino_money
+        pool = 0
 
         for horse, player_bet in self.bets.items():
             for player, bet in player_bet.items():
                 pool += bet
 
+        print(pool)
+        casino_money = pool*self.casino_take
+
+        self.casinoWinnings += casino_money
+
+        pool = pool - casino_money
+
         winners_pool = 0
-        for player, bet in bets[self.winner]:
-            winners_pool += bet
-        
-        for player, bet in bets[self.winner]:
-            percent = bet / winners_pool
 
-            player_payout = pool * percent
+        if self.winner in self.bets:
+            for player, bet in self.bets[self.winner]:
+                winners_pool += bet
+            
+            for player, bet in self.bets[self.winner]:
+                percent = bet / winners_pool
 
-            player.addMoney(player_payout)
+                player_payout = pool * percent
+
+                player.addMoney(player_payout)
 
     def playRound(self):
         x = self.calc_pre_odds()
@@ -142,3 +146,6 @@ class Race:
             # Decide bet ammounts
             bet_ammount = 100
             self.place_bet(player, chosen_horse, bet_ammount)
+        
+        self.get_winner()
+        self.payout()
