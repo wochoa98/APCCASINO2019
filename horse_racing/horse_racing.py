@@ -15,6 +15,7 @@ class Horse:
 
 class Race:
 
+    
     prob_entropy = 0
 
     casino_take = .10
@@ -27,6 +28,7 @@ class Race:
     
     def __init__(self, entropy = None, horses = None, temp_low = None, temp_high = None, percip_chance = None):
 
+        self.casinoWinnings = 0
         self.playerList = []
 
         if entropy == 1:
@@ -134,7 +136,7 @@ class Race:
                 bet_choice = -1*random.randint(0,int(len(self.horses)/3)) # Bet on top 1/3rd
                 chosen_horse = sorted_odds[bet_choice][1]
             elif player.playType == 3:
-                bet_choice = random.randint(0, len(self.horses))
+                bet_choice = random.randint(0, len(self.horses)-1)
                 chosen_horse = sorted_odds[bet_choice][1]
 
             # Decide bet ammounts
