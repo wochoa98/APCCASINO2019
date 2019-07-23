@@ -23,7 +23,7 @@ class roulette:
 	black = [2,4,6,8,10,11,13,15,17,20,22,24,26,28,29,31,33,35]
 	odd = [1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35]
 	upper_half = [19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36]
-	corner = [[1,2,4,5],[2,3,5,6],[4,5,7,8],[5,6,8,9]]
+	corner = [[1,2,4,5],[2,3,5,6],[4,5,7,8],[5,6,8,9],[7,8,10,11],[8,9,11,12],[10,11,13,14],[11,12,14,15],[13,14,16,17],[14,15,17,18],[16,17,19,20],[17,18,20,21],[19,20,22,23],[20,21,23,24],[22,23,25,26],[23,24,26,27],[25,26,28,29],[26,27,29,30],[28,29,31,32],[29,30,32,33],[31,32,34,35],[32,33,35,36]]
 	street = [[1,2,3],[4,5,6],[7,8,9],[10,11,12],[13,14,15],[16,17,18],[19,20,21],[22,23,24],[25,26,27],[28,29,30],[31,32,33],[34,35,36]]
 	line = [[1,2,3,4,5,6],[7,8,9,10,11,12],[13,14,15,16,17,18],[19,20,21,22,23,24],[25,26,27,28,29,30],[31,32,33,34,35,36]]
 	split = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36] #too many combinations -> generate two numbers
@@ -80,7 +80,7 @@ class roulette:
 			p.e = random.randint(1,3)
 			p.f = random.randint(1,3)
 			p.g = random.randint(0, 5) #line
-			p.h = random.randint(0, 3) #corner
+			p.h = random.randint(0, 21) #corner
 			p.i = random.randint(0, 11) #street
 			p.j = random.randint(0, 36) #straight up
 			if p.playType == 1:
@@ -97,7 +97,6 @@ class roulette:
 							self.casinoWinnings += p.bet
 
 							##print("Oh no! ", p.playerNumber, " you lost, you now have", p.balance, "dollars")
-				'''
 				elif p.bet > p.startingBalance/3 and p.bet < p.startingBalance/1.5:
 					if p.a in self.bet_placement1 and p.b in self.bet_placement1:
 						if self.result in self.bet_placement1[p.a][1] and self.result in self.bet_placement1[p.b][1]:
@@ -163,7 +162,7 @@ class roulette:
 						if self.result not in self.bet_placement1[p.a][1] and self.result not in self.bet_placement1[p.b][1] and self.result not in self.bet_placement1[p.c][1]:
 							p.balance = p.balance
 							self.casinoWinnings += p.bet*3
-				'''
+
 							#print("Oh no!", p.playerNumber," you lost, you now have", p.balance, "dollars")
 			if p.playType == 2:
 				#if p.startingBalance < tableMin:
@@ -199,7 +198,6 @@ class roulette:
 							self.casinoWinnings += p.bet
 
 							#print("Oh no!", p.playerNumber, " you lost, you now have", p.balance, "dollars")
-				'''
 				elif p.bet > p.startingBalance/3 and p.bet < p.startingBalance/1.5:
 					if self.bet_placement2[p.d][0] == 'line':
 						if self.result in self.bet_placement2[p.d][1][p.g] and self.result in self.bet_placement2[2][1][p.h]:
@@ -363,7 +361,7 @@ class roulette:
 						if self.result not in self.bet_placement2[p.d][1][p.i] and self.result not in self.bet_placement2[1][1][p.g] and self.result not in self.bet_placement2[2][1][p.h]:
 							p.balance = p.balance
 							self.casinoWinnings += p.bet*3
-				'''
+
 							#print("Oh no!", p.playerNumber," you lost, you now have", p.balance, "dollars")
 			if p.playType == 3:
 				if p.bet <= p.startingBalance/3:
@@ -376,7 +374,6 @@ class roulette:
 						self.casinoWinnings += p.bet
 
 						#print("Oh no!", p.playerNumber,"", self.result, "did not land on", self.bet_placement3[1][1][p.j], "you now have", p.balance, "dollars")
-				'''
 				elif p.bet > p.startingBalance/3 and p.bet < p.startingBalance/1.5:
 					y = self.bet_placement3[1][1][p.j]
 					z = []
@@ -406,20 +403,21 @@ class roulette:
 					if self.result == self.bet_placement3[1][1][p.j] and self.result not in self.bet_placement3[3][1]:
 						p.balance += p.bet*36
 						p.balance -= p.bet
-						self.casinoWinnings -= p.bet*36
+						self.casinoWinnings -= p.bet*36 
 						self.casinoWinnings += p.bet
 						#print("Wow", p.playerNumber," that is amazing you got the number!", self.bet_placement3[1][1][p.j], "you now have", p.balance, "dollars")
 					if self.result != self.bet_placement3[1][1][p.j] and self.result in self.bet_placement3[3][1]:
 						p.balance += p.bet*12
 						p.balance -= p.bet
-						self.casinoWinnings -= p.bet*12
+						self.casinoWinnings -= p.bet*12 
 						self.casinoWinnings += p.bet
 						#print("Wow", p.playerNumber," that is amazing you got the basket!", self.bet_placement3[3][1], "you now have", p.balance, "dollars")
 					if self.result != self.bet_placement3[1][1][p.j] and self.result not in self.bet_placement3[3][1]:
 						p.balance = p.balance
 						self.casinoWinnings += p.bet*2
-				'''
+
 						#print("Oh no!", p.playerNumber,"", self.result, "did not land in", self.bet_placement3[1][1][p.j], "or", self.bet_placement3[3][1], "you now have", p.balance, "dollars")
 		#print(self.casinoWinnings)
 			#player_bet_balance(p)
 			#bet_places(p)
+
