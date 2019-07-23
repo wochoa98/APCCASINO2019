@@ -51,7 +51,7 @@ class blackjackGame:
                                         card = random.choice(self.deck)
                                         i.hand.append(card)
                                         i.total()
-                                elif i.toat >= 15 and i.toat <= 16:
+                                elif i.toat >= 15 and i.toat < 19:
                                         hit = random.randint(0, 1)
                                         if hit == 0:
                                                 i.final=i.toat
@@ -60,7 +60,7 @@ class blackjackGame:
                                                 card = random.choice(self.deck)
                                                 i.hand.append(card)
                                                 i.total()
-                                elif i.toat >= 17 and i.toat <= self.bjNum:
+                                elif i.toat >= 19 and i.toat <= self.bjNum:
                                         i.final = i.toat
                                         done = 0
                                 elif i.toat > self.bjNum:
@@ -78,7 +78,7 @@ class blackjackGame:
                                         card = random.choice(self.deck)
                                         i.hand.append(card)
                                         i.total()
-                                elif i.toat >= 11 and i.toat <= 15:
+                                elif i.toat > 11 and i.toat <= 14:
                                         hit = random.randint(0, 3)
                                         if hit < 1:
                                                 i.final = i.toat
@@ -105,7 +105,7 @@ class blackjackGame:
                                         card = random.choice(self.deck)
                                         i.hand.append(card)
                                         i.total()
-                                elif i.toat >= 11 and i.toat <= 13:
+                                elif i.toat >= 11 and i.toat <= 12:
                                         hit = random.randint(0, 8)
                                         if hit < 1:
                                                 i.final = i.toat
