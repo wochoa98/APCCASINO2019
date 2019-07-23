@@ -417,10 +417,7 @@ class roulette:
 						self.casinoWinnings += p.bet*2
 
 						#print("Oh no!", p.playerNumber,"", self.result, "did not land in", self.bet_placement3[1][1][p.j], "or", self.bet_placement3[3][1], "you now have", p.balance, "dollars")
-		print(self.casinoWinnings)
+		#print(self.casinoWinnings)
 			#player_bet_balance(p)
 			#bet_places(p)
-
-newGame = roulette(pL)
-newGame.playRound()
 
