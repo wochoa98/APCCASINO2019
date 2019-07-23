@@ -1,14 +1,10 @@
+import random
+
 class roulette:
 	playerList = []
 	casinoWinnings = 0
 	result = 0
 	tableM = 0
-	if self.tableM == 3:
-		self.tableM = 1000
-	elif self.tableM == 2:
-		self.tableM = 2000
-	elif self.tableM == 1:
-		self.tableM = 3000
 
 	straight_up = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36]
 	first_dozen = [1,2,3,4,5,6,7,8,9,10,11,12]
@@ -107,7 +103,7 @@ class roulette:
 							p.balance += p.bet*2
 							p.balance -= p.bet
 							self.casinoWinnings -= p.bet*2
-							self.casinoWinngins += p.bet
+							self.casinoWinnings += p.bet
 							#if self.result in self.bet_placement1[p.a][1]:
 								#print("Congratualtions ", p.playerNumber, " you won on", self.bet_placement1[p.a][0], "you now have", p.balance, "dollars")
 							#elif self.result in self.bet_placement1[p.b][1]:
@@ -127,7 +123,7 @@ class roulette:
 							p.balance += p.bet*4
 							p.balance -= p.bet
 							self.casinoWinnings -= p.bet*4
-							self.casionWinnings += p.bet
+							self.casinoWinnings += p.bet
 							#print("Congratualtions ", p.playerNumber, " you won! you now have", p.balance, "dollars")
 						if self.result in self.bet_placement1[p.a][1] and self.result not in self.bet_placement1[p.b][1] and self.result in self.bet_placement1[p.c][1]:
 							p.balance += p.bet*4
