@@ -207,12 +207,12 @@ class casino:
                         self.fishGame.playerList.append(player2add) #added to go fish player list
                         chosen = 1
                 elif gameAdded == 4: # 4 will be roulette
-                    if self.roulette = 1:
+                    if self.roulette == 1:
                         player2add.status = "Roulete"
                         self.rouletteGame.playerList.append(player2add) #added to the roulette player list
                         chosen = 1
                 else: #5 was selected, 5 will be horse betting
-                    if self.horses = 1:
+                    if self.horses == 1:
                         player2add.status = "Horse Betting"
                         self.horseBetting.playerList.append(player2add) #added to the horse betting player list
                         chosen = 1
@@ -509,7 +509,10 @@ class casino:
             if self.horses == 1:
                 self.horseBetting.playRound()
                 self.updateBoards()
-            self.playerControl()
+            try:
+                self.playerControl()
+            except:
+                print(self.customers)
 
     def printStats(self):
         if self.poker == 1:
