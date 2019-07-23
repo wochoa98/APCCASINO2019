@@ -18,20 +18,20 @@ class blackjackGame:
 
         def takeBets(self):
                 for i in self.playerList:
-                        i.balance = i.balance - 10
-                        self.bjTempPot += 10
+                        i.balance = i.balance - 1000
+                        self.bjTempPot += 1000
         
         def payout(self):
                 for i in self.playerList:
                         if i.win == 3:
-                                i.balance = i.balance + 25
-                                self.bjTempPot = self.bjTempPot - 25
+                                i.balance = i.balance + 2500
+                                self.bjTempPot = self.bjTempPot - 2500
                         elif i.win == 2:
-                                i.balance = i.balance + 10
-                                self.bjTempPot = self.bjTempPot -10
+                                i.balance = i.balance + 1000
+                                self.bjTempPot = self.bjTempPot -1000
                         elif i.win == 1:
-                                i.balance = i.balance + 20
-                                self.bjTempPot = self.bjTempPot - 20
+                                i.balance = i.balance + 2000
+                                self.bjTempPot = self.bjTempPot - 2000
 
         def dealHand(self):
                 for i in self.playerList:
