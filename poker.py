@@ -62,6 +62,7 @@ class poker:
         for players in self.playerList:
             playerNum += 1
             bet1 = players.placeBet()
+            print ("Player", players.playerNumber, "intended to bet", bet1)
             if (highBet > bet1 * 1.1) and (players.allIn != 1): #if bet is outside of 10% of intended bet, the players will fold unless they are all in
                 players.fold = 1
                 players.bet = 0
