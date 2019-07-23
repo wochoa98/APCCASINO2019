@@ -523,42 +523,47 @@ class casino:
         if self.horses == 1:
             self.profit = self.profit + self.horseBetting.casinoWinnings
         #poker
-        print("Poker Stats:")
-        print("     Casino Winnings from Poker: $", self.pokerGame.casinoWinnings)
-        pokerPercent = (self.pokerGame.casinoWinnings/self.profit) * 100 #percent profit from poker
-        print("       Percent:", pokerPercent, "%")
-        averageAnte = (self.pokerGame.casinoWinnings /self.pokerGame.rake) / self.rounds #casino winnings = ante * rake => ante = casino winnings/rake, divide by rounds to find average
-        print("     Average Ante: $", averageAnte, end=' ')
-        print("     Rake Percent:", (self.pokerGame.rake * 100),"%")
+        if self.poker == 1:
+            print("Poker Stats:")
+            print("     Casino Winnings from Poker: $", self.pokerGame.casinoWinnings)
+            pokerPercent = (self.pokerGame.casinoWinnings/self.profit) * 100 #percent profit from poker
+            print("       Percent:", pokerPercent, "%")
+            averageAnte = (self.pokerGame.casinoWinnings /self.pokerGame.rake) / self.rounds #casino winnings = ante * rake => ante = casino winnings/rake, divide by rounds to find average
+            print("     Average Ante: $", averageAnte, end=' ')
+            print("     Rake Percent:", (self.pokerGame.rake * 100),"%")
         #blackjack
-        print("Blackjack Stats:")
-        print("     Casino Winnings from Blackjack: $", self.blackjackGame.bjWinnings)
-        bjPercent = (self.blackjackGame.bjWinnings/self.profit) * 100 #percent profit from blackjack
-        print("       Percent:", bjPercent, "%")
-        #calculate average bet?
-        print("     Dealer Hard Stand:", self.blackjackGame.DH2)
+        if self.blackjack == 1:
+            print("Blackjack Stats:")
+            print("     Casino Winnings from Blackjack: $", self.blackjackGame.bjWinnings)
+            bjPercent = (self.blackjackGame.bjWinnings/self.profit) * 100 #percent profit from blackjack
+            print("       Percent:", bjPercent, "%")
+            #calculate average bet?
+            print("     Dealer Hard Stand:", self.blackjackGame.DH2)
         #calculate times dealer busts based on hard stand value?
         #Go Fish
-        print("Go Fish Stats:")
-        print("     Casino winnings from Go Fish: $", self.fishGame.winnings)
-        fishPercent = (self.fishGame.winnings/self.profit) * 100 #percent profit from Go Fish
-        print("       Percent:", fishPercent, "%")
-        #print("     Table Vig:", self.fishGame.vig, "%")
-            ## Other Fish Stats?
+        if self.fish == 1:
+            print("Go Fish Stats:")
+            print("     Casino winnings from Go Fish: $", self.fishGame.winnings)
+            fishPercent = (self.fishGame.winnings/self.profit) * 100 #percent profit from Go Fish
+            print("       Percent:", fishPercent, "%")
+            #print("     Table Vig:", self.fishGame.vig, "%")
+                ## Other Fish Stats?
         #roulette
-        print("Roulette Stats:")
-        print("     Casino Winnings from Roulette: $", self.rouletteGame.casinoWinnings)
-        roulettePercent = (self.rouletteGame.casinoWinnings/self.profit) * 100 #percent profit from Roulette
-        print("       Percent:", roulettePercent, "%")
-        print("     Table Minimum: $", self.rouletteGame.tableMin)
-            ## player win rate?
+        if self.roulette == 1:
+            print("Roulette Stats:")
+            print("     Casino Winnings from Roulette: $", self.rouletteGame.casinoWinnings)
+            roulettePercent = (self.rouletteGame.casinoWinnings/self.profit) * 100 #percent profit from Roulette
+            print("       Percent:", roulettePercent, "%")
+            print("     Table Minimum: $", self.rouletteGame.tableMin)
+                ## player win rate?
         #horse betting
-        print("Horse Betting Stats:")
-        print("     Casino Winnings from Horse Betting: $", self.horseBetting.casinoWinnings)
-        horsePercent = (self.horseBetting.casinoWinnings/self.profit) * 100 #percent profit from horse betting
-        print("       Percent:", horsePercent, "%")
-        print("     Accuracy of Odds:", self.horseBetting.prob_entropy, "%")
-            ## player win rate from odds
+        if self.horses == 1:
+            print("Horse Betting Stats:")
+            print("     Casino Winnings from Horse Betting: $", self.horseBetting.casinoWinnings)
+            horsePercent = (self.horseBetting.casinoWinnings/self.profit) * 100 #percent profit from horse betting
+            print("       Percent:", horsePercent, "%")
+            print("     Accuracy of Odds:", self.horseBetting.prob_entropy, "%")
+                ## player win rate from odds
 
     def printPlayer(self, index):
         print("Player Number:", self.leaderboard[index].playerNumber)
