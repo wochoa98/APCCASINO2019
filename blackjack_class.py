@@ -29,8 +29,8 @@ class blackjackGame:
                                 i.balance = i.balance + 1000
                                 self.bjTempPot = self.bjTempPot -1000
                         elif i.win == 1:
-                                i.balance = i.balance + 2000
-                                self.bjTempPot = self.bjTempPot - 2000
+                                i.balance = i.balance + 1500
+                                self.bjTempPot = self.bjTempPot - 1500
 
         def dealHand(self):
                 for i in self.playerList:
