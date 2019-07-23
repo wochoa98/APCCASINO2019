@@ -73,10 +73,8 @@ class Race:
             self.perf_dict[horse.id] = perf
             total_sum += perf
 
-        print("Pre-race odds:")
         for uid in self.perf_dict:
             self.pre_prob_dict[uid] = round(100 * self.perf_dict[uid] / total_sum)
-            print("{}: {}%".format(uid, self.pre_prob_dict[uid]))
 
         return self.pre_prob_dict
     
@@ -108,7 +106,6 @@ class Race:
             for player, bet in player_bet.items():
                 pool += bet
 
-        print(pool)
         casino_money = pool*self.casino_take
 
         self.casinoWinnings += casino_money
@@ -131,7 +128,6 @@ class Race:
     def playRound(self):
         x = self.calc_pre_odds()
         sorted_odds = sorted_x = sorted(x.items(), key=lambda kv: kv[1])
-        print(sorted_odds)
 
         for player in self.playerList:
             if player.playType == 1:
