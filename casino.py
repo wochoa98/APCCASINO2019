@@ -874,8 +874,7 @@ class player:
                 return self.bet
         else: #player has royal flush
             if self.playType == 1:
-                self.bet = self.balance #player type 1 goes all in on royal flush
-                self.allIn = 1
+                self.bet = newCasino.pokerGame.ante #player type 1 goes all in on royal flush
                 return self.bet
             else:
                 betPer = random.randint(15,25) #player type 2 and 3 bets 15 to 25 percent on royal flush
@@ -990,8 +989,7 @@ class player:
                 return self.bet2
         else: #player has royal flush
             if self.playType == 1:
-                self.bet2 = self.balance #player type 1 goes all in on royal flush
-                self.allIn = 1
+                self.bet2 = newCasino.pokerGame.ante #player type 1 goes all in on royal flush
                 return self.bet2
             else:
                 self.bet2 = self.balance
