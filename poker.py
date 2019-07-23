@@ -10,22 +10,10 @@ class poker:
     def __init__(self):  #constuctor for a game sets list to length 6 which is what the simulator will command it to do
         self.playerList = [] #declare in constructor so that it may be manipulated by simulator
 
-    def setBlind(self):
-        if self.gamesPlayed == 0: #if no one has played yet, big blind starts at player 0
-            self.playerList[0].BigBlind = 1
-            self.playerList[1].SmallBlind = 0
-            self.gamesPlayed = 1
-        else:
-            for i in range(len(self.playerList)):
-                players = self.playerList[i]
-                if players.BigBlind == 1:
-                    players.BigBlind = 0
-                    players.SmallBlind = 1
-                    if players == self.playerList[-1]:
-                        self.playerList[0].BigBlind = 1
-                    else:
-                        self.playerList[i+1].BigBlind = 1
-                        break
+    def setBuyIn(self):
+        for players in self.playerList:
+            players.subMoney(1000)
+            self.ante = self.ante + 1000
 
     def determineHand(self):
         for i in range(len(self.playerList)):
@@ -36,18 +24,7 @@ class poker:
             self.playerList[i].localHand.hasFullHouse()
             self.playerList[i].localHand.hasFour()
             self.playerList[i].localHand.hasFlush()
-
-    def introBets(self): #for start of game with big/small blind
-        for players in self.playerList:
-            if players.BigBlind == 1:
-                players.subMoney(0) #already ante'd up
-            elif players.SmallBlind == 1:
-                players.subMoney(500)
-                self.ante = self.ante + 500
-            else:
-                players.subMoney(1000)
-                self.ante = self.ante + 1000
-
+            
     def dealRound(self):
         for m in range(len(self.playerList)):
             for n in range(5):
@@ -81,7 +58,7 @@ class poker:
             elif highBet <= (bet1 * 1.1): #bet is within 10% tolerance of intended bet, so they call
                 players.bet = highBet #sets for call
         for players in self.playerList:
-            players.subMoney(players.bet)
+            players.balance = players.balance - players.bet
             self.ante = self.ante + players.bet
 
     def playRound2(self):
@@ -109,7 +86,7 @@ class poker:
             elif highBet < (players.bet2 * 1.1): #bet is within 10% tolerance of intended bet, so they call
                 players.bet2 = highBet #sets for call
         for players in self.playerList:
-            players.subMoney(players.bet2)
+            players.balance = players.balance - players.bet
             self.ante = self.ante + players.bet
 
     def selectWinner(self):
@@ -219,8 +196,7 @@ class poker:
                         players.localHand.sValues[m] = players.localHand.dealCardSuit()
 
     def playRound(self):
-        self.setBlind()
-        self.introBets()
+        self.setBuyIn()
         self.dealRound()
         self.determineHand()
         self.playRound1()
@@ -229,3 +205,4 @@ class poker:
         self.playRound2()
         self.selectWinner()
         self.resetPlayers()
+        self.ante = 0
