@@ -509,11 +509,6 @@ class casino:
             if self.horses == 1:
                 self.horseBetting.playRound()
                 self.updateBoards()
-            try:
-                self.playerControl()
-            except:
-                print(self.customers)
-
     def printStats(self):
         if self.poker == 1:
             self.profit = self.profit + self.pokerGame.casinoWinnings
