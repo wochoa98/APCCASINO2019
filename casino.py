@@ -557,7 +557,7 @@ class casino:
             print("     Casino Winnings from Roulette: $", self.rouletteGame.casinoWinnings)
             roulettePercent = (self.rouletteGame.casinoWinnings/self.profit) * 100 #percent profit from Roulette
             print("       Percent:", roulettePercent, "%")
-            print("     Table Minimum: $", self.rouletteGame.tableMin)
+            print("     Table Minimum: $", self.rouletteGame.tableM)
                 ## player win rate?
         #horse betting
         if self.horses == 1:
@@ -999,7 +999,7 @@ class player:
                 self.bet2 = betPer * newCasino.pokerGame.ante / 100
                 return self.bet2
         elif self.localHand.handValue == 9: #player has a straight flush
-            if self.playerType == 1:
+            if self.playType == 1:
                 betPer = random.randint(18,22) #player 1 bets 18 to 22 percent on a straight flush
                 self.bet2 = betPer * newCasino.pokerGame.ante / 100
                 return self.bet2
