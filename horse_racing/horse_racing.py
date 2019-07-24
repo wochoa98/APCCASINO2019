@@ -140,7 +140,7 @@ class Race:
                 chosen_horse = sorted_odds[bet_choice][1]
 
             # Decide bet ammounts
-            bet_ammount = 100
+            bet_ammount = random.randint(100,1000)
             self.place_bet(player, chosen_horse, bet_ammount)
         
         self.get_winner()
