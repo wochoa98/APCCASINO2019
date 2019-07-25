@@ -62,6 +62,7 @@ class casino:
 
 
     def __init__(self):
+        self.custCount = 0
         self.customers = [] #will be list of all active customers
         self.leaderboard = [] #will be static, holds player records whether active in casino or not
         #set up games
@@ -69,128 +70,167 @@ class casino:
         #for initial start there are 6 per active game
         if self.poker == 1: #first 6 players go to poker
             for i in range(6):
-                newPlayer = player(len(self.customers))
+                newPlayer = player(self.custCount)
+                self.custCount += 1
                 newPlayer.status = "Poker"
                 self.pokerGame.playerList.append(newPlayer)
                 self.customers.append(newPlayer) #added as active player
                 self.leaderboard.append(newPlayer) #added to records
         if self.blackjack == 1: #second group of 6 play blackjack
             for i in range(6):
-                newPlayer = player(len(self.customers))
+                newPlayer = player(self.custCount)
+                self.custCount += 1
                 newPlayer.status = "Blackjack"
                 self.blackjackGame.playerList.append(newPlayer)
                 self.customers.append(newPlayer) #added as active player
                 self.leaderboard.append(newPlayer) #added to records
         if self.fish == 1: #third group of 6 plays Go Fish
             for i in range(6):
-                newPlayer = player(len(self.customers))
+                newPlayer = player(self.custCount)
+                self.custCount +=1
                 newPlayer.status = "Go Fish"
                 self.fishGame.playerList.append(newPlayer)
                 self.customers.append(newPlayer) #added as active player
                 self.leaderboard.append(newPlayer) #added to records
         if self.roulette == 1: #fourth group of 6 plays Roulette
             for i in range(6):
-                newPlayer = player(len(self.customers))
+                newPlayer = player(self.custCount)
+                self.custCount += 1
                 newPlayer.status = "Roulette"
                 self.rouletteGame.playerList.append(newPlayer)
                 self.customers.append(newPlayer) #added as active player
                 self.leaderboard.append(newPlayer) #added to records
         if self.horses == 1:
             for i in range(6):
-                newPlayer = player(len(self.customers))
+                newPlayer = player(self.custCount)
+                self.custCount += 1
                 newPlayer.status = "Horse Betting"
                 self.horseBetting.playerList.append(newPlayer)
                 self.customers.append(newPlayer) #added as active player
-        #for players in self.fishGame.playerList:
-        #        if players.balance < 1000:
-        #                self.fishGame.playerList.remove(players)
-        #                self.customers.remove(players)
-        #                for people in self.leaderboard:
-        #                        if people == players:
-        #                                people.status = "OOH"
-        #                newPlayer = player(len(self.customers))
-        #                newPlayer.status = "Go Fish"
-        #                self.customers.append(newPlayer)
-        #                self.leaderboard.append(newPlayer)
-        #                self.fishGame.payerList.append(newPlayer)
-        #                self.leaderboard.append(newPlayer) #added to records
 
     def playerControl(self):
-        
+
+ 
+
         # run a check first for players that will not make minimums, check poker for struggling people who are being outbet, readd new players to fill void
+
         #make minimum money at a poker table 5k, every other game minimum is 1k, players leave their games if they have less than 1k at start of round
+
         #check poker first for 5k
+
+ 
+
+        cust_removal = []
+
         if self.poker == 1:
-            for players in self.pokerGame.playerList:
-                if players.balance < 5000:
-                    self.pokerGame.playerList.remove(players) #removes from players and active customers, keeps record
-                    self.customers.remove(players)
-                    for people in self.leaderboard:
-                        if people.playerNumber == num:
-                            people.status == "OOH"
-                    newPlayer = player(len(self.customers))
+
+            temp = [elem for elem in self.pokerGame.playerList if elem.balance < 5000]
+            self.pokerGame.playerList = [elem for elem in self.pokerGame.playerList if elem not in temp]
+            cust_removal.append(temp)
+
+
+            if len(temp) > 0:
+                for t in temp:
+                    newPlayer = player(self.custCount)
+                    self.custCount += 1
                     newPlayer.status = "Poker"
-                    self.customers.append(newPlayer)
-                    self.leaderboard.append(newPlayer)
                     self.pokerGame.playerList.append(newPlayer)
-            for players in self.pokerGame.playerList:
-                players.printPlayer()
+                    self.customers.append(newPlayer)
+                    self.leaderboard.append(newPlayer)
+
         #check each game for less than 1000 now
+
         if self.blackjack == 1:
-            for players in self.blackjackGame.playerList:
-                if players.balance < 1000:
-                    self.blackjackGame.playerList.remove(players)
-                    self.customers.remove(players)
-                    for people in self.leaderboard:
-                        if people == players:
-                            people.status = "OOH"
-                    newPlayer = player(len(self.customers))
+
+            temp = [elem for elem in self.blackjackGame.playerList if elem.balance < 5000]
+            self.blackjackGame.playerList = [elem for elem in self.blackjackGame.playerList if elem not in temp]
+            cust_removal.append(temp)
+
+ 
+
+            #self.customers.remove(players)
+
+            #self.blackjackGame.playerList.remove(players)
+
+            
+            if len(temp) > 0:
+            
+                for t in temp:
+                    newPlayer = player(self.custCount)
+                    self.custCount += 1
                     newPlayer.status = "Blackjack"
-                    self.customers.append(newPlayer)
-                    self.leaderboard.append(newPlayer)
                     self.blackjackGame.playerList.append(newPlayer)
+                    self.customers.append(newPlayer)
+                    self.leaderboard.append(newPlayer)
+
         if self.fish == 1:
-            for players in self.fishGame.playerList:
-                if players.balance < 1000:
-                    self.fishGame.playerList.remove(players)
-                    self.customers.remove(players)
-                    for people in self.leaderboard:
-                        if people == players:
-                            people.status = "OOH"
-                    newPlayer = player(len(self.customers))
+
+            temp = [elem for elem in self.fishGame.playerList if elem.balance < 5000]
+            self.fishGame.playerList = [elem for elem in self.fishGame.playerList if elem not in temp]
+            cust_removal.append(temp)
+
+ 
+ 
+            if len(temp) > 0:
+            
+                for t in temp:
+                    newPlayer = player(self.custCount)
+                    self.custCount += 1
                     newPlayer.status = "Go Fish"
+                    self.fishGame.playerList.append(newPlayer)
                     self.customers.append(newPlayer)
                     self.leaderboard.append(newPlayer)
-                    self.fishGame.payerList.append(newPlayer)
+
         if self.roulette == 1:
-            for players in self.rouletteGame.playerList:
-                if players.balance < 1000:
-                    self.rouletteGame.playerList.remove(players)
-                    self.customers.remove(players)
-                    for people in self.leaderboard:
-                        if people == players:
-                            people.status == "OOH"
-                    newPlayer = player(len(self.customers))
+
+            temp = [elem for elem in self.rouletteGame.playerList if elem.balance < 5000]
+            self.rouletteGame.playerList = [elem for elem in self.rouletteGame.playerList if elem not in temp]
+            cust_removal.append(temp)
+
+ 
+            if len(temp) > 0:
+            
+                for t in temp:
+                    newPlayer = player(self.custCount)
+                    self.custCount += 1
                     newPlayer.status = "Roulette"
-                    self.customers.append(newPlayer)
-                    self.leaderboard.append(newPlayer)
                     self.rouletteGame.playerList.append(newPlayer)
+                    #self.customers.append(newPlayer)
+                    self.leaderboard.append(newPlayer)
+
         if self.horses == 1:
-            for players in self.horseBetting.playerList:
-                if players.balance < 1000:
-                    self.horseBetting.playerList.remove(players)
-                    self.customers.remove(players)
-                    for people in self.leaderboard:
-                        if people == players:
-                            people.status == "OOH"
-                    newPlayer = player(len(self.customers))
+
+            temp = [elem for elem in self.horseBetting.playerList if elem.balance < 5000]
+            self.horseBetting.playerList = [elem for elem in self.horseBetting.playerList if elem not in temp]
+            cust_removal.append(temp)
+
+ 
+
+            if len(temp) > 0:
+            
+                for t in temp:
+                    newPlayer = player(self.custCount)
+                    self.custCount += 1
                     newPlayer.status = "Horse Betting"
+                    self.horseBetting.playerList.append(newPlayer)
                     self.customers.append(newPlayer)
                     self.leaderboard.append(newPlayer)
-                    self.horseBetting.playerList.append(newPlayer)
+            
+        if len(cust_removal) > 0:
+            for l in cust_removal:
+                for p in l:
+                    self.customers = [elem for elem in self.customers if elem.playerNumber != p.playerNumber]        
+
+        #for person in self.leaderboard:
+            
+         #   if person not in self.customers:
+#                person.status = "OOH"
+
+        
         playerAction = random.randint(1,4) # 1=addPlayer, 2=deletePlayer, 3=movePlayer, 4=noChange
         if playerAction == 1:
-            player2add = player(len(self.customers))
+            player2add = player(self.custCount)
+            self.custCount += 1
             chosen = 0
             while chosen == 0:
                 gameAdded = random.randint(1,5) #selects game randomly that it will append to
@@ -258,7 +298,7 @@ class casino:
         elif playerAction == 3:
             playerMoving = player(1000)
             moved = 0
-            player2move = random.randint(0,len(self.customers)-1)
+            player2move = random.randint(0,self.custCount-1)
             gameTo = random.randint(1,4) #player will have 4 possible games to join from the one they are leaving
             for people in self.customers:
                 if people.playerNumber == player2move:
@@ -803,10 +843,6 @@ class player:
     def addMoney(self, money):
         self.balance = self.balance + money
         
-    def printPlayer(self):
-        print "Player Number:", self.playerNumber
-        print "Balance:", self.balance
-        
     def placeBet(self):
         betPer = 0.0
         if self.playType == 3:
@@ -815,7 +851,7 @@ class player:
             self.bluff = 1
             betPer = random.randint(15,25) #bluff bets 15 to 25 percent on first bet
             self.bet = betPer * newCasino.pokerGame.ante / 100
-            return self.bet
+        
         if self.localHand.handValue == 1: #player has high card
             if self.playType == 1:
                 self.fold = 1
@@ -824,79 +860,62 @@ class player:
             else:
                 betPer = random.randint(4,6) #player type 2 and 3 bet 4 to 6 percent on hgih card hands
                 self.bet = betPer * newCasino.pokerGame.ante / 100
-                return self.bet
         elif self.localHand.handValue == 2: #player has pair
             if self.playType == 1:
                 betPer = random.randint(4,6) #player type 1 will bet 4 to 6%
                 self.bet = betPer * newCasino.pokerGame.ante / 100
-                return self.bet
             else:
                 betPer = random.randint(3,7) #player type 2 and 3 will bet 3 to 7 percent on a pair
                 self.bet = betPer * newCasino.pokerGame.ante / 100
-                return self.bet
         elif self.localHand.handValue == 3: #player has 2 pair
             if self.playType == 1:
                 betPer = random.randint(4,6) #player type 1 betse 4 to 6 percent on 2 pair
                 self.bet = betPer * newCasino.pokerGame.ante / 100
-                return self.bet
             else:
                 betPer = random.randint(6,10) #player type 2 and 3 bet 6 to 10 percent on 2 pair
                 self.bet = betPer * newCasino.pokerGame.ante / 100
-                return self.bet
         elif self.localHand.handValue == 4: #player has 3 of a kind
             if self.playType == 1:
                 betPer = random.randint(7,9) #plaer type 1 only bets 7 to 9 percent on 3 of a kind
                 self.bet = betPer * newCasino.pokerGame.ante / 100
-                return self.bet
             else:
                 betPer = random.randint(7, 13) #player type 2 and 3 will bet 7 to 13 percent on 3 of a kind
                 self.bet = betPer * newCasino.pokerGame.ante / 100
-                return self.bet
         elif self.localHand.handValue == 5: #player has a Straight
             if self.playType == 1:
                 betPer = random.randint(7,9) #player type 1 will bet 7 to 9 percent on a straight
                 self.bet = betPer * newCasino.pokerGame.ante / 100
-                return self.bet
             else:
                 betPer = random.randint(7,13) #player type 2 and 3 will bet 7 to 13 percent on a straight
                 self.bet = betPer * newCasino.pokerGame.ante / 100
-                return self.bet
         elif self.localHand.handValue == 6: #player has flush
             if self.playType == 1:
                 betPer = random.randint(8,12) #player type 1 will bet 8 to 12 percent on a flush
                 self.bet = betPer * newCasino.pokerGame.ante / 100
-                return self.bet
             else:
                 betPer = random.randint(10,20) #player type 2 and 3 will bet 10 to 20 percent on a flush
                 self.bet = betPer * newCasino.pokerGame.ante / 100
-                return self.bet
         elif self.localHand.handValue == 7: #player has full house
             if self.playType == 1:
                 betPer = random.randint(13,17) #player type 1 will bet 13 to 17 % on a full house
                 self.bet = betPer * newCasino.pokerGame.ante / 100
-                return self.bet
             else:
                 betPer = random.randint(10,20) #player type 2 nd 3 will bet 10 to 20 percent on a full house
                 self.bet = betPer * newCasino.pokerGame.ante / 100
-                return self.bet
         elif self.localHand.handValue == 8: #player has 4 of a kind
             if self.playType == 1:
                 betPer = random.randint(18,22) #player type 1 bets 18 to 22 percent on 4 of a kind
                 self.bet = betPer * newCasino.pokerGame.ante / 100
-                return self.bet
             else:
                 betPer = random.randint(10,20) #player 2 and 3 bet 10 to 20 percent on 4 of a kind
                 self.bet = betPer * newCasino.pokerGame.ante / 100
-                return self.bet
         elif self.localHand.handValue == 9: #player has a straight flush
             if self.playType == 1:
                 betPer = random.randint(18,22) #player 1 bets 18 to 22 percent on a straight flush
                 self.bet = betPer * newCasino.pokerGame.ante / 100
-                return self.bet
             else:
                 betPer = random.randint(15,25) #player type 2 and 3 bets 15 to 25 percent on straight flush
                 self.bet = betPer * newCasino.pokerGame.ante / 100
-                return self.bet
         else: #player has royal flush
             if self.playType == 1:
                 self.bet = newCasino.pokerGame.ante #player type 1 goes all in on royal flush
@@ -904,7 +923,11 @@ class player:
             else:
                 betPer = random.randint(15,25) #player type 2 and 3 bets 15 to 25 percent on royal flush
                 self.bet = betPer * newCasino.pokerGame.ante / 100
-                return self.bet
+
+        if self.bet > self.balance:
+            return 0
+        else:
+            return self.bet
             
     def dealStart(self):
         self.hand = []
@@ -926,7 +949,6 @@ class player:
         if self.bluff == 1:
             betPer = random.randint(25,35) #bluff bets 25 to 35 percent on bet
             self.bet2 = betPer * newCasino.pokerGame.ante / 100
-            return self.bet2
         if self.allIn == 1:
             self.bet2 = 0
             return 0
@@ -939,87 +961,74 @@ class player:
             else:
                 betPer = random.randint(4,6) #player type 2 and 3 bet 4 to 6 percent on hgih card hands
                 self.bet2 = betPer * newCasino.pokerGame.ante / 100
-                return self.bet2
         elif self.localHand.handValue == 2: #player has pair
             if self.playType == 1:
                 betPer = random.randint(4,6) #player type 1 will bet 4 to 6%
                 self.bet2 = betPer * newCasino.pokerGame.ante / 100
-                return self.bet2
             else:
                 betPer = random.randint(3,7) #player type 2 and 3 will bet 3 to 7 percent on a pair
                 self.bet2 = betPer * newCasino.pokerGame.ante / 100
-                return self.bet2
         elif self.localHand.handValue == 3: #player has 2 pair
             if self.playType == 1:
                 betPer = random.randint(4,6) #player type 1 betse 4 to 6 percent on 2 pair
                 self.bet2 = betPer * newCasino.pokerGame.ante / 100
-                return self.bet2
             else:
                 betPer = random.randint(6,10) #player type 2 and 3 bet 6 to 10 percent on 2 pair
                 self.bet2 = betPer * newCasino.pokerGame.ante / 100
-                return self.bet2
         elif self.localHand.handValue == 4: #player has 3 of a kind
             if self.playType == 1:
                 betPer = random.randint(7,9) #plaer type 1 only bets 7 to 9 percent on 3 of a kind
                 self.bet2 = betPer * newCasino.pokerGame.ante / 100
-                return self.bet2
             else:
                 betPer = random.randint(7, 13) #player type 2 and 3 will bet 7 to 13 percent on 3 of a kind
                 self.bet2 = betPer * newCasino.pokerGame.ante / 100
-                return self.bet2
         elif self.localHand.handValue == 5: #player has a Straight
             if self.playType == 1:
                 betPer = random.randint(7,9) #player type 1 will bet 7 to 9 percent on a straight
                 self.bet2 = betPer * newCasino.pokerGame.ante / 100
-                return self.bet2
             else:
                 betPer = random.randint(12,18) #player type 2 and 3 will bet 12 to 19 percent on a straight
                 self.bet2 = betPer * newCasino.pokerGame.ante / 100
-                return self.bet2
         elif self.localHand.handValue == 6: #player has flush
             if self.playType == 1:
                 betPer = random.randint(8,12) #player type 1 will bet 8 to 12 percent on a flush
                 self.bet2 = betPer * newCasino.pokerGame.ante / 100
-                return self.bet2
             else:
                 betPer = random.randint(15,25) #player type 2 and 3 will bet 15 to 25 percent on a flush
                 self.bet2 = betPer * newCasino.pokerGame.ante / 100
-                return self.bet2
         elif self.localHand.handValue == 7: #player has full house
             if self.playType == 1:
                 betPer = random.randint(13,17) #player type 1 will bet 13 to 17 % on a full house
                 self.bet2 = betPer * newCasino.pokerGame.ante / 100
-                return self.bet2
             else:
                 betPer = random.randint(15,25) #player type 2 nd 3 will bet 15 to 25 percent on a full house
                 self.bet2 = betPer * newCasino.pokerGame.ante / 100
-                return self.bet2
         elif self.localHand.handValue == 8: #player has 4 of a kind
             if self.playType == 1:
                 betPer = random.randint(18,22) #player type 1 bets 18 to 22 percent on 4 of a kind
                 self.bet2 = betPer * newCasino.pokerGame.ante / 100
-                return self.bet2
             else:
                 betPer = random.randint(20,30) #player 2 and 3 bet 20 to 30 percent on 4 of a kind
                 self.bet2 = betPer * newCasino.pokerGame.ante / 100
-                return self.bet2
         elif self.localHand.handValue == 9: #player has a straight flush
             if self.playType == 1:
                 betPer = random.randint(18,22) #player 1 bets 18 to 22 percent on a straight flush
                 self.bet2 = betPer * newCasino.pokerGame.ante / 100
-                return self.bet2
             else:
                 betPer = random.randint(20,30) #player type 2 and 3 bets 20 to 30 percent on straight flush
                 self.bet2 = betPer * newCasino.pokerGame.ante / 100
-                return self.bet2
         else: #player has royal flush
             if self.playType == 1:
                 self.bet2 = newCasino.pokerGame.ante #player type 1 goes all in on royal flush
-                return self.bet2
             else:
                 self.bet2 = self.balance
                 self.allIn = 1
-                return self.bet2
+
+        if self.bet2 > self.balance:
+            return 0
+
+        else:
+            return self.bet2
 
     def checkMatch(self):
         if(len(self.playerHand) >= 4):
