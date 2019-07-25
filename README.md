@@ -18,5 +18,9 @@ The simulator opens with a user menu, allowing the user to choose what games run
  - Go Fish Table Minimum: There are three options, type 1 for a high buy in (1000+), type 2 for an average bet (500-1000) and type 3 for a low bet (<500)
  - Go Fish Vig: Just as with poker, the final ante has a percentage taken out by the casino. This should again be set between 0.03 to 0.1.
  
+## Known Bugs
 
+When running a simulation with a large amount of rounds, sometimes go fish will get stuck in a loop. We currently do not know the cause of this bug. 
+
+The printout of proft percentage at the end is often incorrect. We currently do not know the cause of this bug.
 
