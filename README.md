@@ -10,10 +10,10 @@ Step 2. Click on download in the top right hand corner or 'View raw'
 Step 3. Your broswer might think the file is dangerous, click 'Keep' anyway.                         
 Step 4. Save the executable to a location on your computer.                                    
 Step 5. Go to the location of the executable and run it.                                  
-Step 6. Windows might unrecognize the app, click 'More info' and then click 'Run anyway'
-Step 7. Click Yes and save the Casino folder to a location on your computer.                         
-Step 8. Go to that location and click on the Casino folder.                               
-Step 9. Double click on 'casino.exe' and follow the prompts.                                  
+Step 6. Windows might unrecognize the app, click 'More info' and then click 'Run anyway'                        
+Step 7. Click Yes and save the Casino folder to a location on your computer.
+Step 8. Go to that location and click on the Casino folder.                                                          
+Step 9. Double click on 'casino.exe' and follow the prompts.                                                                   
 
 ## Setting up the Simulation
 
