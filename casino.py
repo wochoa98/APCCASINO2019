@@ -122,14 +122,9 @@ class casino:
         #check poker first for 5k
         if self.poker == 1:
             for players in self.pokerGame.playerList:
-                players.printPlayer()
-            for players in self.pokerGame.playerList:
                 if players.balance < 5000:
-                    num = players.playerNumber
                     self.pokerGame.playerList.remove(players) #removes from players and active customers, keeps record
-                    for people in self.customers:
-                        if people.playerNumber == num:
-                            self.customers.remove(people)
+                    self.customers.remove(players)
                     for people in self.leaderboard:
                         if people.playerNumber == num:
                             people.status == "OOH"
@@ -517,6 +512,7 @@ class casino:
             if self.horses == 1:
                 self.horseBetting.playRound()
             self.updateBoards()
+            self.playerControl()
                 
     def printStats(self):
         if self.poker == 1:
