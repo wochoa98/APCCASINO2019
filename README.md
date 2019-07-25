@@ -21,3 +21,5 @@ The simulator opens with a user menu, allowing the user to choose what games run
 ## Known Bugs
 
 When running a simulation with a large amount of rounds, sometimes go fish will get stuck in a loop. We currently do not know the cause of this bug. 
+
+Sometimes the percentages of profit for the casino do not add up properly. We currently do not know the cause of this bug. 
