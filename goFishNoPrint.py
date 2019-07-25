@@ -15,63 +15,62 @@ class goFish:
 
     def playGame(self):
 
-        #print(len(self.playerList))
+        if len(self.playerList) >= 3:
 
-        self.buyIn()
-        self.inGameDeck.dealHands(self.playerList)
-        #for p in self.playerList:
-            #print(p.playerHand)
-        pn = 1
-        round = 1
+            self.buyIn()
+            self.inGameDeck.dealHands(self.playerList)
+            
+            pn = 1
+            round = 1
 
-        self.inGameDeck.sortCards(self.playerList)
-        while self.inGameDeck.gameEnd < len(self.playerList):
-            for p in self.playerList:
+            self.inGameDeck.sortCards(self.playerList)
+            while self.inGameDeck.gameEnd < len(self.playerList):
+                for p in self.playerList:
 
-                #Player Turn
-
-                self.inGameDeck.sortCards(self.playerList)
-
-                if(len(p.playerHand) != 0):
-                    randPlayer = random.randint(1, len(self.playerList))
-
-                    while((self.playerList[randPlayer-1].playerNumber == p.playerNumber)&(len(self.playerList[randPlayer-1].playerHand) > 0)):
-                        randPlayer = random.randint(1, len(self.playerList))
-
-                    askedCard = p.askRand()
-                    self.playerList[randPlayer-1].askedPlayer(p, askedCard, self.inGameDeck)
-
+                    #Player Turn
 
                     self.inGameDeck.sortCards(self.playerList)
-                    p.checkMatch()
-                    self.inGameDeck.checkGameEnd(self.playerList)
+
+                    if(len(p.playerHand) != 0):
+                        randPlayer = random.randint(1, len(self.playerList))
+
+                        while((self.playerList[randPlayer-1].playerNumber == p.playerNumber)&(len(self.playerList[randPlayer-1].playerHand) > 0)):
+                            randPlayer = random.randint(1, len(self.playerList))
+
+                        askedCard = p.askRand()
+                        self.playerList[randPlayer-1].askedPlayer(p, askedCard, self.inGameDeck)
 
 
-                self.inGameDeck.refill(self.playerList)
+                        self.inGameDeck.sortCards(self.playerList)
+                        p.checkMatch()
+                        self.inGameDeck.checkGameEnd(self.playerList)
+
+
+                    self.inGameDeck.refill(self.playerList)
 
 
 
 
 
-                if(p.playerNumber == self.playerList[len(self.playerList)-1].playerNumber):
-                    pn = 1
+                    if(p.playerNumber == self.playerList[len(self.playerList)-1].playerNumber):
+                        pn = 1
 
-                else:
-                    pn = pn + 1
+                    else:
+                        pn = pn + 1
 
-            round = round + 1
+                round = round + 1
 
 
 
-        pn = 1
-        for p in self.playerList:
+            pn = 1
+            for p in self.playerList:
 
-            pn = pn+1
+                pn = pn+1
 
-        self.whoWon()
-        self.resetGame()
+            self.whoWon()
+            self.resetGame()
 
-        #for p in self.playerList:
+            #for p in self.playerList:
 
 
 
