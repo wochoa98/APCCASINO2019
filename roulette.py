@@ -70,7 +70,7 @@ class roulette:
 		for p in self.playerList:
 			if p.balance < self.tableM:
 				p.bet = 0
-			elif 
+			elif p.balance >= self.tableM:
 				p.bet = random.randint(self.tableM, int(p.balance))
 
 			p.a = random.randint(1,12)
