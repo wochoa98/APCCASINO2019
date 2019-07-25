@@ -70,7 +70,7 @@ class roulette:
 		for p in self.playerList:
 			if p.balance < self.tableM:
 				p.bet = 0
-			else:
+			elif 
 				p.bet = random.randint(self.tableM, int(p.balance))
 
 			p.a = random.randint(1,12)
@@ -347,7 +347,6 @@ class roulette:
 
 						#print("Oh no!", p.playerNumber,"", self.result, "did not land on", self.bet_placement3[1][1][p.j], "you now have", p.balance, "dollars")
 				elif p.bet > p.balance/3 and p.bet < p.balance/1.5:
-					p.bet = p.bet/2
 					y = self.bet_placement3[1][1][p.j]
 					z = []
 					if y == 36:
