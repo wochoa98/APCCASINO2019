@@ -220,11 +220,8 @@ class casino:
             for l in cust_removal:
                 for p in l:
                     self.customers = [elem for elem in self.customers if elem.playerNumber != p.playerNumber]        
-
-        #for person in self.leaderboard:
-            
-         #   if person not in self.customers:
-#                person.status = "OOH"
+                    if p.balance < 0:
+                        self.leaderboard.remove(p)
 
         
         playerAction = random.randint(1,4) # 1=addPlayer, 2=deletePlayer, 3=movePlayer, 4=noChange
@@ -1026,7 +1023,6 @@ class player:
 
         if self.bet2 > self.balance:
             return 0
-
         else:
             return self.bet2
 

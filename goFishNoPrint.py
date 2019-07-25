@@ -17,6 +17,7 @@ class goFish:
 
         if len(self.playerList) >= 3:
 
+            self.resetGame()
             self.buyIn()
             self.inGameDeck.dealHands(self.playerList)
             
@@ -138,9 +139,10 @@ class gameDeck:
         c = 0
         for p in players:
             for c in range(4):
-                cardNum = random.randint(0, len(self.deck)-1)
-                p.addCard(self.deck[cardNum])
-                self.deck.pop(cardNum)
+                if len(self.deck) > 0:
+                    cardNum = random.randint(0, len(self.deck)-1)
+                    p.addCard(self.deck[cardNum])
+                    self.deck.pop(cardNum)
 
 
     def resetDeck(self):

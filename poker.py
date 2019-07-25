@@ -5,10 +5,10 @@ class poker:
     gamesPlayed = 0 #keeps track for simulation
     casinoWinnings = 0
     rake = 0.03 #rake will be 3% of ante
-    ante = 0
 
     def __init__(self):  #constuctor for a game sets list to length 6 which is what the simulator will command it to do
         self.playerList = [] #declare in constructor so that it may be manipulated by simulator
+        self.ante = 0
 
     def setBuyIn(self):
         for players in self.playerList:
@@ -44,7 +44,11 @@ class poker:
                 players.fold = 1
                 players.bet = 0
             elif (highBet < bet1 * 1.1) and (highBet > bet1 * 0.9): #bet is within 10% tolerance of intended bet, so they call
-                players.bet = highBet
+                if highBet > players.balance:
+                    players.bet = 0
+                    players.fold = 1
+                else:
+                    players.bet = highBet #sets for call
             else: #highbet is less than 90% of intended bet, so the player raises
                 highBet = players.bet
                 playerWithHighBet = playerNum
@@ -56,7 +60,11 @@ class poker:
             if highBet > (players.bet * 1.1): #if the new bet is outside of their tolerance
                 players.fold = 1 #they fold but they do not reset their bet, it will still be subtracted from their total
             elif highBet <= (bet1 * 1.1): #bet is within 10% tolerance of intended bet, so they call
-                players.bet = highBet #sets for call
+                if highBet > players.balance:
+                    players.bet = 0
+                    players.fold = 1
+                else:
+                    players.bet = highBet #sets for call
         for players in self.playerList:
             players.balance = players.balance - players.bet
             self.ante = self.ante + players.bet
@@ -72,7 +80,11 @@ class poker:
                 players.fold = 1
                 players.bet2 = 0
             elif (highBet < bet2 * 1.1) and (highBet > bet2 * 0.9): #bet is within 10% tolerance of intended bet, so they call
-                players.bet2 = highBet
+                if highBet > players.balance:
+                    players.bet2 = 0
+                    players.fold = 1
+                else:
+                    players.bet2 = highBet #sets for call
             else: #highbet is less than 90% of intended bet, so the player raises
                 highBet = players.bet2
                 playerWithHighBet = playerNum
@@ -84,7 +96,12 @@ class poker:
             if highBet > (players.bet2 * 1.1): #if the new bet is outside of their tolerance
                 players.fold = 1 #they fold but they do not reset their bet, it will still be subtracted from their total
             elif highBet < (players.bet2 * 1.1): #bet is within 10% tolerance of intended bet, so they call
-                players.bet2 = highBet #sets for call
+                if highBet > players.balance:
+                    players.bet2 = 0
+                    players.fold = 1
+                else:
+                    players.bet2 = highBet #sets for call
+
         for players in self.playerList:
             players.balance = players.balance - players.bet2
             self.ante = self.ante + players.bet2
