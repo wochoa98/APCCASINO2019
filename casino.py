@@ -1,7 +1,7 @@
 import random
 import time
 from array import *
-from horse_racing.horse_racing import *
+from horse_racing import *
 from roulette import *
 from blackjack_class import *
 from poker import *
