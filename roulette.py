@@ -84,7 +84,7 @@ class roulette:
 			p.i = random.randint(0, 11) #street
 			p.j = random.randint(0, 36) #straight up
 			p.balance -= p.bet
-			self.casinoWinnings += p.bet/5
+			self.casinoWinnings += p.bet
 			if p.playType == 1:
 				#if p.balance < tableMin:
 					#print("You no longer have funds to play this game")
