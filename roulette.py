@@ -71,7 +71,7 @@ class roulette:
 			if p.balance < self.tableM:
 				p.bet = 0
 			elif p.balance >= self.tableM:
-				p.bet = random.randint(self.tableM, self.tableM*4)
+				p.bet = random.randint(self.tableM, self.tableM*2)
 
 			p.a = random.randint(1,12)
 			p.b = random.randint(1,12)
