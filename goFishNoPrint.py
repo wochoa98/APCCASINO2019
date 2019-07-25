@@ -15,12 +15,12 @@ class goFish:
 
     def playGame(self):
 
-        print(len(self.playerList))
+        #print(len(self.playerList))
 
         self.buyIn()
         self.inGameDeck.dealHands(self.playerList)
-        for p in self.playerList:
-            print(p.playerHand)
+        #for p in self.playerList:
+            #print(p.playerHand)
         pn = 1
         round = 1
 
@@ -216,7 +216,7 @@ class goFishPlayer:
                                             self.playerHand = [elem for elem in self.playerHand if elem != (self.playerHand[i] + 39)]
                                             self.playerHand = [elem for elem in self.playerHand if elem != (self.playerHand[i])]
 
-                                            print(self.playerHand)
+                                            #print(self.playerHand)
                                             self.matches += 1
                                             return
                                     return
@@ -227,7 +227,7 @@ class goFishPlayer:
     def askRand(self):
         if(len(self.playerHand) > 0):
             randCard = random.randint(0, len(self.playerHand)-1)
-            print(self.playerHand[randCard])
+            #print(self.playerHand[randCard])
             returnVal = self.playerHand[randCard]
             return returnVal
 
