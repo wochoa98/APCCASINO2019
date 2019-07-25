@@ -91,8 +91,8 @@ class roulette:
 				if p.bet <= p.balance/3:
 					if p.a in self.bet_placement1:
 						if self.result in self.bet_placement1[p.a][1]:
-							p.balance += p.bet
-							self.casinoWinnings -= p.bet
+							p.balance += p.bet*2
+							self.casinoWinnings -= p.bet*2
 							##print("Congratualtions", p.playerNumber, " you won on", self.bet_placement1[p.a][0], "you now have", p.balance, "dollars")
 						elif self.result not in self.bet_placement1[p.a][1]:
 							continue
