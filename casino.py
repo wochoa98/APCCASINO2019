@@ -116,22 +116,30 @@ class casino:
         #                self.leaderboard.append(newPlayer) #added to records
 
     def playerControl(self):
+        
         # run a check first for players that will not make minimums, check poker for struggling people who are being outbet, readd new players to fill void
         #make minimum money at a poker table 5k, every other game minimum is 1k, players leave their games if they have less than 1k at start of round
         #check poker first for 5k
         if self.poker == 1:
             for players in self.pokerGame.playerList:
+                players.printPlayer()
+            for players in self.pokerGame.playerList:
                 if players.balance < 5000:
+                    num = players.playerNumber
                     self.pokerGame.playerList.remove(players) #removes from players and active customers, keeps record
-                    self.customers.remove(players)
+                    for people in self.customers:
+                        if people.playerNumber == num:
+                            self.customers.remove(people)
                     for people in self.leaderboard:
-                        if people == players:
+                        if people.playerNumber == num:
                             people.status == "OOH"
                     newPlayer = player(len(self.customers))
                     newPlayer.status = "Poker"
                     self.customers.append(newPlayer)
                     self.leaderboard.append(newPlayer)
                     self.pokerGame.playerList.append(newPlayer)
+            for players in self.pokerGame.playerList:
+                players.printPlayer()
         #check each game for less than 1000 now
         if self.blackjack == 1:
             for players in self.blackjackGame.playerList:
@@ -508,7 +516,8 @@ class casino:
                 self.rouletteGame.playRound()
             if self.horses == 1:
                 self.horseBetting.playRound()
-                self.updateBoards()
+            self.updateBoards()
+                
     def printStats(self):
         if self.poker == 1:
             self.profit = self.profit + self.pokerGame.casinoWinnings
@@ -797,6 +806,11 @@ class player:
         self.balance = self.balance - money
     def addMoney(self, money):
         self.balance = self.balance + money
+        
+    def printPlayer(self):
+        print "Player Number:", self.playerNumber
+        print "Balance:", self.balance
+        
     def placeBet(self):
         betPer = 0.0
         if self.playType == 3:
