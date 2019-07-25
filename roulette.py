@@ -71,7 +71,7 @@ class roulette:
 			if p.balance < self.tableM:
 				p.bet = 0
 			else:
-				p.bet = random.randint(self.tableM, p.balance)
+				p.bet = random.randint(self.tableM, int(p.balance))
 			p.a = random.randint(1,12)
 			p.b = random.randint(1,12)
 			p.c = random.randint(1,12)
@@ -83,9 +83,9 @@ class roulette:
 			p.i = random.randint(0, 11) #street
 			p.j = random.randint(0, 36) #straight up
 			if p.playType == 1:
-				#if p.startingBalance < tableMin:
+				#if p.balance < tableMin:
 					#print("You no longer have funds to play this game")
-				if p.bet <= p.startingBalance/3:
+				if p.bet <= p.balance/3:
 					if p.a in self.bet_placement1:
 						if self.result in self.bet_placement1[p.a][1]:
 							p.balance += p.bet
@@ -96,7 +96,7 @@ class roulette:
 							self.casinoWinnings += p.bet
 
 							##print("Oh no! ", p.playerNumber, " you lost, you now have", p.balance, "dollars")
-				elif p.bet > p.startingBalance/3 and p.bet < p.startingBalance/1.5:
+				elif p.bet > p.balance/3 and p.bet < p.balance/1.5:
 					if p.a in self.bet_placement1 and p.b in self.bet_placement1:
 						if self.result in self.bet_placement1[p.a][1] and self.result in self.bet_placement1[p.b][1]:
 							p.balance += p.bet*2
@@ -116,7 +116,7 @@ class roulette:
 							self.casinoWinnings += p.bet*2
 
 							#print("Oh no! ", p.playerNumber , " you lost, you now have", p.balance, "dollars")
-				elif p.bet >= p.startingBalance/1.5:
+				elif p.bet >= p.balance/1.5:
 					if p.a in self.bet_placement1 and p.b in self.bet_placement1 and p.c in self.bet_placement1:
 						if self.result in self.bet_placement1[p.a][1] and self.result in self.bet_placement1[p.b][1] and self.result in self.bet_placement1[p.c][1]:
 							p.balance += p.bet*3
@@ -164,9 +164,9 @@ class roulette:
 
 							#print("Oh no!", p.playerNumber," you lost, you now have", p.balance, "dollars")
 			if p.playType == 2:
-				#if p.startingBalance < tableMin:
+				#if p.balance < tableMin:
 					#print("You no longer have funds to play this game")
-				if p.bet <= p.startingBalance/3:
+				if p.bet <= p.balance/3:
 					if self.bet_placement2[p.d][0] == 'line':
 						if self.result in self.bet_placement2[p.d][1][p.g]:
 							p.balance += p.bet*3
@@ -197,7 +197,7 @@ class roulette:
 							self.casinoWinnings += p.bet
 
 							#print("Oh no!", p.playerNumber, " you lost, you now have", p.balance, "dollars")
-				elif p.bet > p.startingBalance/3 and p.bet < p.startingBalance/1.5:
+				elif p.bet > p.balance/3 and p.bet < p.balance/1.5:
 					if self.bet_placement2[p.d][0] == 'line':
 						if self.result in self.bet_placement2[p.d][1][p.g] and self.result in self.bet_placement2[2][1][p.h]:
 							p.balance += p.bet*15
@@ -259,7 +259,7 @@ class roulette:
 							self.casinoWinnings += p.bet*2
 
 							#print("Oh no!", p.playerNumber," you lost, you now have", p.balance, "dollars")
-				elif p.bet >= p.startingBalance/1.5:
+				elif p.bet >= p.balance/1.5:
 					if self.bet_placement2[p.d][0] == 'line':
 						if self.result in self.bet_placement2[p.d][1][p.g] and self.result in self.bet_placement2[2][1][p.h] and self.result in self.bet_placement2[3][1][p.i]:
 							p.balance += p.bet*27
@@ -363,7 +363,7 @@ class roulette:
 
 							#print("Oh no!", p.playerNumber," you lost, you now have", p.balance, "dollars")
 			if p.playType == 3:
-				if p.bet <= p.startingBalance/3:
+				if p.bet <= p.balance/3:
 					if self.result == self.bet_placement3[1][1][p.j]:
 						p.balance += p.bet*36
 						self.casinoWinnings -= p.bet*36
@@ -373,7 +373,7 @@ class roulette:
 						self.casinoWinnings += p.bet
 
 						#print("Oh no!", p.playerNumber,"", self.result, "did not land on", self.bet_placement3[1][1][p.j], "you now have", p.balance, "dollars")
-				elif p.bet > p.startingBalance/3 and p.bet < p.startingBalance/1.5:
+				elif p.bet > p.balance/3 and p.bet < p.balance/1.5:
 					y = self.bet_placement3[1][1][p.j]
 					z = []
 					if y == 36:
@@ -394,7 +394,7 @@ class roulette:
 						self.casinoWinnings += p.bet
 
 						#print("Oh no!", p.playerNumber, self.result, "did not land in", z, "you now have", p.balance, "dollars")
-				elif p.bet >= p.startingBalance/1.5:
+				elif p.bet >= p.balance/1.5:
 					if self.result == self.bet_placement3[1][1][p.j] and self.result in self.bet_placement3[3][1]:
 						p.balance += p.bet*48 #The most a player can make in one round
 						self.casinoWinnings -= p.bet*48
