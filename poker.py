@@ -86,8 +86,8 @@ class poker:
             elif highBet < (players.bet2 * 1.1): #bet is within 10% tolerance of intended bet, so they call
                 players.bet2 = highBet #sets for call
         for players in self.playerList:
-            players.balance = players.balance - players.bet
-            self.ante = self.ante + players.bet
+            players.balance = players.balance - players.bet2
+            self.ante = self.ante + players.bet2
 
     def selectWinner(self):
         highHand = 0
