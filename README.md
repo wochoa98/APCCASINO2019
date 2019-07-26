@@ -24,8 +24,8 @@ The simulator opens with a user menu, allowing the user to choose what games run
  - Blackjack Total Number: Blackjacks goal is to hit to 21 without going over, but the number that you hit to can be changed. If you write 25, blackjack will be given at 25.
  - Horse Racing Odds Accuracy: The horse racing odds are always the most current, accurate odds, but the casino can select to display less accurate odds, making it harder to bet on the winning horse.
  - Go Fish Table Minimum: There are three options, type 1 for a high buy in (1000+), type 2 for an average bet (500-1000) and type 3 for a low bet (<500)
- - Go Fish Vig: Just as with poker, the final ante has a percentage taken out by the casino. This should again be set between 0.03 to 0.1.
- -Roulette: Set the table minimum to be low which is $1000, set the table to minimum to be average or $2000 or set the table minimum to be high or $3000
+ - Go Fish Vig: Just as with poker, the final ante has a percentage taken out by the casino. This should again be set between 0.03 to 0.1.                                                              
+ - Roulette: Set the table minimum to be low which is $1000, set the table to minimum to be average or $2000 or set the table minimum to be high or $3000
  
 ## Known Bugs
 
