@@ -21,35 +21,72 @@ class casino:
     def simMenu(self):
         print ("Select what games you would like to run, minimum of 2 of the 5.")
         total = 0
+        valid = 0
         while total < 2:
             self.poker = eval(input("Do you want to run Poker? Yes[1]/No[0]: "))
             if self.poker == 1:
                 self.pokerGame = poker()
-                pokerVig = eval(input("What would you like the rake percent to be (write as decimal): "))
-                self.pokerGame.rake = pokerVig
+                while valid != 1:
+                    pokerVig = eval(input("What would you like the rake percent to be (write as decimal): "))
+                    if pokerVig < 0:
+                        print "The vig must be under 0%. The casino cannot take less than a percent."
+                    elif pokerVig > 0.5:
+                        print "The vig cannot be over 50% or no one will play."
+                    else:    
+                        self.pokerGame.rake = pokerVig
+                        valid = 1
             self.blackjack = eval(input("Do you want to run Blackjack? Yes[1]/No[0]: "))
             if self.blackjack == 1:
                 self.blackjackGame = blackjackGame()
-                stand = eval(input("What is the dealer's hard stand value (Recommended 17): "))
-                self.blackjackGame.DH2 = stand
-                max = eval(input("What would you like the blackjack value to be (Recommended/Usually 21)?"))
-                self.blackjackGame.bjNum = max
+                valid = 0
+                while valid != 2:
+                    stand = eval(input("What is the dealer's hard stand value (Recommended 17): "))
+                    if stand < 11:
+                        print "The dealer cannot hard stand at any value less than 11 or the dealer will not be able to play."
+                    else:
+                        self.blackjackGame.DH2 = stand
+                        valid += 1
+                    max = eval(input("What would you like the blackjack value to be (Recommended/Usually 21)?"))
+                    if max < 11:
+                        print "The blackjack value cannot be below 11 or the players may not be able to play."
+                    else:
+                        self.blackjackGame.bjNum = max
+                        valid += 1
             self.fish = eval(input("Do you want to run Go Fish? Yes[1]/No[0]: "))
             if self.fish == 1:
                 self.fishGame = goFish()
-                fishVig = eval(input("What would you like the rake percent to be (write as decimal): "))
-                self.fishGame.casinoP = fishVig
+                valid = 0
+                while valid != 1:
+                    fishVig = eval(input("What would you like the rake percent to be (write as decimal): "))
+                    if fishVig < 0:
+                        print "The vig cannot be under 0%. The casino cannot take less than a percent."
+                    elif fishVig > 0.5:
+                        print "The vig cannot be over 50% or no one will play."
+                    else:
+                        self.fishGame.casinoP = fishVig
+                        valid = 1
                 #buyIn = eval(input("Do you want a high table minimum [1], an average table minimum [2], or a low table minimum [3]?: "))
                 #set fishGame.tableMin = buyIn
             self.roulette = eval(input("Do you want to run roulette? Yes[1]/No[0]: "))
             if self.roulette == 1:
                 self.rouletteGame = roulette()
-                tableMin = eval(input("Do you want a high table minimum [1], an average table minimum [2], or a low table minimum [3]?: "))
-                self.rouletteGame.tableM = tableMin
+                valid = 0
+                while valid != 1:
+                    tableMin = eval(input("Do you want a high table minimum [1], an average table minimum [2], or a low table minimum [3]?: "))
+                    if (tableMin != 1) and (tableMin != 2) and (tableMin != 3):
+                        print "Invalid entry. Please try again."
+                    else:
+                        self.rouletteGame.tableM = tableMin
+                        valid = 1
             self.horses = eval(input("Do you want to run horse betting? Yes[1]/No[0]: "))
             if self.horses == 1:
-                accuracy = eval(input("Do you want the horse odd predictions to be very accurate [1], somewhat accurate [2], or innaccurate [3]: "))
-                self.horseBetting = Race(accuracy)
+                valid = 0
+                while valid != 1:
+                    accuracy = eval(input("Do you want the horse odd predictions to be very accurate [1], somewhat accurate [2], or innaccurate [3]: "))
+                    if (accuracy != 1) and (accuracy != 2) and (accuracy != 3):
+                        print "Invalid entry. Please try again."
+                    else:
+                        self.horseBetting = Race(accuracy)
             total = self.poker + self.blackjack + self.fish + self.roulette + self.horses
             if total < 2:
                 print("I'm sorry, you didn't select enough games to run. Please try again.")
@@ -58,7 +95,8 @@ class casino:
                 self.fish = 0
                 self.roulette = 0
                 self.horses = 0
-        self.rounds = eval(input("How many rounds would you like to run through?: "))
+            else:
+                self.rounds = eval(input("How many rounds would you like to run through?: "))
 
 
     def __init__(self):
@@ -643,14 +681,14 @@ class casino:
 
     def play(self):
         print("Welcome to the Casino Simulator")
-        while self.quit != 1:
-            self.runCasino()
-            self.printStats()
-            self.printLeaderboard()
-            choice = eval(input("Would you like to run another simulation? Yes[1]/No[0]: "))
-            if choice != 1:
-                self.quit = 1
-                print("Thank you for playing.")
+        #while self.quit != 1:
+        self.runCasino()
+        self.printStats()
+        self.printLeaderboard()
+        #    choice = eval(input("Would you like to run another simulation? Yes[1]/No[0]: "))
+        #    if choice != 1:
+        #        self.quit = 1
+        #        print("Thank you for playing.")
 
 class hand:
     playerNum = 0
