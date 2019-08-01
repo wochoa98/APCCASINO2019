@@ -29,9 +29,9 @@ class casino:
                 while valid != 1:
                     pokerVig = eval(input("What would you like the rake percent to be (write as decimal): "))
                     if pokerVig < 0:
-                        print "The vig must be under 0%. The casino cannot take less than a percent."
+                        print("The vig must be under 0%. The casino cannot take less than a percent.")
                     elif pokerVig > 0.5:
-                        print "The vig cannot be over 50% or no one will play."
+                        print ("The vig cannot be over 50% or no one will play.")
                     else:    
                         self.pokerGame.rake = pokerVig
                         valid = 1
@@ -40,15 +40,16 @@ class casino:
                 self.blackjackGame = blackjackGame()
                 valid = 0
                 while valid != 2:
+                    valid = 0
                     stand = eval(input("What is the dealer's hard stand value (Recommended 17): "))
                     if stand < 11:
-                        print "The dealer cannot hard stand at any value less than 11 or the dealer will not be able to play."
+                        print ("The dealer cannot hard stand at any value less than 11 or the dealer will not be able to play.")
                     else:
                         self.blackjackGame.DH2 = stand
                         valid += 1
-                    max = eval(input("What would you like the blackjack value to be (Recommended/Usually 21)?"))
+                    max = eval(input("What would you like the blackjack value to be (Recommended/Usually 21)? "))
                     if max < 11:
-                        print "The blackjack value cannot be below 11 or the players may not be able to play."
+                        print ("The blackjack value cannot be below 11 or the players may not be able to play.")
                     else:
                         self.blackjackGame.bjNum = max
                         valid += 1
@@ -59,9 +60,9 @@ class casino:
                 while valid != 1:
                     fishVig = eval(input("What would you like the rake percent to be (write as decimal): "))
                     if fishVig < 0:
-                        print "The vig cannot be under 0%. The casino cannot take less than a percent."
+                        print ("The vig cannot be under 0%. The casino cannot take less than a percent.")
                     elif fishVig > 0.5:
-                        print "The vig cannot be over 50% or no one will play."
+                        print ("The vig cannot be over 50% or no one will play.")
                     else:
                         self.fishGame.casinoP = fishVig
                         valid = 1
@@ -74,7 +75,7 @@ class casino:
                 while valid != 1:
                     tableMin = eval(input("Do you want a high table minimum [1], an average table minimum [2], or a low table minimum [3]?: "))
                     if (tableMin != 1) and (tableMin != 2) and (tableMin != 3):
-                        print "Invalid entry. Please try again."
+                        print ("Invalid entry. Please try again.")
                     else:
                         self.rouletteGame.tableM = tableMin
                         valid = 1
@@ -84,9 +85,10 @@ class casino:
                 while valid != 1:
                     accuracy = eval(input("Do you want the horse odd predictions to be very accurate [1], somewhat accurate [2], or innaccurate [3]: "))
                     if (accuracy != 1) and (accuracy != 2) and (accuracy != 3):
-                        print "Invalid entry. Please try again."
+                        print("Invalid entry. Please try again.")
                     else:
                         self.horseBetting = Race(accuracy)
+                        valid = 1
             total = self.poker + self.blackjack + self.fish + self.roulette + self.horses
             if total < 2:
                 print("I'm sorry, you didn't select enough games to run. Please try again.")
@@ -282,7 +284,9 @@ class casino:
                 elif gameAdded == 3: # 3 will be go fish
                     if self.fish == 1:
                         player2add.status = "Go Fish"
-                        self.fishGame.playerList.append(player2add) #added to go fish player list
+                        if len(self.fishGame.playerList) < 10:
+                            self.fishGame.playerList.append(player2add) #added to go fish player list
+
                         chosen = 1
                 elif gameAdded == 4: # 4 will be roulette
                     if self.roulette == 1:
@@ -353,8 +357,9 @@ class casino:
                                             gameTo = random.randint(1,4)
                                     elif gameTo == 2: #poker to Go fish
                                         if self.fish == 1:
-                                            playerMoving.status = "Go Fish"
-                                            self.fishGame.playerList.append(playerMoving)
+                                            if len(self.fishGame.playerList) < 10:
+                                                playerMoving.status = "Go Fish"
+                                                self.fishGame.playerList.append(playerMoving)
                                             moved = 1
                                         else:
                                             gameTo = random.randint(1,4)
@@ -388,7 +393,9 @@ class casino:
                                     elif gameTo == 2: #blackjack to Go Fish
                                         if self.fish == 1:
                                             playerMoving.status = "Go Fish"
-                                            self.fishGame.playerList.append(playerMoving)
+                                            if len(self.fishGame.playerList) < 10:
+                                                playerMoving.status = "Go Fish"
+                                                self.fishGame.playerList.append(playerMoving)
                                             moved = 1
                                         else:
                                             gameTo = random.randint(1,4)
@@ -463,7 +470,9 @@ class casino:
                                     elif gameTo == 3: #roulette to go fish
                                         if self.fish == 1:
                                             playerMoving.status = "Go Fish"
-                                            self.fishGame.playerList.append(playerMoving)
+                                            if len(self.fishGame.playerList) < 10:
+                                                playerMoving.status = "Go Fish"
+                                                self.fishGame.playerList.append(playerMoving)
                                             moved = 1
                                         else:
                                             gameTo = random.randint(1,4)
@@ -504,7 +513,9 @@ class casino:
                                     else: #horse betting to go fish
                                         if self.fish == 1:
                                             playerMoving.status = "Go Fish"
-                                            self.fishGame.playerList.append(playerMoving)
+                                            if len(self.fishGame.playerList) < 10:
+                                                playerMoving.status = "Go Fish"
+                                                self.fishGame.playerList.append(playerMoving)
                                             moved = 1
                                         else:
                                             gameTo = random.randint(1,4)
@@ -575,7 +586,10 @@ class casino:
 
 
     def runCasino(self):
+        count = 0
         for i in range(self.rounds):
+            count +=1
+            
             if self.poker == 1:
                 self.pokerGame.playRound()
             if self.blackjack == 1:
@@ -603,44 +617,42 @@ class casino:
         #poker
         if self.poker == 1:
             print("Poker Stats:")
-            print("     Casino Winnings from Poker: $", self.pokerGame.casinoWinnings)
+            print("\tCasino Winnings from Poker: $", self.pokerGame.casinoWinnings)
             pokerPercent = (self.pokerGame.casinoWinnings/self.profit) * 100 #percent profit from poker
-            print("       Percent:", pokerPercent, "%")
+            print("\tPercent:", "{0:.2f}".format(pokerPercent), "%")
             averageAnte = (self.pokerGame.casinoWinnings /self.pokerGame.rake) / self.rounds #casino winnings = ante * rake => ante = casino winnings/rake, divide by rounds to find average
-            print("     Average Ante: $", averageAnte, end=' ')
-            print("     Rake Percent:", (self.pokerGame.rake * 100),"%")
+            print("\tAverage Ante: $", averageAnte)
+            print("\tRake Percent:", (self.pokerGame.rake * 100),"%")
         #blackjack
         if self.blackjack == 1:
-            print("Blackjack Stats:")
-            print("     Casino Winnings from Blackjack: $", self.blackjackGame.bjWinnings)
+            print("\nBlackjack Stats:")
+            print("\tCasino Winnings from Blackjack: $", self.blackjackGame.bjWinnings)
             bjPercent = (self.blackjackGame.bjWinnings/self.profit) * 100 #percent profit from blackjack
-            print("       Percent:", bjPercent, "%")
+            print("\tPercent:", bjPercent, "%")
             #calculate average bet?
-            print("     Dealer Hard Stand:", self.blackjackGame.DH2)
+            print("\tDealer Hard Stand:", self.blackjackGame.DH2)
         #calculate times dealer busts based on hard stand value?
         #Go Fish
         if self.fish == 1:
-            print("Go Fish Stats:")
-            print("     Casino winnings from Go Fish: $", self.fishGame.winnings)
+            print("\nGo Fish Stats:")
+            print("\tCasino winnings from Go Fish: $", self.fishGame.winnings)
             fishPercent = (self.fishGame.winnings/self.profit) * 100 #percent profit from Go Fish
-            print("       Percent:", fishPercent, "%")
-            #print("     Table Vig:", self.fishGame.vig, "%")
-                ## Other Fish Stats?
+            print("\tPercent:", fishPercent, "%")
         #roulette
         if self.roulette == 1:
-            print("Roulette Stats:")
-            print("     Casino Winnings from Roulette: $", self.rouletteGame.casinoWinnings)
+            print("\nRoulette Stats:")
+            print("\tCasino Winnings from Roulette: $", self.rouletteGame.casinoWinnings)
             roulettePercent = (self.rouletteGame.casinoWinnings/self.profit) * 100 #percent profit from Roulette
-            print("       Percent:", roulettePercent, "%")
-            print("     Table Minimum: $", self.rouletteGame.tableM)
+            print("\tPercent:", roulettePercent, "%")
+            print("\tTable Minimum: $", self.rouletteGame.tableM)
                 ## player win rate?
         #horse betting
         if self.horses == 1:
-            print("Horse Betting Stats:")
-            print("     Casino Winnings from Horse Betting: $", self.horseBetting.casinoWinnings)
+            print("\nHorse Betting Stats:")
+            print("\tCasino Winnings from Horse Betting: $", self.horseBetting.casinoWinnings)
             horsePercent = (self.horseBetting.casinoWinnings/self.profit) * 100 #percent profit from horse betting
-            print("       Percent:", horsePercent, "%")
-            print("     Accuracy of Odds:", self.horseBetting.prob_entropy, "%")
+            print("\tPercent:", horsePercent, "%")
+            print("\tAccuracy of Odds:", self.horseBetting.prob_entropy, "%")
                 ## player win rate from odds
 
     def printPlayer(self, index):
@@ -655,27 +667,27 @@ class casino:
             self.leaderboard.sort(key = lambda x: x.plusMinus, reverse=True) #will sort leaderboard based on the final over/under of starting balance
         for i in range(len(self.leaderboard)):
             if i == 0: #top player of the "night" (1 full simulation)
-                print("======= Top Whales =======")
+                print("\n======= Top Whales =======")
                 print("The top whale of the night was:")
                 self.printPlayer(i)
             elif i == 1: #second player
-                print("The second place player of the night was:")
+                print("\nThe second place player of the night was:")
                 self.printPlayer(i)
             elif i == 2: #third player
-                print("The third place player of the night was:")
+                print("\nThe third place player of the night was:")
                 self.printPlayer(i)
-                print("==========================")
+                print("==========================\n")
             elif i == len(self.leaderboard) - 3: #third worst player
                 print("====== Bottom Fish ======")
                 print("The third worst player of the night was:")
                 self.printPlayer(i)
             elif i == len(self.leaderboard) - 2:
-                print("The second worst player of the night was:")
+                print("\nThe second worst player of the night was:")
                 self.printPlayer(i)
             elif i == len(self.leaderboard) -1 : #worst player
-                print("The fish of the night was:")
+                print("\nThe fish of the night was:")
                 self.printPlayer(i)
-                print("=========================")
+                print("=========================\n")
             #else: #any player in the middle
                 #self.printPlayer(i)
 
@@ -712,7 +724,6 @@ class hand:
             self.cValues[a] = card
             suit = random.randint(1, 4)
             self.sValues[a] = suit
-            #print "Card:", self.cValues[a], "Suit:", self.sValues[a]
 
     def dealCard(self):
         cValue = random.randint(2,14)
@@ -745,7 +756,6 @@ class hand:
                             self.handValue = self.handValue
                         else:
                             self.handValue = 6
-        #print "Player has hand value", self.handValue, "after checking for flushes"
 
     def hasStraight(self):
         self.cValues.sort()
@@ -753,7 +763,6 @@ class hand:
         if (low + 1 in self.cValues) and (low + 2 in self.cValues) and (low + 3 in self.cValues) and (low + 4 in self.cValues): # if straight
             self.handValue = 5
             self.highCard = (low + 4)
-        #print "Player has hand value", self.handValue, "after checking straight"
 
     def hasFullHouse(self):
         self.cValues.sort()
@@ -870,9 +879,6 @@ class player:
         self.localHand = hand(num)
         self.playerHand = []
         self.matches = 0
-        #print "Player", self.playerNumber
-        #print self.balance
-        #print self.playType
     def subMoney(self, money):
         self.balance = self.balance - money
     def addMoney(self, money):
@@ -1169,5 +1175,13 @@ class player:
 
     def payDay(self, payout):
         self.balance = self.balance + payout
-newCasino = casino()
-newCasino.play()
+
+quit = False
+
+while not quit:
+    newCasino = casino()
+    newCasino.play()
+    choice = int(input("Press 1 if you want to run another simulation "))
+    if choice != 1:
+        quit = True
+
